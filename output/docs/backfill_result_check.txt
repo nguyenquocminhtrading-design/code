@@ -1,0 +1,77 @@
+================================================================================
+BACKFILL RESULT CHECK
+================================================================================
+
+2020-05:
+  XK Summary: OK | Other: OK
+  NK Summary: OK | Other: OK
+
+2020-12:
+  XK Summary: OK | Other: OK
+  NK Summary: OK | Other: OK
+
+2022-01:
+  XK Summary: OK | Other: OK
+  NK Summary: OK | Other: OK
+
+2022-04:
+  XK Summary: OK | Other: OK
+  NK Summary: OK | Other: OK
+
+2022-06:
+  XK Summary: OK | Other: OK
+  NK Summary: OK | Other: OK
+
+2022-09:
+  XK Summary: OK | Other: OK
+  NK Summary: OK | Other: OK
+
+2022-11:
+  XK Summary: OK | Other: OK
+  NK Summary: OK | Other: OK
+
+2023-02:
+  XK Summary: OK | Other: OK
+  NK Summary: OK | Other: OK
+
+2023-04:
+  XK Summary: OK | Other: OK
+  NK Summary: OK | Other: OK
+
+2024-02:
+  XK Summary: OK | Other: OK
+  NK Summary: OK | Other: OK
+
+2024-03:
+  XK Summary: OK | Other: OK
+  NK Summary: OK | Other: OK
+
+2024-05:
+  XK Summary: OK | Other: OK
+  NK Summary: OK | Other: OK
+
+2024-07:
+  XK Summary: OK | Other: OK
+  NK Summary: OK | Other: OK
+
+2024-12:
+  XK Summary: OK | Other: OK
+  NK Summary: OK | Other: OK
+
+2025-03:
+  XK Summary: OK | Other: OK
+  NK Summary: OK | Other: OK
+
+2025-10:
+  XK Summary: OK | Other: OK
+  NK Summary: OK | Other: OK
+
+================================================================================
+SUMMARY
+================================================================================
+XK Summary present: 16/11
+NK Summary present: 16/7
+XK Other row present: 16/11
+NK Other row present: 16/7
+
+STATUS: SOME ISSUES REMAIN

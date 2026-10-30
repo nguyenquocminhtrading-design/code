@@ -1,0 +1,295 @@
+{
+  "period": "2020-05",
+  "source": "tchq",
+  "captcha": "none",
+  "scrape": {
+    "rows": 9
+  },
+  "scrape_complete": false,
+  "download_validation": [
+    {
+      "path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2020\\2020-05\\Xuat_Khau\\2020-T05T-5X(VN-CT)-final.pdf",
+      "local_path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2020\\2020-05\\Xuat_Khau\\2020-T05T-5X(VN-CT)-final.pdf",
+      "mode": "local",
+      "status": "ok",
+      "report_type": "country_product",
+      "sha256": "4b088e48ba64159a76c54e7822f31e0e2e57d010054cd63a819ec2a6fbfcd1dd",
+      "size_bytes": 752990,
+      "content_type": "application/pdf",
+      "direction": "export"
+    },
+    {
+      "path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2020\\2020-05\\Xuat_Khau\\2020-T05T-5X(VN-DC).pdf",
+      "local_path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2020\\2020-05\\Xuat_Khau\\2020-T05T-5X(VN-DC).pdf",
+      "mode": "local",
+      "status": "ok",
+      "report_type": "country_product",
+      "sha256": "350cc61c802ca2da11729cfd878b542c113258ebb47f39b1e500a1182821c891",
+      "size_bytes": 760879,
+      "content_type": "application/pdf",
+      "direction": "export"
+    },
+    {
+      "path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2020\\2020-05\\Xuat_Khau\\2020-T05T-5X(VN-SB).pdf",
+      "local_path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2020\\2020-05\\Xuat_Khau\\2020-T05T-5X(VN-SB).pdf",
+      "mode": "local",
+      "status": "ok",
+      "report_type": "country_product",
+      "sha256": "090184c6004b229d4d5844f2c47137bbe27cb657c389baa86aca376a3ea84fa4",
+      "size_bytes": 760432,
+      "content_type": "application/pdf",
+      "direction": "export"
+    },
+    {
+      "path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2020\\2020-05\\Nhap_Khau\\2020-T05-2N(VN-DC2).pdf",
+      "local_path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2020\\2020-05\\Nhap_Khau\\2020-T05-2N(VN-DC2).pdf",
+      "mode": "local",
+      "status": "ok",
+      "report_type": "summary",
+      "sha256": "1e9a668fb1b6b191dcc95cb6f2f66b034abb0660a5615689da2bd88fa22f6477",
+      "size_bytes": 340615,
+      "content_type": "application/pdf",
+      "direction": "import"
+    },
+    {
+      "path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2020\\2020-05\\Nhap_Khau\\2020-T05T-2N(VN-CT).pdf",
+      "local_path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2020\\2020-05\\Nhap_Khau\\2020-T05T-2N(VN-CT).pdf",
+      "mode": "local",
+      "status": "ok",
+      "report_type": "summary",
+      "sha256": "e1913bcec21017aab8391788b57c142bec3c7d3ec9dbd57fadffeea2b879376a",
+      "size_bytes": 338887,
+      "content_type": "application/pdf",
+      "direction": "import"
+    },
+    {
+      "path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2020\\2020-05\\Nhap_Khau\\2020-T05T-2N(VN-SB).pdf",
+      "local_path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2020\\2020-05\\Nhap_Khau\\2020-T05T-2N(VN-SB).pdf",
+      "mode": "local",
+      "status": "ok",
+      "report_type": "summary",
+      "sha256": "ccd70a9f429dba6e4a3a099a63cbc347b040a912ce393c1c493aa9fa82ff8bc5",
+      "size_bytes": 340836,
+      "content_type": "application/pdf",
+      "direction": "import"
+    },
+    {
+      "path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2020\\2020-05\\Nhap_Khau\\2020-T05T-5N(VN-CT)-final.pdf",
+      "local_path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2020\\2020-05\\Nhap_Khau\\2020-T05T-5N(VN-CT)-final.pdf",
+      "mode": "local",
+      "status": "ok",
+      "report_type": "country_product",
+      "sha256": "a0bf59daee09e44e1a7245c9367c0ea9d4ea8a8b3ebc9e0ee65f6f30ec737b2d",
+      "size_bytes": 633700,
+      "content_type": "application/pdf",
+      "direction": "import"
+    },
+    {
+      "path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2020\\2020-05\\Nhap_Khau\\2020-T05T-5N(VN-DC).pdf",
+      "local_path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2020\\2020-05\\Nhap_Khau\\2020-T05T-5N(VN-DC).pdf",
+      "mode": "local",
+      "status": "ok",
+      "report_type": "country_product",
+      "sha256": "8b6a6c4409842bbc8ec8a022a2550134649f5041dd7f9c5180c556286c6f0ead",
+      "size_bytes": 639680,
+      "content_type": "application/pdf",
+      "direction": "import"
+    },
+    {
+      "path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2020\\2020-05\\Nhap_Khau\\2020-T05T-5N(VN-SB).pdf",
+      "local_path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2020\\2020-05\\Nhap_Khau\\2020-T05T-5N(VN-SB).pdf",
+      "mode": "local",
+      "status": "ok",
+      "report_type": "country_product",
+      "sha256": "ed7e011238df5a0c157058ddb55386c86c8151d379f2dd6bcc3cb273118df1fc",
+      "size_bytes": 639804,
+      "content_type": "application/pdf",
+      "direction": "import"
+    }
+  ],
+  "errors": [],
+  "ocr": {
+    "period": "2020-05",
+    "status": "ok",
+    "generated_at": "2026-10-27T03:11:02.379449+00:00",
+    "summary_rows": 3,
+    "summary_records": [
+      {
+        "source": "TCHQ",
+        "report_type": "monthly_summary",
+        "period": "2020-05",
+        "direction": "import",
+        "version": "adjusted",
+        "product": "Hạt điều",
+        "hs_code": "",
+        "unit": "Tấn",
+        "quantity_month": 109632.0,
+        "value_month_usd": 135548192.0,
+        "pct_change_prev_month_qty": 86.0,
+        "pct_change_prev_month_val": 2.0,
+        "quantity_ytd": 407244.0,
+        "value_ytd_usd": 579818388.0,
+        "pct_change_yoy_qty": -137.0,
+        "pct_change_yoy_val": -209.0,
+        "average_price_usd": 1236.39,
+        "is_derived": false,
+        "source_note": "TCHQ Adjusted (2020-T05-2N(VN-DC2).pdf)",
+        "source_file": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2020\\2020-05\\Nhap_Khau\\2020-T05-2N(VN-DC2).pdf",
+        "retrieved_at": "2026-10-27T03:10:14.374655+00:00"
+      },
+      {
+        "source": "TCHQ",
+        "report_type": "monthly_summary",
+        "period": "2020-05",
+        "direction": "import",
+        "version": "official",
+        "product": "Hạt điều",
+        "hs_code": "",
+        "unit": "Tấn",
+        "quantity_month": 109632.0,
+        "value_month_usd": 135548192.0,
+        "pct_change_prev_month_qty": 86.0,
+        "pct_change_prev_month_val": 2.0,
+        "quantity_ytd": 407237.0,
+        "value_ytd_usd": 579815546.0,
+        "pct_change_yoy_qty": -137.0,
+        "pct_change_yoy_val": -209.0,
+        "average_price_usd": 1236.39,
+        "is_derived": false,
+        "source_note": "TCHQ Official (2020-T05T-2N(VN-CT).pdf)",
+        "source_file": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2020\\2020-05\\Nhap_Khau\\2020-T05T-2N(VN-CT).pdf",
+        "retrieved_at": "2026-10-27T03:10:15.192721+00:00"
+      },
+      {
+        "source": "TCHQ",
+        "report_type": "monthly_summary",
+        "period": "2020-05",
+        "direction": "import",
+        "version": "preliminary",
+        "product": "Hạt điều",
+        "hs_code": "",
+        "unit": "Tấn",
+        "quantity_month": 109801.0,
+        "value_month_usd": 135738566.0,
+        "pct_change_prev_month_qty": 119.0,
+        "pct_change_prev_month_val": 89.0,
+        "quantity_ytd": 407409.0,
+        "value_ytd_usd": 580004524.0,
+        "pct_change_yoy_qty": -136.0,
+        "pct_change_yoy_val": -209.0,
+        "average_price_usd": 1236.22,
+        "is_derived": false,
+        "source_note": "TCHQ Preliminary (2020-T05T-2N(VN-SB).pdf)",
+        "source_file": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2020\\2020-05\\Nhap_Khau\\2020-T05T-2N(VN-SB).pdf",
+        "retrieved_at": "2026-10-27T03:10:15.746312+00:00"
+      }
+    ],
+    "export_pivot_rows": 93,
+    "import_pivot_rows": 21,
+    "pivot_rows": 114,
+    "export_versions": [
+      "adjusted",
+      "official",
+      "preliminary"
+    ],
+    "import_versions": [
+      "adjusted",
+      "official",
+      "preliminary"
+    ],
+    "output_excel": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2020\\2020-05\\2020-05_cashew.xlsx",
+    "artifacts": [
+      {
+        "file": "2020-T05-2N(VN-DC2).pdf",
+        "type": "summary",
+        "direction": "import",
+        "version": "adjusted",
+        "engine": "pdfplumber",
+        "raw_row_count": 78,
+        "parsed_rows": 1,
+        "errors": []
+      },
+      {
+        "file": "2020-T05T-2N(VN-CT).pdf",
+        "type": "summary",
+        "direction": "import",
+        "version": "official",
+        "engine": "pdfplumber",
+        "raw_row_count": 76,
+        "parsed_rows": 1,
+        "errors": []
+      },
+      {
+        "file": "2020-T05T-2N(VN-SB).pdf",
+        "type": "summary",
+        "direction": "import",
+        "version": "preliminary",
+        "engine": "pdfplumber",
+        "raw_row_count": 78,
+        "parsed_rows": 1,
+        "errors": []
+      },
+      {
+        "file": "2020-T05T-5N(VN-CT)-final.pdf",
+        "type": "country_product",
+        "direction": "import",
+        "version": "official",
+        "engine": "pdfplumber",
+        "raw_row_count": 1203,
+        "parsed_rows": 6,
+        "errors": []
+      },
+      {
+        "file": "2020-T05T-5N(VN-DC).pdf",
+        "type": "country_product",
+        "direction": "import",
+        "version": "adjusted",
+        "engine": "pdfplumber",
+        "raw_row_count": 1226,
+        "parsed_rows": 6,
+        "errors": []
+      },
+      {
+        "file": "2020-T05T-5N(VN-SB).pdf",
+        "type": "country_product",
+        "direction": "import",
+        "version": "preliminary",
+        "engine": "pdfplumber",
+        "raw_row_count": 1226,
+        "parsed_rows": 6,
+        "errors": []
+      },
+      {
+        "file": "2020-T05T-5X(VN-CT)-final.pdf",
+        "type": "country_product",
+        "direction": "export",
+        "version": "official",
+        "engine": "pdfplumber",
+        "raw_row_count": 1564,
+        "parsed_rows": 31,
+        "errors": []
+      },
+      {
+        "file": "2020-T05T-5X(VN-DC).pdf",
+        "type": "country_product",
+        "direction": "export",
+        "version": "adjusted",
+        "engine": "pdfplumber",
+        "raw_row_count": 1593,
+        "parsed_rows": 31,
+        "errors": []
+      },
+      {
+        "file": "2020-T05T-5X(VN-SB).pdf",
+        "type": "country_product",
+        "direction": "export",
+        "version": "preliminary",
+        "engine": "pdfplumber",
+        "raw_row_count": 1593,
+        "parsed_rows": 31,
+        "errors": []
+      }
+    ],
+    "validation_errors": []
+  }
+}

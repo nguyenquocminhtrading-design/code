@@ -1,0 +1,35 @@
+================================================================================
+DETAILED ANALYSIS: 2020-01
+================================================================================
+
+=== SUMMARY ROWS ===
+XK Summary: True
+  Version: Official
+  Quantity: 25259
+  Value: 176602478
+  Source note: TCHQ Official (2020-T01T-2X(VN-CT).pdf)
+
+NK Summary: True
+  Version: Official
+  Quantity: 52084
+  Value: 85055470
+
+=== COUNTRY ROWS BY VERSION ===
+Total XK country rows: 31
+  Version "Chính thức": 31 rows
+    Other rows: 1
+    Other value: $17.04M
+
+=== VERSIONS IN PDF FILES ===
+  2020-T01-2X(VN-DC2).pdf -> version: adjusted
+  2020-T01T-2X(VN-CT).pdf -> version: official
+  2020-T01T-2X(VN-SB).pdf -> version: preliminary
+  2020-T01T-5X(VN-CT)-final.pdf -> version: official
+  2020-T01T-5X(VN-DC).pdf -> version: adjusted
+  2020-T01T-5X(VN-SB).pdf -> version: preliminary
+
+=== ISSUE IDENTIFICATION ===
+Problem 1: Only 1 summary row (Official) instead of 3 (SB, DC, CT)
+Problem 2: Country rows may not have version field for proper grouping
+Problem 3: No debug_source_file column to trace which PDF each row came from
+Problem 4: Other row only calculated for best version, not all versions

@@ -1,0 +1,45 @@
+================================================================================
+AUDIT: 2020-01 Excel Structure
+================================================================================
+
+Sheets: ['Tong_Quan_XNK', 'Can_Can_Thuong_Mai', 'XK_Theo_Nuoc', 'NK_Theo_Nuoc', 'Lich_Su_Phien_Ban', 'Vinacas_Doi_Chieu', '_Meta']
+
+=== Tong_Quan_XNK (Summary Rows) ===
+Row 0: ('STT', 'Kỳ', 'Luồng', 'Mặt hàng', 'ĐVT', 'Số trong tháng báo cáo', None, 'So với tháng trước (%)', None, 'Cộng dồn đến hết tháng báo cáo', None, 'Phiên bản', 'Ghi chú nguồn')
+Row 1: (None, None, None, None, None, 'Lượng', 'Trị giá (USD)', 'Lượng (%)', 'Trị giá (%)', 'Lượng', 'Trị giá (USD)', None, None)
+Row 2: (1, '2020-01', 'Xuất khẩu', 'Hạt điều', 'Tấn', 25259, 176602478, -405, -407, 25259, 176602478, 'Official', 'TCHQ Official (2020-T01T-2X(VN-CT).pdf)')
+Row 3: (2, '2020-01', 'Nhập khẩu', 'Hạt điều', 'Tấn', 52084, 85055470, -478, -440, 52084, 85055470, 'Official', 'TCHQ Official (2020-T01T-2N(VN-CT).pdf)')
+Total rows: 4
+
+=== XK_Theo_Nuoc (Country Rows) ===
+Header: ('Quốc gia', 'mặt hàng', 'Đơn vị tính', 'CY Lượng', 'CY Trị giá (USD)', 'YTD Lượng', 'YTD Trị giá (USD)')
+Total rows: 32
+
+Sample rows (first 5):
+Row 1: ('HOA KỲ', 'Hạt điều', 'Tấn', 8121, 54943127, 8121, 54943127)
+Row 2: ('HÀ LAN', 'Hạt điều', 'Tấn', 2767, 21130979, 2767, 21130979)
+Row 3: ('TRUNG QUỐC', 'Hạt điều', 'Tấn', 2299, 16892639, 2299, 16892639)
+Row 4: ('ĐỨC', 'Hạt điều', 'Tấn', 1070, 7925084, 1070, 7925084)
+Row 5: ('ANH', 'Hạt điều', 'Tấn', 1121, 6739105, 1121, 6739105)
+
+Other rows count: 1
+  Other 1: ('Other', 'Hạt điều', 'Tấn', 2542, 17041759, None, None)
+
+=== Lich_Su_Phien_Ban (Version History) ===
+Header: ('STT', 'Kỳ', 'Luồng', 'Phiên bản', 'Mặt hàng', 'ĐVT', 'Lượng tháng', 'Trị giá (USD)', 'File nguồn', 'Ghi chú')
+Total rows: 7
+Row 0: ('STT', 'Kỳ', 'Luồng', 'Phiên bản', 'Mặt hàng', 'ĐVT', 'Lượng tháng', 'Trị giá (USD)', 'File nguồn', 'Ghi chú')
+Row 1: (1, '2020-01', 'Xuất khẩu', 'Preliminary', 'Hạt điều', 'Tấn', 25253, 176571066, '2020-T01-2X(VN-DC2).pdf', 'TCHQ Preliminary (2020-T01-2X(VN-DC2).pdf)')
+Row 2: (2, '2020-01', 'Xuất khẩu', 'Official', 'Hạt điều', 'Tấn', 25259, 176602478, '2020-T01T-2X(VN-CT).pdf', 'TCHQ Official (2020-T01T-2X(VN-CT).pdf)')
+Row 3: (3, '2020-01', 'Xuất khẩu', 'Preliminary', 'Hạt điều', 'Tấn', 24687, 172552589, '2020-T01T-2X(VN-SB).pdf', 'TCHQ Preliminary (2020-T01T-2X(VN-SB).pdf)')
+Row 4: (4, '2020-01', 'Nhập khẩu', 'Preliminary', 'Hạt điều', 'Tấn', 52084, 85055470, '2020-T01-2N(VN-DC2).pdf', 'TCHQ Preliminary (2020-T01-2N(VN-DC2).pdf)')
+Row 5: (5, '2020-01', 'Nhập khẩu', 'Official', 'Hạt điều', 'Tấn', 52084, 85055470, '2020-T01T-2N(VN-CT).pdf', 'TCHQ Official (2020-T01T-2N(VN-CT).pdf)')
+Row 6: (6, '2020-01', 'Nhập khẩu', 'Preliminary', 'Hạt điều', 'Tấn', 51538, 84246225, '2020-T01T-2N(VN-SB).pdf', 'TCHQ Preliminary (2020-T01T-2N(VN-SB).pdf)')
+
+=== PDF Files in Xuat_Khau ===
+  2020-T01-2X(VN-DC2).pdf
+  2020-T01T-2X(VN-CT).pdf
+  2020-T01T-2X(VN-SB).pdf
+  2020-T01T-5X(VN-CT)-final.pdf
+  2020-T01T-5X(VN-DC).pdf
+  2020-T01T-5X(VN-SB).pdf

@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "year": 2024,
+  "generated_at": "2026-10-26T07:56:25.765Z",
+  "periods": {
+    "2024-12": {
+      "period": "2024-12",
+      "tong_xk": {
+        "period": "2024-12",
+        "product": "Hạt điều",
+        "unit": "Tấn",
+        "direction": "import",
+        "version": "Official",
+        "is_derived": false,
+        "pct_change_prev_month_qty": 231,
+        "pct_change_prev_month_val": 320,
+        "quantity_month": 104520,
+        "value_month_usd": 184696457,
+        "quantity_ytd": 2500283,
+        "value_ytd_usd": 3225586290,
+        "source_note": "TCHQ Official (2024-T12T-2N(VN-CT).pdf)"
+      },
+      "tong_nk": {
+        "period": "2024-12",
+        "product": "Hạt điều",
+        "unit": "Tấn",
+        "direction": "import",
+        "version": "Official",
+        "is_derived": false,
+        "pct_change_prev_month_qty": 231,
+        "pct_change_prev_month_val": 320,
+        "quantity_month": 104520,
+        "value_month_usd": 184696457,
+        "quantity_ytd": 2500283,
+        "value_ytd_usd": 3225586290,
+        "source_note": "TCHQ Official (2024-T12T-2N(VN-CT).pdf)"
+      },
+      "trade_balance_usd": 0,
+      "xk_theo_nuoc": [],
+      "nk_theo_nuoc": [],
+      "versions": []
+    }
+  },
+  "_export_meta": {
+    "exported_from": "DAN ON FOOD Trade Explorer",
+    "flow": "export",
+    "filters": [
+      "Năm: 2024",
+      "Khu vực: Châu Âu",
+      "Chi tiết: Tháng"
+    ],
+    "source": "Nguồn: Tổng cục Hải quan Việt Nam (TCHQ) · customs.gov.vn"
+  }
+}

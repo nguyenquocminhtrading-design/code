@@ -1,0 +1,1640 @@
+{
+  "status": "review_required",
+  "period_count": 81,
+  "vinacas_record_count": 757,
+  "check_count": 162,
+  "issue_count": 71,
+  "issues": [
+    {
+      "period": "2020-05",
+      "flow": "export",
+      "type": "missing_summary"
+    },
+    {
+      "period": "2020-12",
+      "flow": "export",
+      "type": "missing_summary"
+    },
+    {
+      "period": "2021-06",
+      "flow": "export",
+      "type": "missing_country_detail"
+    },
+    {
+      "period": "2021-06",
+      "flow": "export",
+      "type": "detail_summary_mismatch",
+      "field": "cy_luong",
+      "detail_total": 0,
+      "summary_total": 59089,
+      "delta": -59089
+    },
+    {
+      "period": "2021-06",
+      "flow": "export",
+      "type": "detail_summary_mismatch",
+      "field": "cy_tri_gia",
+      "detail_total": 0,
+      "summary_total": 371926279,
+      "delta": -371926279
+    },
+    {
+      "period": "2021-10",
+      "flow": "import",
+      "type": "negative_other_residual",
+      "field": "cy_luong",
+      "value": -156336
+    },
+    {
+      "period": "2021-10",
+      "flow": "import",
+      "type": "negative_other_residual",
+      "field": "cy_tri_gia",
+      "value": -228194628
+    },
+    {
+      "period": "2022-01",
+      "flow": "export",
+      "type": "missing_country_detail"
+    },
+    {
+      "period": "2022-01",
+      "flow": "export",
+      "type": "detail_summary_mismatch",
+      "field": "cy_luong",
+      "detail_total": 0,
+      "summary_total": 39740,
+      "delta": -39740
+    },
+    {
+      "period": "2022-01",
+      "flow": "export",
+      "type": "detail_summary_mismatch",
+      "field": "cy_tri_gia",
+      "detail_total": 0,
+      "summary_total": 235512325,
+      "delta": -235512325
+    },
+    {
+      "period": "2022-01",
+      "flow": "import",
+      "type": "missing_summary"
+    },
+    {
+      "period": "2022-04",
+      "flow": "export",
+      "type": "missing_summary"
+    },
+    {
+      "period": "2022-04",
+      "flow": "import",
+      "type": "missing_summary"
+    },
+    {
+      "period": "2022-06",
+      "flow": "export",
+      "type": "missing_summary"
+    },
+    {
+      "period": "2022-09",
+      "flow": "import",
+      "type": "missing_summary"
+    },
+    {
+      "period": "2022-10",
+      "flow": "import",
+      "type": "missing_country_detail"
+    },
+    {
+      "period": "2022-10",
+      "flow": "import",
+      "type": "detail_summary_mismatch",
+      "field": "cy_luong",
+      "detail_total": 0,
+      "summary_total": 100816,
+      "delta": -100816
+    },
+    {
+      "period": "2022-10",
+      "flow": "import",
+      "type": "detail_summary_mismatch",
+      "field": "cy_tri_gia",
+      "detail_total": 0,
+      "summary_total": 132972784,
+      "delta": -132972784
+    },
+    {
+      "period": "2022-11",
+      "flow": "export",
+      "type": "missing_summary"
+    },
+    {
+      "period": "2023-02",
+      "flow": "export",
+      "type": "missing_summary"
+    },
+    {
+      "period": "2023-02",
+      "flow": "import",
+      "type": "missing_summary"
+    },
+    {
+      "period": "2023-04",
+      "flow": "import",
+      "type": "missing_summary"
+    },
+    {
+      "period": "2023-05",
+      "flow": "import",
+      "type": "negative_other_residual",
+      "field": "cy_luong",
+      "value": -76559
+    },
+    {
+      "period": "2023-05",
+      "flow": "import",
+      "type": "negative_other_residual",
+      "field": "cy_tri_gia",
+      "value": -105568015
+    },
+    {
+      "period": "2023-08",
+      "flow": "import",
+      "type": "negative_other_residual",
+      "field": "cy_luong",
+      "value": -12355
+    },
+    {
+      "period": "2023-08",
+      "flow": "import",
+      "type": "negative_other_residual",
+      "field": "cy_tri_gia",
+      "value": -42946701
+    },
+    {
+      "period": "2023-09",
+      "flow": "export",
+      "type": "missing_country_detail"
+    },
+    {
+      "period": "2023-09",
+      "flow": "export",
+      "type": "detail_summary_mismatch",
+      "field": "cy_luong",
+      "detail_total": 0,
+      "summary_total": 56728,
+      "delta": -56728
+    },
+    {
+      "period": "2023-09",
+      "flow": "export",
+      "type": "detail_summary_mismatch",
+      "field": "cy_tri_gia",
+      "detail_total": 0,
+      "summary_total": 309600713,
+      "delta": -309600713
+    },
+    {
+      "period": "2023-09",
+      "flow": "import",
+      "type": "negative_other_residual",
+      "field": "cy_luong",
+      "value": -24480
+    },
+    {
+      "period": "2023-09",
+      "flow": "import",
+      "type": "negative_other_residual",
+      "field": "cy_tri_gia",
+      "value": -55101354
+    },
+    {
+      "period": "2023-10",
+      "flow": "import",
+      "type": "negative_other_residual",
+      "field": "cy_luong",
+      "value": -27432
+    },
+    {
+      "period": "2023-10",
+      "flow": "import",
+      "type": "negative_other_residual",
+      "field": "cy_tri_gia",
+      "value": -56438911
+    },
+    {
+      "period": "2023-11",
+      "flow": "import",
+      "type": "negative_other_residual",
+      "field": "cy_luong",
+      "value": -57736
+    },
+    {
+      "period": "2023-11",
+      "flow": "import",
+      "type": "negative_other_residual",
+      "field": "cy_tri_gia",
+      "value": -88996423
+    },
+    {
+      "period": "2023-12",
+      "flow": "export",
+      "type": "missing_country_detail"
+    },
+    {
+      "period": "2023-12",
+      "flow": "export",
+      "type": "detail_summary_mismatch",
+      "field": "cy_luong",
+      "detail_total": 0,
+      "summary_total": 62973,
+      "delta": -62973
+    },
+    {
+      "period": "2023-12",
+      "flow": "export",
+      "type": "detail_summary_mismatch",
+      "field": "cy_tri_gia",
+      "detail_total": 0,
+      "summary_total": 342864797,
+      "delta": -342864797
+    },
+    {
+      "period": "2023-12",
+      "flow": "import",
+      "type": "missing_country_detail"
+    },
+    {
+      "period": "2023-12",
+      "flow": "import",
+      "type": "detail_summary_mismatch",
+      "field": "cy_luong",
+      "detail_total": 0,
+      "summary_total": 112132,
+      "delta": -112132
+    },
+    {
+      "period": "2023-12",
+      "flow": "import",
+      "type": "detail_summary_mismatch",
+      "field": "cy_tri_gia",
+      "detail_total": 0,
+      "summary_total": 123198860,
+      "delta": -123198860
+    },
+    {
+      "period": "2024-02",
+      "flow": "export",
+      "type": "missing_summary"
+    },
+    {
+      "period": "2024-03",
+      "flow": "export",
+      "type": "missing_country_detail"
+    },
+    {
+      "period": "2024-03",
+      "flow": "export",
+      "type": "detail_summary_mismatch",
+      "field": "cy_luong",
+      "detail_total": 0,
+      "summary_total": 58922,
+      "delta": -58922
+    },
+    {
+      "period": "2024-03",
+      "flow": "export",
+      "type": "detail_summary_mismatch",
+      "field": "cy_tri_gia",
+      "detail_total": 0,
+      "summary_total": 315453110,
+      "delta": -315453110
+    },
+    {
+      "period": "2024-03",
+      "flow": "import",
+      "type": "missing_country_detail"
+    },
+    {
+      "period": "2024-03",
+      "flow": "import",
+      "type": "detail_summary_mismatch",
+      "field": "cy_luong",
+      "detail_total": 0,
+      "summary_total": 306420,
+      "delta": -306420
+    },
+    {
+      "period": "2024-03",
+      "flow": "import",
+      "type": "detail_summary_mismatch",
+      "field": "cy_tri_gia",
+      "detail_total": 0,
+      "summary_total": 413040074,
+      "delta": -413040074
+    },
+    {
+      "period": "2024-05",
+      "flow": "import",
+      "type": "missing_country_detail"
+    },
+    {
+      "period": "2024-05",
+      "flow": "import",
+      "type": "detail_summary_mismatch",
+      "field": "cy_luong",
+      "detail_total": 0,
+      "summary_total": 258332,
+      "delta": -258332
+    },
+    {
+      "period": "2024-05",
+      "flow": "import",
+      "type": "detail_summary_mismatch",
+      "field": "cy_tri_gia",
+      "detail_total": 0,
+      "summary_total": 320368869,
+      "delta": -320368869
+    },
+    {
+      "period": "2024-07",
+      "flow": "export",
+      "type": "missing_country_detail"
+    },
+    {
+      "period": "2024-07",
+      "flow": "export",
+      "type": "detail_summary_mismatch",
+      "field": "cy_luong",
+      "detail_total": 0,
+      "summary_total": 54830,
+      "delta": -54830
+    },
+    {
+      "period": "2024-07",
+      "flow": "export",
+      "type": "detail_summary_mismatch",
+      "field": "cy_tri_gia",
+      "detail_total": 0,
+      "summary_total": 305208113,
+      "delta": -305208113
+    },
+    {
+      "period": "2024-08",
+      "flow": "import",
+      "type": "negative_other_residual",
+      "field": "cy_luong",
+      "value": -11997
+    },
+    {
+      "period": "2024-08",
+      "flow": "import",
+      "type": "negative_other_residual",
+      "field": "cy_tri_gia",
+      "value": -6780844
+    },
+    {
+      "period": "2024-09",
+      "flow": "import",
+      "type": "negative_other_residual",
+      "field": "cy_luong",
+      "value": -33776
+    },
+    {
+      "period": "2024-09",
+      "flow": "import",
+      "type": "negative_other_residual",
+      "field": "cy_tri_gia",
+      "value": -29294445
+    },
+    {
+      "period": "2024-10",
+      "flow": "import",
+      "type": "missing_country_detail"
+    },
+    {
+      "period": "2024-10",
+      "flow": "import",
+      "type": "detail_summary_mismatch",
+      "field": "cy_luong",
+      "detail_total": 0,
+      "summary_total": 140336,
+      "delta": -140336
+    },
+    {
+      "period": "2024-10",
+      "flow": "import",
+      "type": "detail_summary_mismatch",
+      "field": "cy_tri_gia",
+      "detail_total": 0,
+      "summary_total": 219371544,
+      "delta": -219371544
+    },
+    {
+      "period": "2024-12",
+      "flow": "export",
+      "type": "missing_country_detail"
+    },
+    {
+      "period": "2024-12",
+      "flow": "export",
+      "type": "detail_summary_mismatch",
+      "field": "cy_luong",
+      "detail_total": 0,
+      "summary_total": 62973,
+      "delta": -62973
+    },
+    {
+      "period": "2024-12",
+      "flow": "export",
+      "type": "detail_summary_mismatch",
+      "field": "cy_tri_gia",
+      "detail_total": 0,
+      "summary_total": 342864797,
+      "delta": -342864797
+    },
+    {
+      "period": "2025-03",
+      "flow": "export",
+      "type": "missing_summary"
+    },
+    {
+      "period": "2025-08",
+      "flow": "import",
+      "type": "missing_country_detail"
+    },
+    {
+      "period": "2025-08",
+      "flow": "import",
+      "type": "detail_summary_mismatch",
+      "field": "cy_luong",
+      "detail_total": 0,
+      "summary_total": 269650,
+      "delta": -269650
+    },
+    {
+      "period": "2025-08",
+      "flow": "import",
+      "type": "detail_summary_mismatch",
+      "field": "cy_tri_gia",
+      "detail_total": 0,
+      "summary_total": 392620859,
+      "delta": -392620859
+    },
+    {
+      "period": "2025-09",
+      "flow": "import",
+      "type": "negative_other_residual",
+      "field": "cy_luong",
+      "value": -51127
+    },
+    {
+      "period": "2025-09",
+      "flow": "import",
+      "type": "negative_other_residual",
+      "field": "cy_tri_gia",
+      "value": -124286146
+    },
+    {
+      "period": "2025-10",
+      "flow": "export",
+      "type": "missing_summary"
+    }
+  ],
+  "checks": [
+    {
+      "period": "2020-01",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 31,
+      "other_rows": 1
+    },
+    {
+      "period": "2020-01",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 6,
+      "other_rows": 1
+    },
+    {
+      "period": "2020-02",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 32,
+      "other_rows": 1
+    },
+    {
+      "period": "2020-02",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2020-03",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 32,
+      "other_rows": 1
+    },
+    {
+      "period": "2020-03",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2020-04",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 32,
+      "other_rows": 1
+    },
+    {
+      "period": "2020-04",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2020-05",
+      "flow": "export",
+      "summary_present": false,
+      "detail_rows": 31,
+      "other_rows": 0
+    },
+    {
+      "period": "2020-05",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2020-06",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 32,
+      "other_rows": 1
+    },
+    {
+      "period": "2020-06",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2020-07",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 32,
+      "other_rows": 1
+    },
+    {
+      "period": "2020-07",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2020-08",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 32,
+      "other_rows": 1
+    },
+    {
+      "period": "2020-08",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2020-09",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 32,
+      "other_rows": 1
+    },
+    {
+      "period": "2020-09",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2020-10",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 32,
+      "other_rows": 1
+    },
+    {
+      "period": "2020-10",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2020-11",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 32,
+      "other_rows": 1
+    },
+    {
+      "period": "2020-11",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2020-12",
+      "flow": "export",
+      "summary_present": false,
+      "detail_rows": 31,
+      "other_rows": 0
+    },
+    {
+      "period": "2020-12",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2021-01",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 31,
+      "other_rows": 1
+    },
+    {
+      "period": "2021-01",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2021-02",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 31,
+      "other_rows": 1
+    },
+    {
+      "period": "2021-02",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2021-03",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 31,
+      "other_rows": 1
+    },
+    {
+      "period": "2021-03",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2021-04",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 32,
+      "other_rows": 1
+    },
+    {
+      "period": "2021-04",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2021-05",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 32,
+      "other_rows": 1
+    },
+    {
+      "period": "2021-05",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2021-06",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 0,
+      "other_rows": 0
+    },
+    {
+      "period": "2021-06",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2021-07",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 32,
+      "other_rows": 1
+    },
+    {
+      "period": "2021-07",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2021-08",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 32,
+      "other_rows": 1
+    },
+    {
+      "period": "2021-08",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2021-09",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 32,
+      "other_rows": 1
+    },
+    {
+      "period": "2021-09",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2021-10",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 32,
+      "other_rows": 1
+    },
+    {
+      "period": "2021-10",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2021-11",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 32,
+      "other_rows": 1
+    },
+    {
+      "period": "2021-11",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2021-12",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 32,
+      "other_rows": 1
+    },
+    {
+      "period": "2021-12",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2022-01",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 0,
+      "other_rows": 0
+    },
+    {
+      "period": "2022-01",
+      "flow": "import",
+      "summary_present": false,
+      "detail_rows": 6,
+      "other_rows": 0
+    },
+    {
+      "period": "2022-02",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 32,
+      "other_rows": 1
+    },
+    {
+      "period": "2022-02",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2022-03",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 32,
+      "other_rows": 1
+    },
+    {
+      "period": "2022-03",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2022-04",
+      "flow": "export",
+      "summary_present": false,
+      "detail_rows": 31,
+      "other_rows": 0
+    },
+    {
+      "period": "2022-04",
+      "flow": "import",
+      "summary_present": false,
+      "detail_rows": 6,
+      "other_rows": 0
+    },
+    {
+      "period": "2022-05",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 32,
+      "other_rows": 1
+    },
+    {
+      "period": "2022-05",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2022-06",
+      "flow": "export",
+      "summary_present": false,
+      "detail_rows": 31,
+      "other_rows": 0
+    },
+    {
+      "period": "2022-06",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2022-07",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 32,
+      "other_rows": 1
+    },
+    {
+      "period": "2022-07",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2022-08",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 32,
+      "other_rows": 1
+    },
+    {
+      "period": "2022-08",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2022-09",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 32,
+      "other_rows": 1
+    },
+    {
+      "period": "2022-09",
+      "flow": "import",
+      "summary_present": false,
+      "detail_rows": 6,
+      "other_rows": 0
+    },
+    {
+      "period": "2022-10",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 32,
+      "other_rows": 1
+    },
+    {
+      "period": "2022-10",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 0,
+      "other_rows": 0
+    },
+    {
+      "period": "2022-11",
+      "flow": "export",
+      "summary_present": false,
+      "detail_rows": 31,
+      "other_rows": 0
+    },
+    {
+      "period": "2022-11",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2022-12",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 32,
+      "other_rows": 1
+    },
+    {
+      "period": "2022-12",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2023-01",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 32,
+      "other_rows": 1
+    },
+    {
+      "period": "2023-01",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2023-02",
+      "flow": "export",
+      "summary_present": false,
+      "detail_rows": 32,
+      "other_rows": 0
+    },
+    {
+      "period": "2023-02",
+      "flow": "import",
+      "summary_present": false,
+      "detail_rows": 6,
+      "other_rows": 0
+    },
+    {
+      "period": "2023-03",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 34,
+      "other_rows": 1
+    },
+    {
+      "period": "2023-03",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2023-04",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 34,
+      "other_rows": 1
+    },
+    {
+      "period": "2023-04",
+      "flow": "import",
+      "summary_present": false,
+      "detail_rows": 6,
+      "other_rows": 0
+    },
+    {
+      "period": "2023-05",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 34,
+      "other_rows": 1
+    },
+    {
+      "period": "2023-05",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2023-06",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 34,
+      "other_rows": 1
+    },
+    {
+      "period": "2023-06",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2023-07",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 34,
+      "other_rows": 1
+    },
+    {
+      "period": "2023-07",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2023-08",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 34,
+      "other_rows": 1
+    },
+    {
+      "period": "2023-08",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2023-09",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 0,
+      "other_rows": 0
+    },
+    {
+      "period": "2023-09",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2023-10",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 34,
+      "other_rows": 1
+    },
+    {
+      "period": "2023-10",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2023-11",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 34,
+      "other_rows": 1
+    },
+    {
+      "period": "2023-11",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2023-12",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 0,
+      "other_rows": 0
+    },
+    {
+      "period": "2023-12",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 0,
+      "other_rows": 0
+    },
+    {
+      "period": "2024-01",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 33,
+      "other_rows": 1
+    },
+    {
+      "period": "2024-01",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2024-02",
+      "flow": "export",
+      "summary_present": false,
+      "detail_rows": 32,
+      "other_rows": 0
+    },
+    {
+      "period": "2024-02",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2024-03",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 0,
+      "other_rows": 0
+    },
+    {
+      "period": "2024-03",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 0,
+      "other_rows": 0
+    },
+    {
+      "period": "2024-04",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 34,
+      "other_rows": 1
+    },
+    {
+      "period": "2024-04",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2024-05",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 34,
+      "other_rows": 1
+    },
+    {
+      "period": "2024-05",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 0,
+      "other_rows": 0
+    },
+    {
+      "period": "2024-06",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 34,
+      "other_rows": 1
+    },
+    {
+      "period": "2024-06",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2024-07",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 0,
+      "other_rows": 0
+    },
+    {
+      "period": "2024-07",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2024-08",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 35,
+      "other_rows": 1
+    },
+    {
+      "period": "2024-08",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2024-09",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 35,
+      "other_rows": 1
+    },
+    {
+      "period": "2024-09",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2024-10",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 35,
+      "other_rows": 1
+    },
+    {
+      "period": "2024-10",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 0,
+      "other_rows": 0
+    },
+    {
+      "period": "2024-11",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 35,
+      "other_rows": 1
+    },
+    {
+      "period": "2024-11",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2024-12",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 0,
+      "other_rows": 0
+    },
+    {
+      "period": "2024-12",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2025-01",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 34,
+      "other_rows": 1
+    },
+    {
+      "period": "2025-01",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2025-02",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 34,
+      "other_rows": 1
+    },
+    {
+      "period": "2025-02",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2025-03",
+      "flow": "export",
+      "summary_present": false,
+      "detail_rows": 33,
+      "other_rows": 0
+    },
+    {
+      "period": "2025-03",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2025-04",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 34,
+      "other_rows": 1
+    },
+    {
+      "period": "2025-04",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2025-05",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 34,
+      "other_rows": 1
+    },
+    {
+      "period": "2025-05",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2025-06",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 34,
+      "other_rows": 1
+    },
+    {
+      "period": "2025-06",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2025-07",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 34,
+      "other_rows": 1
+    },
+    {
+      "period": "2025-07",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2025-08",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 34,
+      "other_rows": 1
+    },
+    {
+      "period": "2025-08",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 0,
+      "other_rows": 0
+    },
+    {
+      "period": "2025-09",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 34,
+      "other_rows": 1
+    },
+    {
+      "period": "2025-09",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2025-10",
+      "flow": "export",
+      "summary_present": false,
+      "detail_rows": 34,
+      "other_rows": 0
+    },
+    {
+      "period": "2025-10",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2025-11",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 35,
+      "other_rows": 1
+    },
+    {
+      "period": "2025-11",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2025-12",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 35,
+      "other_rows": 1
+    },
+    {
+      "period": "2025-12",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2026-01",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 34,
+      "other_rows": 1
+    },
+    {
+      "period": "2026-01",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2026-02",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 34,
+      "other_rows": 1
+    },
+    {
+      "period": "2026-02",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2026-03",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 34,
+      "other_rows": 1
+    },
+    {
+      "period": "2026-03",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2026-04",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 34,
+      "other_rows": 1
+    },
+    {
+      "period": "2026-04",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2026-05",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 34,
+      "other_rows": 1
+    },
+    {
+      "period": "2026-05",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2026-06",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 34,
+      "other_rows": 1
+    },
+    {
+      "period": "2026-06",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2026-07",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 34,
+      "other_rows": 1
+    },
+    {
+      "period": "2026-07",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2026-08",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 34,
+      "other_rows": 1
+    },
+    {
+      "period": "2026-08",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    },
+    {
+      "period": "2026-09",
+      "flow": "export",
+      "summary_present": true,
+      "detail_rows": 34,
+      "other_rows": 1
+    },
+    {
+      "period": "2026-09",
+      "flow": "import",
+      "summary_present": true,
+      "detail_rows": 7,
+      "other_rows": 1
+    }
+  ]
+}

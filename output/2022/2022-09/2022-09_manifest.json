@@ -1,0 +1,207 @@
+{
+  "period": "2022-09",
+  "source": "tchq",
+  "captcha": "none",
+  "scrape": {
+    "rows": 6
+  },
+  "scrape_complete": false,
+  "download_validation": [
+    {
+      "path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2022\\2022-09\\Xuat_Khau\\2022-T09-2X(VN-SB).pdf",
+      "local_path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2022\\2022-09\\Xuat_Khau\\2022-T09-2X(VN-SB).pdf",
+      "mode": "local",
+      "status": "ok",
+      "report_type": "summary",
+      "sha256": "ee931810a2515d50879d9a264f0449e161450ef42ae385d6bd98b2b3a6b855e5",
+      "size_bytes": 407015,
+      "content_type": "application/pdf",
+      "direction": "export"
+    },
+    {
+      "path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2022\\2022-09\\Xuat_Khau\\2022-T09-5X(VN-SB).pdf",
+      "local_path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2022\\2022-09\\Xuat_Khau\\2022-T09-5X(VN-SB).pdf",
+      "mode": "local",
+      "status": "ok",
+      "report_type": "country_product",
+      "sha256": "a1b79abceb8c15b6d20d6c821333717cfd6bd0a54051d03b4053e21f57979ebf",
+      "size_bytes": 754647,
+      "content_type": "application/pdf",
+      "direction": "export"
+    },
+    {
+      "path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2022\\2022-09\\Xuat_Khau\\2022-t09t-2x(vn-ct).pdf",
+      "local_path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2022\\2022-09\\Xuat_Khau\\2022-t09t-2x(vn-ct).pdf",
+      "mode": "local",
+      "status": "ok",
+      "report_type": "summary",
+      "sha256": "bc9b763aa6ca073da7a99e1cbb2f6226699b5a9c4ef79fdc3018d23a27271ed6",
+      "size_bytes": 107646,
+      "content_type": "application/pdf",
+      "direction": "export"
+    },
+    {
+      "path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2022\\2022-09\\Xuat_Khau\\2022-t09t-5x(vn-ct).pdf",
+      "local_path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2022\\2022-09\\Xuat_Khau\\2022-t09t-5x(vn-ct).pdf",
+      "mode": "local",
+      "status": "ok",
+      "report_type": "country_product",
+      "sha256": "2264a2867656fe221c7c727dd569b93bb46c32f1215cc756b06001d4466acb34",
+      "size_bytes": 197262,
+      "content_type": "application/pdf",
+      "direction": "export"
+    },
+    {
+      "path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2022\\2022-09\\Nhap_Khau\\2022-T09-5N(VN-SB).pdf",
+      "local_path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2022\\2022-09\\Nhap_Khau\\2022-T09-5N(VN-SB).pdf",
+      "mode": "local",
+      "status": "ok",
+      "report_type": "country_product",
+      "sha256": "e2f95de792461235b4aa226d1a854c7a51a20824910d2d938bc2e0849e037857",
+      "size_bytes": 648971,
+      "content_type": "application/pdf",
+      "direction": "import"
+    },
+    {
+      "path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2022\\2022-09\\Nhap_Khau\\2022-t09t-5n(vn-ct).pdf",
+      "local_path": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2022\\2022-09\\Nhap_Khau\\2022-t09t-5n(vn-ct).pdf",
+      "mode": "local",
+      "status": "ok",
+      "report_type": "country_product",
+      "sha256": "064345e301bf9bc25c7ed43143a7b79d936712c0719456ec09b618057ed08099",
+      "size_bytes": 172529,
+      "content_type": "application/pdf",
+      "direction": "import"
+    }
+  ],
+  "errors": [],
+  "ocr": {
+    "period": "2022-09",
+    "status": "ok",
+    "generated_at": "2026-10-27T03:26:53.048586+00:00",
+    "summary_rows": 2,
+    "summary_records": [
+      {
+        "source": "TCHQ",
+        "report_type": "monthly_summary",
+        "period": "2022-09",
+        "direction": "export",
+        "version": "preliminary",
+        "product": "Hạt điều",
+        "hs_code": "",
+        "unit": "Tấn",
+        "quantity_month": 38321.0,
+        "value_month_usd": 234358460.0,
+        "pct_change_prev_month_qty": -182.0,
+        "pct_change_prev_month_val": -144.0,
+        "quantity_ytd": 380536.0,
+        "value_ytd_usd": 2279435846.0,
+        "pct_change_yoy_qty": -111.0,
+        "pct_change_yoy_val": -144.0,
+        "average_price_usd": 6115.67,
+        "is_derived": false,
+        "source_note": "TCHQ Preliminary (2022-T09-2X(VN-SB).pdf)",
+        "source_file": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2022\\2022-09\\Xuat_Khau\\2022-T09-2X(VN-SB).pdf",
+        "retrieved_at": "2026-10-27T03:26:34.598246+00:00"
+      },
+      {
+        "source": "TCHQ",
+        "report_type": "monthly_summary",
+        "period": "2022-09",
+        "direction": "export",
+        "version": "official",
+        "product": "Hạt điều",
+        "hs_code": "",
+        "unit": "Tấn",
+        "quantity_month": 38463.0,
+        "value_month_usd": 235210582.0,
+        "pct_change_prev_month_qty": -180.0,
+        "pct_change_prev_month_val": -142.0,
+        "quantity_ytd": 380920.0,
+        "value_ytd_usd": 2281817784.0,
+        "pct_change_yoy_qty": -110.0,
+        "pct_change_yoy_val": -143.0,
+        "average_price_usd": 6115.24,
+        "is_derived": false,
+        "source_note": "TCHQ Official (2022-t09t-2x(vn-ct).pdf)",
+        "source_file": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2022\\2022-09\\Xuat_Khau\\2022-t09t-2x(vn-ct).pdf",
+        "retrieved_at": "2026-10-27T03:26:45.101546+00:00"
+      }
+    ],
+    "export_pivot_rows": 64,
+    "import_pivot_rows": 12,
+    "pivot_rows": 76,
+    "export_versions": [
+      "official",
+      "preliminary"
+    ],
+    "import_versions": [
+      "official",
+      "preliminary"
+    ],
+    "output_excel": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output\\2022\\2022-09\\2022-09_cashew.xlsx",
+    "artifacts": [
+      {
+        "file": "2022-T09-5N(VN-SB).pdf",
+        "type": "country_product",
+        "direction": "import",
+        "version": "preliminary",
+        "engine": "pdfplumber",
+        "raw_row_count": 1221,
+        "parsed_rows": 6,
+        "errors": []
+      },
+      {
+        "file": "2022-t09t-5n(vn-ct).pdf",
+        "type": "country_product",
+        "direction": "import",
+        "version": "official",
+        "engine": "pdfplumber",
+        "raw_row_count": 1198,
+        "parsed_rows": 6,
+        "errors": []
+      },
+      {
+        "file": "2022-T09-2X(VN-SB).pdf",
+        "type": "summary",
+        "direction": "export",
+        "version": "preliminary",
+        "engine": "pdfplumber",
+        "raw_row_count": 71,
+        "parsed_rows": 1,
+        "errors": []
+      },
+      {
+        "file": "2022-T09-5X(VN-SB).pdf",
+        "type": "country_product",
+        "direction": "export",
+        "version": "preliminary",
+        "engine": "pdfplumber",
+        "raw_row_count": 1574,
+        "parsed_rows": 31,
+        "errors": []
+      },
+      {
+        "file": "2022-t09t-2x(vn-ct).pdf",
+        "type": "summary",
+        "direction": "export",
+        "version": "official",
+        "engine": "pdfplumber",
+        "raw_row_count": 69,
+        "parsed_rows": 1,
+        "errors": []
+      },
+      {
+        "file": "2022-t09t-5x(vn-ct).pdf",
+        "type": "country_product",
+        "direction": "export",
+        "version": "official",
+        "engine": "pdfplumber",
+        "raw_row_count": 1544,
+        "parsed_rows": 31,
+        "errors": []
+      }
+    ],
+    "validation_errors": []
+  }
+}

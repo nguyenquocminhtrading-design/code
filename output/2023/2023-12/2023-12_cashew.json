@@ -1,0 +1,184 @@
+{
+  "period": "2023-12",
+  "tong_xk": {
+    "period": "2023-12",
+    "direction": "export",
+    "product": "Hạt điều",
+    "unit": "Tấn",
+    "quantity_month": 62973,
+    "value_month_usd": 342864797,
+    "pct_change_prev_month_qty": -17.0,
+    "pct_change_prev_month_val": -27.0,
+    "quantity_ytd": 643952,
+    "value_ytd_usd": 3642870147,
+    "version": "Official",
+    "source_note": "TCHQ Official (2023-T12T-2X(VN-CT).pdf)"
+  },
+  "tong_nk": {
+    "period": "2023-12",
+    "direction": "import",
+    "product": "Hạt điều",
+    "unit": "Tấn",
+    "quantity_month": 112132,
+    "value_month_usd": 123198860,
+    "pct_change_prev_month_qty": -212.0,
+    "pct_change_prev_month_val": -164.0,
+    "quantity_ytd": 2777421,
+    "value_ytd_usd": 3201277298,
+    "version": "Official",
+    "source_note": "TCHQ Official (2023-T12T-2N(VN-CT).pdf)"
+  },
+  "trade_balance_usd": 219665937,
+  "xk_theo_nuoc": [
+    {
+      "country": "Other",
+      "product": "Hạt điều",
+      "unit": "Tấn",
+      "cy_luong": 62973,
+      "cy_tri_gia": 342864797,
+      "ytd_luong": 643952,
+      "ytd_tri_gia": 3642870147,
+      "version": "Chính thức",
+      "debug_source_file": "",
+      "debug_source_type": "",
+      "debug_source_note": "",
+      "version_key": "official"
+    },
+    {
+      "country": "Other",
+      "product": "Hạt điều",
+      "unit": "Tấn",
+      "cy_luong": 63061,
+      "cy_tri_gia": 343355327,
+      "ytd_luong": 644135,
+      "ytd_tri_gia": 3643944555,
+      "version": "Sơ bộ",
+      "debug_source_file": "",
+      "debug_source_type": "",
+      "debug_source_note": "",
+      "version_key": "preliminary"
+    }
+  ],
+  "nk_theo_nuoc": [
+    {
+      "country": "Other",
+      "product": "Hạt điều",
+      "unit": "Tấn",
+      "cy_luong": 112132,
+      "cy_tri_gia": 123198860,
+      "ytd_luong": null,
+      "ytd_tri_gia": null,
+      "version": "Official",
+      "version_key": "official",
+      "debug_source_file": "BACKFILL",
+      "debug_source_type": "calculated",
+      "debug_source_note": "Other = Summary($123.20M) - Countries($0.00M) = $123.20M"
+    }
+  ],
+  "versions": [
+    {
+      "period": "2023-12",
+      "direction": "import",
+      "version": "Preliminary",
+      "product": "Hạt điều",
+      "unit": "Tấn",
+      "quantity_month": 111942,
+      "value_month_usd": 123122407,
+      "source_file": "2023-T12-2N(VN-SB).pdf",
+      "note": "TCHQ Preliminary (2023-T12-2N(VN-SB).pdf)"
+    },
+    {
+      "period": "2023-12",
+      "direction": "import",
+      "version": "Official",
+      "product": "Hạt điều",
+      "unit": "Tấn",
+      "quantity_month": 112132,
+      "value_month_usd": 123198860,
+      "source_file": "2023-T12T-2N(VN-CT).pdf",
+      "note": "TCHQ Official (2023-T12T-2N(VN-CT).pdf)"
+    },
+    {
+      "period": "2023-12",
+      "direction": "export",
+      "version": "Preliminary",
+      "product": "Hạt điều",
+      "unit": "Tấn",
+      "quantity_month": 63061,
+      "value_month_usd": 343355327,
+      "source_file": "2023-t12-2x(vn-sb).pdf",
+      "note": "TCHQ Preliminary (2023-t12-2x(vn-sb).pdf)"
+    },
+    {
+      "period": "2023-12",
+      "direction": "export",
+      "version": "Official",
+      "product": "Hạt điều",
+      "unit": "Tấn",
+      "quantity_month": 62973,
+      "value_month_usd": 342864797,
+      "source_file": "2023-T12T-2X(VN-CT).pdf",
+      "note": "TCHQ Official (2023-T12T-2X(VN-CT).pdf)"
+    }
+  ],
+  "tong_xk_versions": {
+    "official": {
+      "period": "2023-12",
+      "direction": "export",
+      "product": "Hạt điều",
+      "unit": "Tấn",
+      "quantity_month": 62973,
+      "value_month_usd": 342864797,
+      "pct_change_prev_month_qty": -17.0,
+      "pct_change_prev_month_val": -27.0,
+      "quantity_ytd": 643952,
+      "value_ytd_usd": 3642870147,
+      "version": "Official",
+      "source_note": "TCHQ Official (2023-T12T-2X(VN-CT).pdf)"
+    },
+    "preliminary": {
+      "period": "2023-12",
+      "direction": "export",
+      "product": "Hạt điều",
+      "unit": "Tấn",
+      "quantity_month": 63061,
+      "value_month_usd": 343355327,
+      "pct_change_prev_month_qty": -17.0,
+      "pct_change_prev_month_val": -26.0,
+      "quantity_ytd": 644135,
+      "value_ytd_usd": 3643944555,
+      "version": "Preliminary",
+      "source_note": "TCHQ Preliminary (2023-t12-2x(vn-sb).pdf)"
+    }
+  },
+  "tong_nk_versions": {
+    "official": {
+      "period": "2023-12",
+      "direction": "import",
+      "product": "Hạt điều",
+      "unit": "Tấn",
+      "quantity_month": 112132,
+      "value_month_usd": 123198860,
+      "pct_change_prev_month_qty": -212.0,
+      "pct_change_prev_month_val": -164.0,
+      "quantity_ytd": 2777421,
+      "value_ytd_usd": 3201277298,
+      "version": "Official",
+      "source_note": "TCHQ Official (2023-T12T-2N(VN-CT).pdf)"
+    },
+    "preliminary": {
+      "period": "2023-12",
+      "direction": "import",
+      "product": "Hạt điều",
+      "unit": "Tấn",
+      "quantity_month": 111942,
+      "value_month_usd": 123122407,
+      "pct_change_prev_month_qty": -215.0,
+      "pct_change_prev_month_val": -167.0,
+      "quantity_ytd": 2767503,
+      "value_ytd_usd": 3192936403,
+      "version": "Preliminary",
+      "source_note": "TCHQ Preliminary (2023-T12-2N(VN-SB).pdf)"
+    }
+  }
+}

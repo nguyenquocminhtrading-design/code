@@ -1,0 +1,14 @@
+=== SAMPLE DEBUG INFO (2020-05) ===
+Summary exists: True
+Is derived: True
+Quantity: 24798
+Value: 145522776
+Source note: Ước tính YTD Diff (2020-05 - 2020-04)
+Debug type: 
+Debug file: 
+Debug note: 
+
+Other row:
+  Value: -95225042
+  Debug type: calculated
+  Debug note: Other = Summary($145.52M) - Countries($240.75M) = $-95.23M...

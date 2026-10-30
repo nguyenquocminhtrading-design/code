@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="theme-color" content="#17231f"/>
+<title>Cashew Gold · XNK Hạt Điều Việt Nam | Vietnam Cashew Export Dashboard</title>
+<meta name="description" content="Dashboard phân tích xuất khẩu hạt điều Việt Nam từ dữ liệu TCHQ — Tổng cục Hải quan"/>
+<link rel="stylesheet" href="style.css?v=7"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- ═══ SIDEBAR ═══════════════════════════════════════════ -->
+  <aside class="sidebar">
+    <div class="brand">
+      <img class="brand-logo" src="assets/dan_on_food_logo.jpg" alt="Dan on Food logo"/>
+      <div class="brand-text">
+        <h1>DAN ON FOOD</h1>
+        <p>Trade Explorer · Vietnam Cashew</p>
+      </div>
+    </div>
+
+    <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+      <button class="nav-item active" data-tab="overview" role="tab" aria-selected="true" aria-label="Tổng quan / Overview">
+        <span class="nav-ico" aria-hidden="true">📊</span><span class="nav-txt lang-vi">Tổng quan</span><span class="nav-txt lang-en" style="display:none">Overview</span>
+      </button>
+      <button class="nav-item" data-tab="countries" role="tab" aria-selected="false" aria-label="Quốc gia / Countries">
+        <span class="nav-ico" aria-hidden="true">🌍</span><span class="nav-txt lang-vi">Quốc gia</span><span class="nav-txt lang-en" style="display:none">Countries</span>
+        <span class="badge-n" id="badge-countries">0</span>
+      </button>
+      <button class="nav-item" data-tab="map" role="tab" aria-selected="false" aria-label="Bản đồ / Map">
+        <span class="nav-ico" aria-hidden="true">🗺️</span><span class="nav-txt lang-vi">Bản đồ</span><span class="nav-txt lang-en" style="display:none">Map</span>
+      </button>
+      <button class="nav-item" data-tab="trends" role="tab" aria-selected="false" aria-label="Xu hướng / Trends">
+        <span class="nav-ico" aria-hidden="true">📈</span><span class="nav-txt lang-vi">Xu hướng</span><span class="nav-txt lang-en" style="display:none">Trends</span>
+      </button>
+      <button class="nav-item" data-tab="compare" role="tab" aria-selected="false" aria-label="So sánh theo năm / Year comparison">
+        <span class="nav-ico" aria-hidden="true">⚖️</span><span class="nav-txt lang-vi">So sánh</span><span class="nav-txt lang-en" style="display:none">Compare</span>
+      </button>
+      <button class="nav-item" data-tab="export" role="tab" aria-selected="false" aria-label="Dữ liệu & Xuất / Data & Export">
+        <span class="nav-ico" aria-hidden="true">📤</span><span class="nav-txt lang-vi">Dữ liệu & Xuất</span><span class="nav-txt lang-en" style="display:none">Data & Export</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="lang-toggle">
+        <button class="lang-btn active" id="lang-vi" onclick="setLang('vi')">🇻🇳 VI</button>
+        <button class="lang-btn" id="lang-en" onclick="setLang('en')">🇬🇧 EN</button>
+      </div>
+      <p class="sidebar-note">
+        <span class="lang-vi">Nguồn: TCHQ — Tổng cục Hải quan Việt Nam</span>
+        <span class="lang-en" style="display:none">Source: Vietnam General Department of Customs</span>
+        <span id="app-version" style="opacity:.6"></span>
+      </p>
+    </div>
+  </aside>
+
+  <!-- ═══ MAIN AREA ═════════════════════════════════════════ -->
+  <div class="main-area">
+
+    <!-- ═══ Sticky header stack: topbar + filter bar + period slicer ═══ -->
+    <div class="header-stack">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="topbar-title">
+        <h2 id="tab-title-vi">Tổng quan xuất khẩu</h2>
+        <p id="tab-sub-vi">Hạt điều · Kỳ báo cáo</p>
+        <h2 id="tab-title-en" style="display:none">Export Overview</h2>
+        <p id="tab-sub-en" style="display:none">Cashew · Reporting period</p>
+      </div>
+      <div class="topbar-spacer"></div>
+      <div class="data-status" id="data-status"><span class="status-dot"></span><span id="data-status-text">Chưa có dữ liệu</span></div>
+      <button class="btn-gold" onclick="document.getElementById('file-input').click()">
+        ＋ <span class="lang-vi">Thêm dữ liệu</span><span class="lang-en" style="display:none">Add data</span>
+      </button>
+      <input type="file" id="file-input" accept=".xlsx,.xls,.csv,.json" multiple style="display:none" onchange="handleFileSelect(event)"/>
+    </header>
+
+    <!-- ═══ GLOBAL FILTER BAR (sticky under topbar) ═══ -->
+    <div class="filter-bar" id="filter-bar">
+      <!-- Ô chuyển đổi Luồng: Xuất khẩu / Nhập khẩu / Cán cân -->
+      <div class="fb-group">
+        <span class="fb-label"><span class="lang-vi">Luồng dữ liệu</span><span class="lang-en" style="display:none">Trade Flow</span></span>
+        <div class="seg-toggle" id="fb-flow" role="group" aria-label="Trade flow selector">
+          <button type="button" data-flow="export" class="active" onclick="setTradeFlow('export')">
+            📤 <span class="lang-vi">Xuất khẩu</span><span class="lang-en" style="display:none">Export</span>
+          </button>
+          <button type="button" data-flow="import" onclick="setTradeFlow('import')">
+            📥 <span class="lang-vi">Nhập khẩu</span><span class="lang-en" style="display:none">Import</span>
+          </button>
+          <button type="button" data-flow="balance" onclick="setTradeFlow('balance')">
+            ⚖️ <span class="lang-vi">Cán cân</span><span class="lang-en" style="display:none">Balance</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Ô chuyển đổi Nguồn dữ liệu: TCHQ / Vinacas (tùy chỉnh khi xem Nhập khẩu / Xuất khẩu) -->
+      <div class="fb-group" id="fb-source-group">
+        <span class="fb-label"><span class="lang-vi">Nguồn dữ liệu</span><span class="lang-en" style="display:none">Data Source</span></span>
+        <div class="seg-toggle" id="fb-source" role="group" aria-label="Data source selector">
+          <button type="button" data-src="tchq" class="active" onclick="setDataSource('tchq')">
+            🏛️ <span class="lang-vi">TCHQ</span><span class="lang-en" style="display:none">Customs</span>
+          </button>
+          <button type="button" data-src="vinacas" onclick="setDataSource('vinacas')">
+            🌾 <span class="lang-vi">Vinacas</span><span class="lang-en" style="display:none">Vinacas</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Ô chuyển đổi Phiên bản số liệu -->
+      <div class="fb-group">
+        <span class="fb-label"><span class="lang-vi">Phiên bản</span><span class="lang-en" style="display:none">Version</span></span>
+        <div class="seg-toggle" id="fb-version" role="group" aria-label="Data version selector">
+          <button type="button" data-ver="official" class="active" onclick="setDataVersion('official')">
+            <span class="lang-vi">Chính thức</span><span class="lang-en" style="display:none">Official</span>
+          </button>
+          <button type="button" data-ver="adjusted" onclick="setDataVersion('adjusted')">
+            <span class="lang-vi">Điều chỉnh</span><span class="lang-en" style="display:none">Adjusted</span>
+          </button>
+          <button type="button" data-ver="preliminary" onclick="setDataVersion('preliminary')">
+            <span class="lang-vi">Sơ bộ</span><span class="lang-en" style="display:none">Prelim</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="fb-group">
+        <span class="fb-label"><span class="lang-vi">Năm</span><span class="lang-en" style="display:none">Year</span></span>
+        <select class="filter-select" id="fb-year-select" onchange="onYearSelectChange(this.value)" aria-label="Year select">
+          <option value="all">Tất cả năm / All</option>
+        </select>
+        <div class="fb-year-chips" id="fb-year-chips"></div>
+      </div>
+      <div class="fb-group">
+        <span class="fb-label"><span class="lang-vi">Chi tiết</span><span class="lang-en" style="display:none">Granularity</span></span>
+        <div class="seg-toggle" id="fb-granularity" role="group" aria-label="Aggregation granularity">
+          <button type="button" data-gran="month" class="active"><span class="lang-vi">Tháng</span><span class="lang-en" style="display:none">Month</span></button>
+          <button type="button" data-gran="quarter"><span class="lang-vi">Quý</span><span class="lang-en" style="display:none">Quarter</span></button>
+          <button type="button" data-gran="year"><span class="lang-vi">Năm</span><span class="lang-en" style="display:none">Year</span></button>
+        </div>
+      </div>
+      <div class="fb-group">
+        <span class="fb-label"><span class="lang-vi">Khu vực</span><span class="lang-en" style="display:none">Region</span></span>
+        <select class="filter-select" id="fb-region" aria-label="Region filter">
+          <option value="">Tất cả khu vực / All regions</option>
+          <option value="asia">Châu Á / Asia</option>
+          <option value="europe">Châu Âu / Europe</option>
+          <option value="americas">Châu Mỹ / Americas</option>
+          <option value="africa">Châu Phi / Africa</option>
+          <option value="meast">Trung Đông / Middle East</option>
+          <option value="oceania">Châu Đại Dương / Oceania</option>
+          <option value="other">Khác / Other</option>
+        </select>
+      </div>
+      <div class="fb-group fb-grow">
+        <span class="fb-label"><span class="lang-vi">Quốc gia</span><span class="lang-en" style="display:none">Country</span></span>
+        <div class="search-box fb-search">
+          <span class="search-ico" aria-hidden="true">🔍</span>
+          <input type="text" id="fb-country" autocomplete="off" aria-label="Country filter"/>
+        </div>
+      </div>
+      <button class="btn-ghost fb-reset" id="fb-reset" onclick="resetFilters()">↺ <span class="lang-vi">Reset</span><span class="lang-en" style="display:none">Reset</span></button>
+    </div>
+
+    <!-- ═══ PERIOD SLICER (fixed, grouped by year) ═══ -->
+    <div class="period-slicer" id="period-slicer">
+      <button class="ps-nav" id="ps-prev" type="button" title="Kỳ trước / Previous period" aria-label="Previous period">◀</button>
+      <div class="ps-strip" id="ps-strip" role="listbox" aria-label="Chọn kỳ báo cáo / Pick reporting period"></div>
+      <button class="ps-nav" id="ps-next" type="button" title="Kỳ sau / Next period" aria-label="Next period">▶</button>
+      <span class="ps-info" id="ps-info"></span>
+    </div>
+
+    </div><!-- /header-stack -->
+
+    <main class="content">
+
+      <!-- ═══════════ TAB 1: TỔNG QUAN ═══════════ -->
+      <section id="tab-overview" class="tab-panel active">
+
+        <!-- Empty hero (hiện khi chưa có dữ liệu) -->
+        <div class="empty-hero" id="empty-hero"
+          onclick="document.getElementById('file-input').click()"
+          ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+          <img class="empty-brand-logo" src="assets/dan_on_food_logo.jpg" alt="Dan on Food"/>
+          <div class="eyebrow">DAN ON FOOD · TRADE EXPLORER</div>
+          <h3 class="lang-vi">Bắt đầu với dữ liệu của bạn</h3>
+          <h3 class="lang-en" style="display:none">Start with your data</h3>
+          <p class="lang-vi">Kéo thả Excel, CSV hoặc JSON vào đây. Dữ liệu được xử lý ngay trên trình duyệt, không cần backend.</p>
+          <p class="lang-en" style="display:none">Drop an Excel, CSV or JSON file here. Data stays in your browser — no backend required.</p>
+          <button class="btn-gold" onclick="event.stopPropagation();document.getElementById('file-input').click()">
+            <span class="lang-vi">Chọn file dữ liệu</span><span class="lang-en" style="display:none">Choose data file</span>
+          </button>
+          <div class="upload-hint">XLSX · XLS · CSV · JSON</div>
+        </div>
+
+        <!-- Data view (hiện khi có dữ liệu) -->
+        <div id="overview-data" style="display:none">
+
+          <div class="hero-banner">
+            <div class="hero-bg"></div><div class="hero-overlay"></div>
+            <div class="hero-content"><div class="hero-left">
+              <div class="hero-tag" id="hero-tag">TCHQ · Vietnam Cashew Trade</div>
+              <div class="hero-title" id="hero-title">Xuất khẩu <span>Hạt Điều Việt Nam</span></div>
+              <div class="hero-subtitle">
+                Kỳ báo cáo <b id="hero-period">—</b> · <span id="hero-source-text">Dữ liệu Tổng cục Hải quan</span>
+                <span id="hero-source-badge" style="margin-left:8px;padding:3px 8px;border-radius:6px;background:rgba(201,162,39,0.18);color:#2B2113;font-size:11px;font-weight:700;border:1px solid rgba(201,162,39,0.35);">🏛️ Nguồn: TCHQ</span>
+                <span id="hero-fallback-badge" style="display:none;margin-left:8px;padding:3px 8px;border-radius:6px;background:#FFF3CD;color:#856404;font-size:11px;font-weight:700;border:1px solid #FFEEBA;" title="Suy ngược từ kỳ sau theo % thay đổi TCHQ">⚡ Ước tính (Fallback)</span>
+              </div>
+              <div class="hero-kpi-row"><div class="hero-kpi"><div class="hk-val" id="hero-qty">—</div><div class="hk-label" id="hero-qty-label">Tấn / tháng</div></div><div class="hero-divider"></div><div class="hero-kpi"><div class="hk-val" id="hero-value">—</div><div class="hk-label" id="hero-value-label">USD / tháng</div></div></div>
+            </div><div class="hero-right"><img class="hero-logo" src="assets/dan_on_food_logo.jpg" alt="Dan on Food"/></div></div>
+          </div>
+
+          <!-- KPI Cards -->
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-icon">📦</div>
+              <div>
+                <div class="kpi-label" id="kpi-qty-month-label"><span class="lang-vi">Sản lượng tháng (Tấn)</span><span class="lang-en" style="display:none">Monthly Volume (Tons)</span></div>
+                <div class="kpi-value" id="kpi-qty-month">—</div>
+                <div class="kpi-sub" id="kpi-qty-month-sub">—</div>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-icon">💵</div>
+              <div>
+                <div class="kpi-label" id="kpi-val-month-label"><span class="lang-vi">Trị giá tháng (USD)</span><span class="lang-en" style="display:none">Monthly Value (USD)</span></div>
+                <div class="kpi-value" id="kpi-val-month">—</div>
+                <div class="kpi-sub" id="kpi-val-month-sub">—</div>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-icon">📈</div>
+              <div>
+                <div class="kpi-label"><span class="lang-vi">Sản lượng YTD (Tấn)</span><span class="lang-en" style="display:none">YTD Volume (Tons)</span></div>
+                <div class="kpi-value" id="kpi-qty-ytd">—</div>
+                <div class="kpi-sub" id="kpi-qty-ytd-sub">—</div>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-icon">💰</div>
+              <div>
+                <div class="kpi-label"><span class="lang-vi">Trị giá YTD (USD)</span><span class="lang-en" style="display:none">YTD Value (USD)</span></div>
+                <div class="kpi-value" id="kpi-val-ytd">—</div>
+                <div class="kpi-sub" id="kpi-val-ytd-sub">—</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts: Top 10 bar + Donut -->
+          <div class="charts-row">
+            <div class="card" style="margin-bottom:0"><div class="card-head"><div><div class="card-title">Xu hướng trị giá theo kỳ</div><div class="card-sub">Trị giá CY tháng (gold) · YTD lũy kế (green) · USD</div></div><div class="seg-toggle" id="fb-vtmode" role="group" aria-label="Chart mode" style="display:none"><button type="button" data-vt="cy" class="active" onclick="setVtMode('cy')"><span class="lang-vi">CY Tháng</span><span class="lang-en" style="display:none">CY Month</span></button><button type="button" data-vt="ytd" onclick="setVtMode('ytd')"><span class="lang-vi">YTD Lũy kế</span><span class="lang-en" style="display:none">YTD Cumulative</span></button></div></div><div class="chart-box" style="height:150px"><canvas id="area-chart"></canvas></div><div class="card-sub" style="margin-top:12px;font-weight:700;color:var(--gold-deep)"><span class="lang-vi">YTD lũy kế theo kỳ</span><span class="lang-en" style="display:none">YTD cumulative</span></div><div class="chart-box" style="height:110px;margin-top:6px"><canvas id="area-chart-ytd"></canvas></div></div>
+            <div class="card" style="margin-bottom:0">
+              <div class="card-head">
+                <div>
+                  <div class="card-title"><span class="lang-vi">Tỷ trọng thị trường</span><span class="lang-en" style="display:none">Market Share</span></div>
+                  <div class="card-sub"><span class="lang-vi">Top 6 + quốc gia ngoài Top 6 + phần dư Other</span><span class="lang-en" style="display:none">Top 6 + countries outside Top 6 + Other residual</span></div>
+                </div>
+              </div>
+              <div class="chart-box" style="height:190px"><canvas id="donut-chart"></canvas></div>
+              <div class="donut-legend" id="donut-legend"></div>
+            </div>
+          </div>
+          <div class="charts-row">
+            <div class="card" style="margin-bottom:0"><div class="card-head"><div><div class="card-title">Top 10 thị trường</div><div class="card-sub">Theo trị giá tháng</div></div></div><div class="chart-box"><canvas id="bar-chart"></canvas></div></div>
+            <div class="card" style="margin-bottom:0"><div class="card-head"><div><div class="card-title">Tỷ trọng thị trường</div><div class="card-sub">Top thị trường theo trị giá</div></div></div><div id="progress-bars" class="progress-list"></div></div>
+          </div>
+
+          <!-- Loaded periods mini-table -->
+          <div class="card" style="margin-top:20px">
+            <div class="card-head">
+              <div>
+                <div class="card-title"><span class="lang-vi">Các kỳ đã tải</span><span class="lang-en" style="display:none">Loaded Periods</span></div>
+                <div class="card-sub"><span class="lang-vi">So sánh trị giá hạt điều giữa các kỳ</span><span class="lang-en" style="display:none">Cashew value comparison across periods</span></div>
+              </div>
+              <span class="trust-badge" style="display:none">⚠ <span class="lang-vi">Chi tiết chưa đối soát</span><span class="lang-en" style="display:none">Detail not reconciled</span></span>
+            </div>
+            <div class="table-wrap">
+              <table class="data-table" style="min-width:560px">
+                <thead>
+                  <tr>
+                    <th><span class="lang-vi">Kỳ</span><span class="lang-en" style="display:none">Period</span></th>
+                    <th class="num"><span class="lang-vi">CY Lượng (Tấn)</span><span class="lang-en" style="display:none">CY Qty (Tons)</span></th>
+                    <th class="num"><span class="lang-vi">CY Trị giá (USD)</span><span class="lang-en" style="display:none">CY Value (USD)</span></th>
+                    <th class="num"><span class="lang-vi">YTD Lượng (Tấn)</span><span class="lang-en" style="display:none">YTD Qty (Tons)</span></th>
+                    <th class="num"><span class="lang-vi">YTD Trị giá (USD)</span><span class="lang-en" style="display:none">YTD Value (USD)</span></th>
+                  </tr>
+                </thead>
+                <tbody id="periods-body">
+                  <tr><td colspan="5"><div class="empty-state"><div class="empty-icon"></div><span class="lang-vi">Chưa có dữ liệu</span><span class="lang-en" style="display:none">No data</span></div></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════ TAB 2: QUỐC GIA ═══════════ -->
+      <section id="tab-countries" class="tab-panel">
+        <div class="charts-row-half"><div class="card"><div class="card-head"><div class="card-title">So sánh Top 5 thị trường</div></div><div class="chart-box-sm"><canvas id="radar-chart"></canvas></div></div><div class="card"><div class="card-head"><div class="card-title">Lượng × Trị giá × Thị phần</div></div><div class="chart-box-sm"><canvas id="bubble-chart"></canvas></div></div></div>
+        <div class="card">
+          <div class="card-head">
+            <div>
+              <div class="card-title"><span class="lang-vi">Chi tiết xuất khẩu theo quốc gia</span><span class="lang-en" style="display:none">Export Detail by Country</span></div>
+              <div class="card-sub"><span class="lang-vi">Hạt điều · tìm kiếm, sắp xếp, phân trang</span><span class="lang-en" style="display:none">Cashew · searchable, sortable, paginated</span></div>
+            </div>
+            <span class="trust-badge" style="display:none">⚠ <span class="lang-vi">Chi tiết chưa đối soát</span><span class="lang-en" style="display:none">Detail not reconciled</span></span>
+          </div>
+          <div class="table-toolbar">
+            <div class="search-box">
+              <span class="search-ico">🔍</span>
+              <input type="text" id="country-search" placeholder="Tìm quốc gia..." oninput="debounceSearch(this.value); updateCountrySearchClear(this)" autocomplete="off"/>
+              <button class="country-search-clear" id="country-search-clear" type="button" onclick="clearCountrySearch()" aria-label="Xóa tìm kiếm" title="Xóa tìm kiếm" hidden>×</button>
+            </div>
+            <select class="filter-select" id="product-filter" onchange="applyFilters()">
+              <option value="">Tất cả / All</option>
+              <option value="hạt điều" selected>Hạt điều / Cashew</option>
+            </select>
+            <span class="record-count"><span id="record-n">0</span> <span class="lang-vi">bản ghi</span><span class="lang-en" style="display:none">records</span></span>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table" id="pivot-table">
+              <thead>
+                <tr>
+                  <th onclick="sortTable('country')" data-col="country"><span class="lang-vi">Quốc gia</span><span class="lang-en" style="display:none">Country</span><span class="sort-ind">▼</span></th>
+                  <th onclick="sortTable('product')" data-col="product"><span class="lang-vi">Mặt hàng</span><span class="lang-en" style="display:none">Product</span><span class="sort-ind">▼</span></th>
+                  <th onclick="sortTable('unit')" data-col="unit"><span class="lang-vi">ĐVT</span><span class="lang-en" style="display:none">Unit</span><span class="sort-ind">▼</span></th>
+                  <th class="num" onclick="sortTable('quantity_month')" data-col="quantity_month"><span class="lang-vi">CY Lượng</span><span class="lang-en" style="display:none">CY Qty</span><span class="sort-ind">▼</span></th>
+                  <th class="num" onclick="sortTable('value_month_usd')" data-col="value_month_usd"><span class="lang-vi">CY Trị giá (USD)</span><span class="lang-en" style="display:none">CY Value (USD)</span><span class="sort-ind">▼</span></th>
+                  <th class="num" onclick="sortTable('quantity_ytd')" data-col="quantity_ytd"><span class="lang-vi">YTD Lượng</span><span class="lang-en" style="display:none">YTD Qty</span><span class="sort-ind">▼</span></th>
+                  <th class="num" onclick="sortTable('value_ytd_usd')" data-col="value_ytd_usd"><span class="lang-vi">YTD Trị giá (USD)</span><span class="lang-en" style="display:none">YTD Value (USD)</span><span class="sort-ind">▼</span></th>
+                </tr>
+              </thead>
+              <tbody id="pivot-body">
+                <tr><td colspan="7"><div class="empty-state"><div class="empty-icon">📂</div><span class="lang-vi">Chưa có dữ liệu — tải file Excel để bắt đầu</span><span class="lang-en" style="display:none">No data — upload an Excel file to begin</span></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-footer">
+            <div class="page-info" id="page-info"></div>
+            <div class="pagination" id="pagination"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════ TAB 3: BẢN ĐỒ ═══════════ -->
+      <section id="tab-map" class="tab-panel">
+        <div class="card map-card-wrap">
+          <div class="card-head">
+            <div>
+              <div class="card-title"><span class="lang-vi">Bản đồ xuất khẩu</span><span class="lang-en" style="display:none">Export Map</span></div>
+              <div class="card-sub">
+                <span class="lang-vi">Màu theo trị giá tháng (USD) · kỳ: <b id="map-period-label">—</b> · nhấn vào quốc gia để xem chi tiết</span>
+                <span class="lang-en" style="display:none">Colored by monthly value (USD) · period: <b id="map-period-label-en">—</b> · click a country for details</span>
+              </div>
+            </div>
+            <span class="trust-badge" style="display:none">⚠ <span class="lang-vi">Chi tiết chưa đối soát</span><span class="lang-en" style="display:none">Detail not reconciled</span></span>
+            <button class="btn-ghost" id="map-reset" onclick="resetMapView()" style="display:none">↺ <span class="lang-vi">Bỏ chọn</span><span class="lang-en" style="display:none">Reset</span></button>
+          </div>
+          <div class="map-layout">
+            <div class="map-canvas-wrap">
+              <div id="world-map">
+                <div class="empty-state">
+                  <div class="empty-icon" aria-hidden="true">🗺️</div>
+                  <span class="lang-vi">Tải file Excel để hiển thị bản đồ</span><span class="lang-en" style="display:none">Upload Excel to show map</span>
+                </div>
+              </div>
+              <div class="map-legend" id="map-legend" style="display:none">
+                <div class="ml-title"><span class="lang-vi">Trị giá tháng (USD)</span><span class="lang-en" style="display:none">Monthly value (USD)</span></div>
+                <div class="ml-rows" id="map-legend-rows"></div>
+              </div>
+            </div>
+            <aside class="map-panel" id="map-panel" aria-live="polite">
+              <div class="mp-hint" id="map-panel-hint">
+                <div class="mp-hint-ico" aria-hidden="true">👆</div>
+                <div>
+                  <div class="lang-vi">Nhấn vào một quốc gia trên bản đồ<br/>để xem chi tiết xuất khẩu</div>
+                  <div class="lang-en" style="display:none">Click a country on the map<br/>to view export details</div>
+                </div>
+              </div>
+              <div class="mp-detail" id="map-panel-detail" style="display:none">
+                <div class="mp-head">
+                  <span class="mp-rank" id="mp-rank">#1</span>
+                  <h4 id="mp-name">—</h4>
+                </div>
+                <div class="mp-kpis">
+                  <div class="mp-kpi mp-kpi-cy">
+                    <span class="mp-k"><span class="lang-vi">CY Trị giá (USD)</span><span class="lang-en" style="display:none">CY Value (USD)</span></span>
+                    <span class="mp-v" id="mp-val">—</span>
+                  </div>
+                  <div class="mp-kpi mp-kpi-cy">
+                    <span class="mp-k"><span class="lang-vi">CY Lượng (Tấn)</span><span class="lang-en" style="display:none">CY Qty (Tons)</span></span>
+                    <span class="mp-v" id="mp-qty">—</span>
+                  </div>
+                  <div class="mp-kpi mp-kpi-ytd">
+                    <span class="mp-k"><span class="lang-vi">YTD Trị giá (USD)</span><span class="lang-en" style="display:none">YTD Value (USD)</span></span>
+                    <span class="mp-v" id="mp-ytd">—</span>
+                  </div>
+                  <div class="mp-kpi mp-kpi-ytd">
+                    <span class="mp-k"><span class="lang-vi">YTD Lượng (Tấn)</span><span class="lang-en" style="display:none">YTD Qty (Tons)</span></span>
+                    <span class="mp-v" id="mp-qty-ytd">—</span>
+                  </div>
+                  <div class="mp-kpi full">
+                    <span class="mp-k"><span class="lang-vi">Thị phần trong kỳ</span><span class="lang-en" style="display:none">Period Market share</span></span>
+                    <span class="mp-v" id="mp-share">—</span>
+                    <div class="mp-share-track" role="progressbar" aria-label="Thị phần" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                      <div class="mp-share-fill" id="mp-share-fill"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mp-period"><span class="lang-vi">Kỳ:</span><span class="lang-en" style="display:none">Period:</span> <b id="mp-period">—</b> <span class="mp-version-badge" id="mp-version" style="display:none">—</span></div>
+                <div class="mp-trend-title"><span class="lang-vi">Xu hướng trị giá theo kỳ</span><span class="lang-en" style="display:none">Value trend across periods</span></div>
+                <div class="mp-trend-box"><canvas id="mp-trend-chart"></canvas></div>
+                <div class="mp-actions">
+                  <button class="btn-ghost" onclick="jumpToCountryTable()">📋 <span class="lang-vi">Xem trong bảng</span><span class="lang-en" style="display:none">View in table</span></button>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════ TAB 4: XU HƯỚNG ═══════════ -->
+      <section id="tab-trends" class="tab-panel">
+        <div class="charts-row-half">
+          <div class="card">
+            <div class="card-head">
+              <div>
+                <div class="card-title"><span class="lang-vi">Trị giá CY theo kỳ</span><span class="lang-en" style="display:none">CY Value by period</span></div>
+                <div class="card-sub"><span class="lang-vi">Xuất khẩu tháng (USD) — theo Tháng/Quý/Năm</span><span class="lang-en" style="display:none">Monthly exports (USD) — follows Month/Quarter/Year</span></div>
+              </div>
+            </div>
+            <div class="chart-box" style="height:300px"><canvas id="line-chart"></canvas></div>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <div>
+                <div class="card-title"><span class="lang-vi">Trị giá YTD lũy kế theo kỳ</span><span class="lang-en" style="display:none">YTD cumulative value</span></div>
+                <div class="card-sub"><span class="lang-vi">Lũy kế từ đầu năm (USD) — reset mỗi năm</span><span class="lang-en" style="display:none">Cumulative from year start (USD) — resets yearly</span></div>
+              </div>
+            </div>
+            <div class="chart-box" style="height:300px"><canvas id="ytd-line-chart"></canvas></div>
+          </div>
+        </div>
+        <div class="charts-row-half">
+          <div class="card">
+            <div class="card-head">
+              <div>
+                <div class="card-title"><span class="lang-vi">Sản lượng CY theo kỳ</span><span class="lang-en" style="display:none">CY Volume by period</span></div>
+                <div class="card-sub"><span class="lang-vi">Sản lượng xuất khẩu tháng (Tấn)</span><span class="lang-en" style="display:none">Monthly export volume (Tons)</span></div>
+              </div>
+            </div>
+            <div class="chart-box" style="height:300px"><canvas id="stacked-chart"></canvas></div>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <div>
+                <div class="card-title"><span class="lang-vi">Sản lượng YTD lũy kế theo kỳ</span><span class="lang-en" style="display:none">YTD cumulative volume</span></div>
+                <div class="card-sub"><span class="lang-vi">Lũy kế từ đầu năm (Tấn)</span><span class="lang-en" style="display:none">Cumulative from year start (Tons)</span></div>
+              </div>
+            </div>
+            <div class="chart-box" style="height:300px"><canvas id="ytd-qty-chart"></canvas></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <div>
+              <div class="card-title"><span class="lang-vi">Bảng theo kỳ</span><span class="lang-en" style="display:none">Period Breakdown</span></div>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table" style="min-width:680px">
+              <thead>
+                <tr>
+                  <th><span class="lang-vi">Kỳ</span><span class="lang-en" style="display:none">Period</span></th>
+                  <th class="num"><span class="lang-vi">Sản lượng (Tấn)</span><span class="lang-en" style="display:none">Volume (Tons)</span></th>
+                  <th class="num"><span class="lang-vi">Trị giá (USD)</span><span class="lang-en" style="display:none">Value (USD)</span></th>
+                  <th class="num"><span class="lang-vi">YTD Trị giá (USD)</span><span class="lang-en" style="display:none">YTD Value (USD)</span></th>
+                  <th class="num"><span class="lang-vi">Δ trị giá</span><span class="lang-en" style="display:none">Δ Value</span></th>
+                </tr>
+              </thead>
+              <tbody id="trends-body">
+                <tr><td colspan="5"><div class="empty-state"><div class="empty-icon">📉</div><span class="lang-vi">Cần tải ít nhất 1 kỳ dữ liệu</span><span class="lang-en" style="display:none">Load at least one period</span></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════ TAB 5: SO SÁNH THEO NĂM ═══════════ -->
+      <section id="tab-compare" class="tab-panel">
+        <div class="kpi-grid" id="compare-kpis"></div>
+
+        <div class="card">
+          <div class="card-head">
+            <div>
+              <div class="card-title"><span class="lang-vi">Trị giá & sản lượng theo năm</span><span class="lang-en" style="display:none">Value & volume by year</span></div>
+              <div class="card-sub"><span class="lang-vi">Cột trái: USD · cột phải: Tấn — theo bộ lọc đang chọn</span><span class="lang-en" style="display:none">Left axis: USD · right axis: Tons — follows active filters</span></div>
+            </div>
+          </div>
+          <div class="chart-box" style="height:320px"><canvas id="compare-bar"></canvas></div>
+        </div>
+
+        <div class="charts-row-half">
+          <div class="card">
+            <div class="card-head">
+              <div>
+                <div class="card-title"><span class="lang-vi">Bảng so sánh năm</span><span class="lang-en" style="display:none">Year-over-year table</span></div>
+                <div class="card-sub"><span class="lang-vi">Δ% so với năm liền trước</span><span class="lang-en" style="display:none">Δ% vs previous year</span></div>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table class="data-table" style="min-width:560px">
+                <thead>
+                  <tr>
+                    <th><span class="lang-vi">Năm</span><span class="lang-en" style="display:none">Year</span></th>
+                    <th class="num"><span class="lang-vi">Trị giá (USD)</span><span class="lang-en" style="display:none">Value (USD)</span></th>
+                    <th class="num">Δ%</th>
+                    <th class="num"><span class="lang-vi">Sản lượng (Tấn)</span><span class="lang-en" style="display:none">Volume (Tons)</span></th>
+                    <th class="num">Δ%</th>
+                    <th><span class="lang-vi">Top thị trường</span><span class="lang-en" style="display:none">Top market</span></th>
+                  </tr>
+                </thead>
+                <tbody id="compare-body"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <div>
+                <div class="card-title"><span class="lang-vi">Ma trận Năm × Quý</span><span class="lang-en" style="display:none">Year × Quarter matrix</span></div>
+                <div class="card-sub"><span class="lang-vi">Ô đậm hơn = trị giá quý đó cao hơn</span><span class="lang-en" style="display:none">Darker cell = higher quarterly value</span></div>
+              </div>
+            </div>
+            <div class="matrix-grid" id="compare-matrix"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════ TAB 6: DỮ LIỆU & XUẤT ═══════════ -->
+      <section id="tab-export" class="tab-panel">
+        <div class="card">
+          <div class="card-head">
+            <div>
+              <div class="card-title"><span class="lang-vi">Xuất dữ liệu</span><span class="lang-en" style="display:none">Export Data</span></div>
+              <div class="card-sub">
+                <span class="lang-vi">Kỳ đang chọn: <b id="export-period-label">—</b></span>
+                <span class="lang-en" style="display:none">Active period: <b id="export-period-label-en">—</b></span>
+              </div>
+            </div>
+          </div>
+          <div class="export-grid">
+            <button class="export-card export-primary" id="ex-html" onclick="exportHTMLReport()">
+              <div class="ex-ico" aria-hidden="true">🌐</div>
+              <h4><span class="lang-vi">Báo cáo HTML</span><span class="lang-en" style="display:none">HTML Report</span></h4>
+              <p><span class="lang-vi">KPI + biểu đồ · in PDF · trình chiếu</span><span class="lang-en" style="display:none">KPI + charts · print PDF · slides</span></p>
+              <span class="ex-badge">NEW</span>
+            </button>
+            <button class="export-card" id="ex-json" onclick="exportJSON()">
+              <div class="ex-ico" aria-hidden="true">🧾</div>
+              <h4>JSON</h4>
+              <p><span class="lang-vi">Chuẩn pipeline · kéo-thả lại được</span><span class="lang-en" style="display:none">Pipeline schema · re-loadable</span></p>
+            </button>
+            <button class="export-card" id="ex-excel" onclick="exportExcel()">
+              <div class="ex-ico" aria-hidden="true">📊</div>
+              <h4>Excel</h4>
+              <p><span class="lang-vi">5 sheet · KPI + biểu đồ</span><span class="lang-en" style="display:none">5 sheets · KPI + charts</span></p>
+            </button>
+            <button class="export-card" id="ex-csv" onclick="exportCSV()">
+              <div class="ex-ico" aria-hidden="true">📃</div>
+              <h4>CSV</h4>
+              <p><span class="lang-vi">Theo luồng đang chọn (XK/NK)</span><span class="lang-en" style="display:none">Follows active flow (EX/IM)</span></p>
+            </button>
+            <button class="export-card" id="ex-pdf" onclick="exportPDF()">
+              <div class="ex-ico" aria-hidden="true">📋</div>
+              <h4><span class="lang-vi">Báo cáo PDF</span><span class="lang-en" style="display:none">PDF report</span></h4>
+              <p><span class="lang-vi">Chọn báo cáo năm hoặc tháng</span><span class="lang-en" style="display:none">Choose annual or monthly report</span></p>
+            </button>
+            <button class="export-card" id="ex-pptx" onclick="exportPPTX()">
+              <div class="ex-ico" aria-hidden="true">📑</div>
+              <h4><span class="lang-vi">Báo cáo PPTX</span><span class="lang-en" style="display:none">PPTX report</span></h4>
+              <p><span class="lang-vi">Chọn báo cáo năm hoặc tháng</span><span class="lang-en" style="display:none">Choose annual or monthly report</span></p>
+            </button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <div>
+              <div class="card-title"><span class="lang-vi">File đã tải lên</span><span class="lang-en" style="display:none">Uploaded Files</span></div>
+            </div>
+            <button class="btn-ghost" onclick="document.getElementById('file-input').click()">＋ <span class="lang-vi">Thêm file</span><span class="lang-en" style="display:none">Add file</span></button>
+          </div>
+          <div id="file-list">
+            <div class="empty-state"><div class="empty-icon">📂</div><span class="lang-vi">Chưa có file nào</span><span class="lang-en" style="display:none">No files yet</span></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <div>
+              <div class="card-title"><span class="lang-vi">Về dữ liệu</span><span class="lang-en" style="display:none">About the data</span></div>
+            </div>
+          </div>
+          <p style="font-size:13px;color:var(--text-secondary);line-height:1.7">
+            <span class="lang-vi">Dữ liệu xuất khẩu hạt điều được thu thập từ báo cáo số liệu định kỳ của
+            Tổng cục Hải quan Việt Nam (customs.gov.vn) — biểu 015.T (xuất khẩu hàng hóa tháng) và
+            020.T (xuất khẩu theo nước/vùng lãnh thổ chia theo mặt hàng). Số liệu "Sơ bộ" có thể được
+            hải quan điều chỉnh sau. Đơn vị: Tấn và USD.</span>
+            <span class="lang-en" style="display:none">Cashew export data is collected from the periodic statistics of
+            Vietnam's General Department of Customs (customs.gov.vn) — form 015.T (monthly exports) and
+            020.T (exports by country/territory by commodity). "Preliminary" figures may be adjusted later.
+            Units: Tons and USD.</span>
+          </p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<div class="export-dialog" id="annual-export-modal" hidden>
+  <form class="export-dialog-card" id="annual-export-form" onsubmit="confirmAnnualExport(event)" role="dialog" aria-modal="true" aria-labelledby="annual-export-title">
+    <h2 id="annual-export-title">
+      <span class="lang-vi">Thiết lập báo cáo</span>
+      <span class="lang-en" style="display:none">Report settings</span>
+    </h2>
+    <p class="export-dialog-description">
+      <span class="lang-vi">Báo cáo tách riêng TCHQ xuất khẩu, TCHQ nhập khẩu và Vinacas nhập khẩu RCN.</span>
+      <span class="lang-en" style="display:none">The report keeps TCHQ exports, TCHQ imports, and Vinacas RCN imports separate.</span>
+    </p>
+    <label for="annual-export-scope">
+      <span class="lang-vi">Kỳ báo cáo</span><span class="lang-en" style="display:none">Report period</span>
+    </label>
+    <select id="annual-export-scope" required onchange="updateAnnualExportPeriodFields()">
+      <option value="annual">Theo năm / Annual</option>
+      <option value="monthly">Theo tháng / Monthly</option>
+    </select>
+    <label for="annual-export-year">
+      <span class="lang-vi">Năm báo cáo</span><span class="lang-en" style="display:none">Report year</span>
+    </label>
+    <select id="annual-export-year" required onchange="updateAnnualExportPeriodFields()"></select>
+    <div id="annual-export-month-field" hidden>
+      <label for="annual-export-month">
+        <span class="lang-vi">Tháng báo cáo</span><span class="lang-en" style="display:none">Report month</span>
+      </label>
+      <select id="annual-export-month"></select>
+    </div>
+    <p class="export-dialog-note" id="annual-export-month-empty" hidden>
+      <span class="lang-vi">Năm này không có dữ liệu theo tháng để xuất.</span>
+      <span class="lang-en" style="display:none">No monthly data is available for this year.</span>
+    </p>
+    <label for="annual-export-version">
+      <span class="lang-vi">Phiên bản dữ liệu TCHQ</span><span class="lang-en" style="display:none">TCHQ data version</span>
+    </label>
+    <select id="annual-export-version" required>
+      <option value="official">Chính thức / Official</option>
+      <option value="adjusted">Điều chỉnh / Adjusted</option>
+      <option value="preliminary">Sơ bộ / Preliminary</option>
+    </select>
+    <p class="export-dialog-note">
+      <span class="lang-vi">Kỳ dùng phiên bản khác hoặc số liệu ước tính sẽ được gắn cờ; dữ liệu Vinacas không bị lọc theo phiên bản TCHQ.</span>
+      <span class="lang-en" style="display:none">Periods using another version or estimates are flagged; Vinacas is not filtered by the TCHQ version.</span>
+    </p>
+    <div class="export-dialog-actions">
+      <button type="button" class="btn-ghost" onclick="cancelAnnualExport()">
+        <span class="lang-vi">Hủy</span><span class="lang-en" style="display:none">Cancel</span>
+      </button>
+      <button type="submit" class="btn-primary" id="annual-export-submit">
+        <span class="lang-vi">Tạo báo cáo</span><span class="lang-en" style="display:none">Generate report</span>
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- Loading overlay (shown while parsing Excel/JSON) -->
+<div class="loading-overlay" id="loading-overlay" role="status" aria-live="polite">
+  <div class="spinner-ring" aria-hidden="true"></div>
+  <div class="loading-text" id="loading-text">Đang xử lý dữ liệu…</div>
+</div>
+
+<!-- Toast container -->
+<div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="false"></div>
+
+<!-- ═══ SCRIPTS ════════════════════════════════════════════ -->
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="app.js?v=17"></script>
+<!-- Phase 4 (Master Plan v2): export PDF/PPTX bản mới — override exportPDF()/exportPPTX() inline trong app.js (chủ đích, app.js giữ làm fallback) -->
+<script src="new_exportPDF.js?v=11"></script>
+<script src="new_exportPPTX.js?v=11"></script>
+</body>
+</html>

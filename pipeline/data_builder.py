@@ -1,0 +1,1329 @@
+"""data_builder.py — Database layer for XNK Cashew web visualization.
+
+Reads all YYYY-MM_cashew.xlsx in output/YYYY/ and writes per-year JSON to output/data/.
+Each JSON serves as a lightweight database for the web dashboard.
+
+Usage:
+    python pipeline/data_builder.py                # rebuild all years
+    python pipeline/data_builder.py --year 2025    # rebuild one year
+    python pipeline/data_builder.py --period 2025-09  # update single period only
+
+Callable from ocr_pipeline.py after each run:
+    from pipeline.data_builder import update_period_data
+    update_period_data("2025-09")
+"""
+from __future__ import annotations
+
+import argparse
+import csv
+import json
+import logging
+from datetime import datetime, timezone
+from pathlib import Path
+
+log = logging.getLogger(__name__)
+
+# Resolve paths relative to this file: pipeline/ → code/ → output/
+try:
+    from .paths import CODE_DIR as _CODE_DIR, PERIOD_RE, resolve_output_root
+except ImportError:  # direct execution: python pipeline/data_builder.py
+    from paths import CODE_DIR as _CODE_DIR, PERIOD_RE, resolve_output_root
+OUTPUT_DIR = resolve_output_root()
+DATA_DIR = OUTPUT_DIR / "data"
+
+# ---------------------------------------------------------------------------
+# Column name constants (must match ocr_pipeline.py COL_VI)
+# ---------------------------------------------------------------------------
+_COL_COUNTRY  = "Quốc gia"
+_COL_PRODUCT  = "mặt hàng"
+_COL_UNIT     = "Đơn vị tính"
+_COL_CY_L     = "CY Lượng"
+_COL_CY_TG    = "CY Trị giá (USD)"
+_COL_YTD_L    = "YTD Lượng"
+_COL_YTD_TG   = "YTD Trị giá (USD)"
+
+# Nhãn "Phiên bản" trong Excel → key chuẩn (official/adjusted/preliminary/derived)
+_VERSION_KEY_MAP = {
+    "chính thức": "official", "chinh thuc": "official", "official": "official",
+    "điều chỉnh": "adjusted", "dieu chinh": "adjusted", "adjusted": "adjusted",
+    "sơ bộ": "preliminary", "so bo": "preliminary", "preliminary": "preliminary",
+    "ước tính": "derived", "uoc tinh": "derived", "derived": "derived",
+}
+
+def _version_label_to_key(label: str) -> str:
+    """Chuyển nhãn phiên bản (tiếng Việt hoặc tiếng Anh) về key chuẩn."""
+    t = str(label or "").strip().casefold()
+    if not t:
+        return ""
+    for k, v in _VERSION_KEY_MAP.items():
+        if t.startswith(k) or k in t:
+            return v
+    return ""
+
+
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+
+def _now_iso() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def _safe_int(val) -> int | None:
+    """Convert pandas Int64 / float / None to plain Python int or None."""
+    if val is None:
+        return None
+    try:
+        import pandas as pd  # type: ignore
+        if pd.isna(val):
+            return None
+    except Exception:
+        pass
+    try:
+        return int(val)
+    except (TypeError, ValueError):
+        return None
+
+
+def _monthly_workbooks(year_dir: Path, year: int) -> list[Path]:
+    """Prefer canonical YYYY/YYYY-MM files over duplicate legacy files in YYYY/."""
+    selected: dict[str, Path] = {}
+    for path in year_dir.glob(f"{year}-??_cashew.xlsx"):
+        selected[path.stem.replace("_cashew", "")] = path
+    for month_dir in year_dir.glob(f"{year}-??"):
+        if not month_dir.is_dir():
+            continue
+        for path in month_dir.glob(f"{year}-??_cashew.xlsx"):
+            selected[path.stem.replace("_cashew", "")] = path
+    return [selected[p] for p in sorted(selected)]
+
+
+# ---------------------------------------------------------------------------
+# Excel → dict parser
+# ---------------------------------------------------------------------------
+
+def _parse_xlsx(xlsx_path: Path) -> dict | None:
+    """Parse a single YYYY-MM_cashew.xlsx and return a normalised dict.
+
+    Supports both new 4-sheet format (Tong_Quan_XNK, XK_Theo_Nuoc, NK_Theo_Nuoc, Lich_Su_Phien_Ban)
+    and legacy 2-sheet format (Tong_XK, XK_Theo_Nuoc).
+    """
+    try:
+        import openpyxl  # type: ignore
+    except ImportError:
+        log.error("openpyxl required — pip install openpyxl")
+        return None
+
+    try:
+        wb = openpyxl.load_workbook(str(xlsx_path), read_only=True, data_only=True)
+    except Exception as exc:
+        log.warning("Cannot open %s: %s", xlsx_path.name, exc)
+        return None
+
+    period = xlsx_path.stem.replace("_cashew", "")   # "2025-09"
+    result: dict = {
+        "period": period,
+        "tong_xk": None,
+        "tong_nk": None,
+        "trade_balance_usd": None,
+        "xk_theo_nuoc": [],
+        "nk_theo_nuoc": [],
+        "versions": [],
+    }
+
+    # ── 1. Sheet Tong_Quan_XNK (hoặc legacy Tong_XK) ──────────────────────────
+    summary_sheet = "Tong_Quan_XNK" if "Tong_Quan_XNK" in wb.sheetnames else ("Tong_XK" if "Tong_XK" in wb.sheetnames else None)
+    # Thu thập TẤT CẢ phiên bản summary (official/adjusted/preliminary)
+    result["tong_xk_versions"] = {}
+    result["tong_nk_versions"] = {}
+    if summary_sheet:
+        ws = wb[summary_sheet]
+        rows = list(ws.iter_rows(values_only=True))
+        if summary_sheet == "Tong_Quan_XNK":
+            for row in rows[2:]:
+                if row is None or all(v is None for v in row):
+                    continue
+                if len(row) >= 7:
+                    flow = str(row[2] or "").lower()
+                    def _safe_flt(val):
+                        try: return float(val) if val is not None else None
+                        except (ValueError, TypeError): return None
+                    rec = {
+                        "period": str(row[1] or period),
+                        "direction": "export" if "xuất" in flow else "import",
+                        "product": str(row[3] or "Hạt điều"),
+                        "unit": str(row[4] or "Tấn"),
+                        "quantity_month": _safe_int(row[5]),
+                        "value_month_usd": _safe_int(row[6]),
+                        "pct_change_prev_month_qty": _safe_flt(row[7]) if len(row) > 7 else None,
+                        "pct_change_prev_month_val": _safe_flt(row[8]) if len(row) > 8 else None,
+                        "quantity_ytd": _safe_int(row[9]) if len(row) > 9 else None,
+                        "value_ytd_usd": _safe_int(row[10]) if len(row) > 10 else None,
+                        "version": str(row[11] or "") if len(row) > 11 else "",
+                        "source_note": str(row[12] or "") if len(row) > 12 else "",
+                    }
+                    # Back-calculated values are guesses, not customs data.
+                    # Never expose them as KPI or chart inputs.
+                    version_text = rec["version"].casefold()
+                    note_text = rec["source_note"].casefold()
+                    if "fallback" in version_text or "ước tính" in version_text or "uoc tinh" in version_text \
+                            or "suy ngược" in note_text or "suy nguoc" in note_text:
+                        continue
+                    ver_key = _version_label_to_key(rec["version"]) or rec["version"].lower()
+                    if "nhập" in flow:
+                        if not result["tong_nk"]: result["tong_nk"] = rec
+                        result["tong_nk_versions"].setdefault(ver_key, rec)
+                    else:
+                        if not result["tong_xk"]: result["tong_xk"] = rec
+                        result["tong_xk_versions"].setdefault(ver_key, rec)
+        else: # Legacy Tong_XK
+            for row in rows[2:]:
+                if row is None or all(v is None for v in row):
+                    continue
+                if len(row) >= 7:
+                    result["tong_xk"] = {
+                        "product":        str(row[1]) if row[1] is not None else "",
+                        "unit":           str(row[2]) if row[2] is not None else "",
+                        "quantity_month": _safe_int(row[3]),
+                        "value_month_usd": _safe_int(row[4]),
+                        "quantity_ytd":   _safe_int(row[5]),
+                        "value_ytd_usd":  _safe_int(row[6]),
+                    }
+                    break
+
+    # ── 2+3. Sheet XK/NK theo nước — ưu tiên sheet theo PHIÊN BẢN ────────────
+    _VER_SHEETS = {
+        "XK_ChinhThuc": ("xk_theo_nuoc", "official"),
+        "XK_DieuChinh": ("xk_theo_nuoc", "adjusted"),
+        "XK_SoBo":      ("xk_theo_nuoc", "preliminary"),
+        "XK_UocTinh":   ("xk_theo_nuoc", "derived"),
+        "NK_ChinhThuc": ("nk_theo_nuoc", "official"),
+        "NK_DieuChinh": ("nk_theo_nuoc", "adjusted"),
+        "NK_SoBo":      ("nk_theo_nuoc", "preliminary"),
+        "NK_UocTinh":   ("nk_theo_nuoc", "derived"),
+    }
+    present_version_sheets = [s for s in _VER_SHEETS if s in wb.sheetnames]
+
+    def _read_country_rows(ws_rows):
+        """Parse một sheet country (header 1 dòng) → list dict."""
+        if not ws_rows or len(ws_rows) < 2:
+            return []
+        header = [str(c).strip() if c is not None else "" for c in ws_rows[0]]
+        def _idx(name: str) -> int | None:
+            try: return header.index(name)
+            except ValueError: return None
+        i_country = _idx(_COL_COUNTRY); i_product = _idx(_COL_PRODUCT); i_unit = _idx(_COL_UNIT)
+        i_cy_l    = _idx(_COL_CY_L);   i_cy_tg    = _idx(_COL_CY_TG)
+        i_ytd_l   = _idx(_COL_YTD_L);  i_ytd_tg   = _idx(_COL_YTD_TG)
+        i_ver     = _idx("Phiên bản")
+        i_dbg_f   = _idx("debug_source_file")
+        i_dbg_t   = _idx("debug_source_type")
+        i_dbg_n   = _idx("debug_source_note")
+
+        out = []
+        for row in ws_rows[1:]:
+            if row is None or all(v is None for v in row): continue
+            country = str(row[i_country] if i_country is not None and i_country < len(row) else "" or "").strip()
+            if not country: continue
+            out.append({
+                "country":   country,
+                "product":   str(row[i_product] if i_product is not None and i_product < len(row) else "" or "").strip(),
+                "unit":      str(row[i_unit] if i_unit is not None and i_unit < len(row) else "" or "").strip(),
+                "cy_luong":  _safe_int(row[i_cy_l]) if i_cy_l is not None and i_cy_l < len(row) else None,
+                "cy_tri_gia": _safe_int(row[i_cy_tg]) if i_cy_tg is not None and i_cy_tg < len(row) else None,
+                "ytd_luong": _safe_int(row[i_ytd_l]) if i_ytd_l is not None and i_ytd_l < len(row) else None,
+                "ytd_tri_gia": _safe_int(row[i_ytd_tg]) if i_ytd_tg is not None and i_ytd_tg < len(row) else None,
+                "version":   str(row[i_ver] if i_ver is not None and i_ver < len(row) and row[i_ver] is not None else "" or "Chính thức").strip(),
+                "debug_source_file": str(row[i_dbg_f] or "") if i_dbg_f is not None and i_dbg_f < len(row) else "",
+                "debug_source_type": str(row[i_dbg_t] or "") if i_dbg_t is not None and i_dbg_t < len(row) else "",
+                "debug_source_note": str(row[i_dbg_n] or "") if i_dbg_n is not None and i_dbg_n < len(row) else "",
+            })
+        return out
+
+    if present_version_sheets:
+        # Cấu trúc mới: mỗi phiên bản một sheet → gắn version_key từ tên sheet
+        for sheet_name in present_version_sheets:
+            list_key, ver_key = _VER_SHEETS[sheet_name]
+            ws_rows = list(wb[sheet_name].iter_rows(values_only=True))
+            for r in _read_country_rows(ws_rows):
+                r["version_key"] = ver_key
+                result[list_key].append(r)
+    else:
+        # Legacy: sheet gộp chung XK_Theo_Nuoc / NK_Theo_Nuoc
+        for sheet_name, list_key in (("XK_Theo_Nuoc", "xk_theo_nuoc"), ("NK_Theo_Nuoc", "nk_theo_nuoc")):
+            if sheet_name in wb.sheetnames:
+                ws_rows = list(wb[sheet_name].iter_rows(values_only=True))
+                for r in _read_country_rows(ws_rows):
+                    r["version_key"] = _version_label_to_key(r.get("version", "")) or ""
+                    result[list_key].append(r)
+
+    # ── 4. Sheet Lich_Su_Phien_Ban ───────────────────────────────────────────
+    if "Lich_Su_Phien_Ban" in wb.sheetnames:
+        ws4 = wb["Lich_Su_Phien_Ban"]
+        rows4 = list(ws4.iter_rows(values_only=True))
+        if rows4 and len(rows4) > 1:
+            for row in rows4[1:]:
+                if not row or all(v is None for v in row): continue
+                if len(row) >= 8:
+                    result["versions"].append({
+                        "period": str(row[1] or period),
+                        "direction": "export" if "xuất" in str(row[2] or "").lower() else "import",
+                        "version": str(row[3] or ""),
+                        "product": str(row[4] or "Hạt điều"),
+                        "unit": str(row[5] or "Tấn"),
+                        "quantity_month": _safe_int(row[6]),
+                        "value_month_usd": _safe_int(row[7]),
+                        "source_file": str(row[8] or "") if len(row) > 8 else "",
+                        "note": str(row[9] or "") if len(row) > 9 else "",
+                    })
+
+    # Trade balance (USD)
+    if result["tong_xk"] and result["tong_nk"]:
+        xk_val = result["tong_xk"].get("value_month_usd")
+        nk_val = result["tong_nk"].get("value_month_usd")
+        if xk_val is not None and nk_val is not None:
+            result["trade_balance_usd"] = xk_val - nk_val
+
+    wb.close()
+    if not result["tong_xk"] and not result["tong_nk"] and not result["xk_theo_nuoc"]:
+        return None
+    return result
+
+
+def build_year(year: int, output_root=None) -> Path | None:
+    """Read all YYYY-MM_cashew.xlsx for *year* and write output/data/YYYY_cashew.json."""
+    output_dir = resolve_output_root(output_root)
+    year_dir = output_dir / str(year)
+    if not year_dir.exists():
+        log.warning("Year directory not found: %s", year_dir)
+        return None
+
+    xlsx_files = _monthly_workbooks(year_dir, year)
+    if not xlsx_files:
+        log.warning("No xlsx files found in %s", year_dir)
+        return None
+
+    periods_data: dict[str, dict] = {}
+    for xlsx in xlsx_files:
+        parsed = _parse_xlsx(xlsx)
+        if parsed:
+            periods_data[parsed["period"]] = parsed
+            log.info("  Parsed %s → %d country rows", xlsx.name, len(parsed["xk_theo_nuoc"]))
+
+    if not periods_data:
+        log.warning("No parseable data for year %d", year)
+        return None
+
+    data_dir = output_dir / "data"
+    data_dir.mkdir(parents=True, exist_ok=True)
+    out_path = data_dir / f"{year}_cashew.json"
+    payload = {
+        "year":         year,
+        "generated_at": _now_iso(),
+        "periods":      periods_data,
+    }
+    out_path.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    log.info("Written: %s (%d periods)", out_path.name, len(periods_data))
+    return out_path
+
+
+def apply_auto_backfill(periods_data: dict) -> int:
+    """Tự động bù khoảng trống dữ liệu cho periods_data:
+    - Ưu tiên 1 (YTD Difference ⭐): Month(T) = YTD(T) - YTD(T-1) hoặc Month(01) = YTD(01).
+    - Ưu tiên 2 (YoY Proxy): Month(T, năm) ≈ Month(T, năm - 1) hoặc năm + 1.
+    - Tự động tính lại Cán cân thương mại Net Balance.
+    Trả về số lượng bản ghi summary được bù.
+    """
+    sorted_periods = sorted(periods_data.keys())
+    backfilled_count = 0
+
+    def get_prev_period(p):
+        y, m = int(p[:4]), int(p[5:])
+        return f"{y-1:04d}-12" if m == 1 else f"{y:04d}-{m-1:02d}"
+
+    def get_prev_year_period(p):
+        y, m = int(p[:4]), int(p[5:])
+        return f"{y-1:04d}-{m:02d}"
+
+    def get_next_year_period(p):
+        y, m = int(p[:4]), int(p[5:])
+        return f"{y+1:04d}-{m:02d}"
+
+    for flow, sum_key, country_key, dir_vn in [
+        ("export", "tong_xk", "xk_theo_nuoc", "Xuất khẩu"),
+        ("import", "tong_nk", "nk_theo_nuoc", "Nhập khẩu"),
+    ]:
+        for period in sorted_periods:
+            item = periods_data[period]
+            # Chỉ backfill khi THIẾU summary
+            if item.get(sum_key):
+                continue
+
+            month = period[5:]
+            prev_p = get_prev_period(period)
+            solved_qty, solved_val = None, None
+            source_note = ""
+            debug_type = ""
+            debug_note = ""
+
+            # ── 1. Thử YTD Difference ──────────────────────────────────────────
+            # Xác định version ưu tiên (official > adjusted > preliminary > derived)
+            versions_dict = item.get(f"tong_{'xk' if flow == 'export' else 'nk'}_versions") or {}
+            sum_ver_key = "official"
+            if "official" in versions_dict:
+                sum_ver_key = "official"
+            elif "adjusted" in versions_dict:
+                sum_ver_key = "adjusted"
+            elif "preliminary" in versions_dict:
+                sum_ver_key = "preliminary"
+            elif "derived" in versions_dict:
+                sum_ver_key = "derived"
+
+            def _filter_by_version(rows, ver_key):
+                return [r for r in rows if r.get("version_key", "").lower() == ver_key]
+
+            ver_rows = _filter_by_version(item.get(country_key, []), sum_ver_key)
+
+            if month == "01":
+                y_q = sum(r.get("cy_luong") or r.get("ytd_luong") or 0 for r in ver_rows)
+                y_v = sum(r.get("cy_tri_gia") or r.get("ytd_tri_gia") or 0 for r in ver_rows)
+                if y_q > 0 and y_v > 0:
+                    solved_qty, solved_val = y_q, y_v
+                    source_note = "Ước tính YTD Diff (Tháng 01 YTD)"
+                    debug_type = "ytd_diff"
+                    debug_note = f"YTD_01 = sum(country_rows_ver={sum_ver_key}) = {y_q} tấn, ${y_v/1e6:.2f}M"
+            elif prev_p in periods_data and prev_p[:4] == period[:4]:
+                prev_sum = periods_data[prev_p].get(sum_key)
+                if prev_sum and prev_sum.get("quantity_ytd") and prev_sum.get("value_ytd_usd"):
+                    p_y_q = prev_sum["quantity_ytd"]
+                    p_y_v = prev_sum["value_ytd_usd"]
+                    ver_rows = _filter_by_version(item.get(country_key, []), sum_ver_key)
+                    c_y_q = sum(r.get("ytd_luong") or 0 for r in ver_rows)
+                    c_y_v = sum(r.get("ytd_tri_gia") or 0 for r in ver_rows)
+                    if c_y_q > p_y_q and c_y_v > p_y_v:
+                        solved_qty = c_y_q - p_y_q
+                        solved_val = c_y_v - p_y_v
+                        source_note = f"Ước tính YTD Diff ({period} - {prev_p})"
+                        debug_type = "ytd_diff"
+                        debug_note = f"YTD_{period}({c_y_q}) - YTD_{prev_p}({p_y_q}) = {solved_qty} tấn, ${solved_val/1e6:.2f}M"
+
+            # ── 2. Fallback sang YoY Proxy (Năm trước) ─────────────────────────
+            if solved_qty is None:
+                prev_y_p = get_prev_year_period(period)
+                if prev_y_p in periods_data:
+                    prev_y_sum = periods_data[prev_y_p].get(sum_key)
+                    if prev_y_sum and prev_y_sum.get("quantity_month") and prev_y_sum.get("value_month_usd"):
+                        solved_qty = prev_y_sum["quantity_month"]
+                        solved_val = prev_y_sum["value_month_usd"]
+                        source_note = f"Ước tính YoY Proxy ({prev_y_p})"
+                        debug_type = "yoy_proxy"
+                        debug_note = f"Lấy từ {prev_y_p}: {solved_qty} tấn, ${solved_val/1e6:.2f}M"
+
+            # ── 3. Fallback sang YoY Proxy (Năm sau nếu kỳ 2020 không có năm trước) ─
+            if solved_qty is None:
+                next_y_p = get_next_year_period(period)
+                if next_y_p in periods_data:
+                    next_y_sum = periods_data[next_y_p].get(sum_key)
+                    if next_y_sum and next_y_sum.get("quantity_month") and next_y_sum.get("value_month_usd"):
+                        solved_qty = next_y_sum["quantity_month"]
+                        solved_val = next_y_sum["value_month_usd"]
+                        source_note = f"Ước tính YoY Proxy ({next_y_p})"
+                        debug_type = "yoy_proxy"
+                        debug_note = f"Lấy từ {next_y_p}: {solved_qty} tấn, ${solved_val/1e6:.2f}M"
+
+            if solved_qty is not None and solved_val is not None:
+                item[sum_key] = {
+                    "product": "Hạt điều",
+                    "unit": "Tấn",
+                    "quantity_month": solved_qty,
+                    "value_month_usd": solved_val,
+                    "quantity_ytd": None,
+                    "value_ytd_usd": None,
+                    "pct_change_prev_month_qty": None,
+                    "pct_change_prev_month_val": None,
+                    "is_derived": True,
+                    "version": "derived",
+                    "source_note": source_note,
+                    "debug_source_file": "BACKFILL",
+                    "debug_source_type": debug_type,
+                    "debug_source_note": debug_note,
+                }
+                if "summaryRows" in item and isinstance(item["summaryRows"], list):
+                    item["summaryRows"].append({
+                        "period": period, "direction": flow, "product": "Hạt điều", "unit": "Tấn",
+                        "quantity_month": solved_qty, "value_month_usd": solved_val,
+                        "is_derived": True, "version": "derived", "source_note": source_note,
+                    })
+                backfilled_count += 1
+                log.info("[BACKFILL] %s %s: %s -> Qty=%s, Val=%s", period, flow, source_note, solved_qty, solved_val)
+
+    # ── Đảm bảo Other row tồn tại sau khi backfill ───────────────────────────
+    for period, item in periods_data.items():
+        # Xử lý export
+        if item.get('tong_xk'):
+            sum_val = item['tong_xk'].get('value_month_usd') or 0
+            sum_qty = item['tong_xk'].get('quantity_month') or 0
+            country_rows = item.get('xk_theo_nuoc', [])
+            calc_val = sum(r.get('cy_tri_gia') or 0 for r in country_rows)
+            calc_qty = sum(r.get('cy_luong') or 0 for r in country_rows)
+            other_val = sum_val - calc_val
+            other_qty = sum_qty - calc_qty
+
+            # Kiểm tra có Other row chưa (case-insensitive)
+            other_rows = [r for r in country_rows if str(r.get('country', '')).upper() == 'OTHER']
+            if not other_rows:
+                debug_note = f"Other = Summary(${sum_val/1e6:.2f}M) - Countries(${calc_val/1e6:.2f}M) = ${other_val/1e6:.2f}M"
+                country_rows.append({
+                    'country': 'Other',
+                    'product': 'Hạt điều',
+                    'unit': 'Tấn',
+                    'cy_luong': other_qty if other_qty != 0 else None,
+                    'cy_tri_gia': other_val if other_val != 0 else None,
+                    'ytd_luong': None,
+                    'ytd_tri_gia': None,
+                    'version': item['tong_xk'].get('version', 'derived'),
+                    'version_key': _version_label_to_key(item['tong_xk'].get('version', '')) or 'official',
+                    'debug_source_file': 'BACKFILL',
+                    'debug_source_type': 'calculated',
+                    'debug_source_note': debug_note,
+                })
+                log.info("[%s] Added Other row for XK: %s", period, debug_note)
+
+        # Xử lý import
+        if item.get('tong_nk'):
+            sum_val = item['tong_nk'].get('value_month_usd') or 0
+            sum_qty = item['tong_nk'].get('quantity_month') or 0
+            country_rows = item.get('nk_theo_nuoc', [])
+            calc_val = sum(r.get('cy_tri_gia') or 0 for r in country_rows)
+            calc_qty = sum(r.get('cy_luong') or 0 for r in country_rows)
+            other_val = sum_val - calc_val
+            other_qty = sum_qty - calc_qty
+
+            # Kiểm tra có Other row chưa (case-insensitive)
+            other_rows = [r for r in country_rows if str(r.get('country', '')).upper() == 'OTHER']
+            if not other_rows:
+                debug_note = f"Other = Summary(${sum_val/1e6:.2f}M) - Countries(${calc_val/1e6:.2f}M) = ${other_val/1e6:.2f}M"
+                country_rows.append({
+                    'country': 'Other',
+                    'product': 'Hạt điều',
+                    'unit': 'Tấn',
+                    'cy_luong': other_qty if other_qty != 0 else None,
+                    'cy_tri_gia': other_val if other_val != 0 else None,
+                    'ytd_luong': None,
+                    'ytd_tri_gia': None,
+                    'version': item['tong_nk'].get('version', 'derived'),
+                    'version_key': _version_label_to_key(item['tong_nk'].get('version', '')) or 'official',
+                    'debug_source_file': 'BACKFILL',
+                    'debug_source_type': 'calculated',
+                    'debug_source_note': debug_note,
+                })
+                log.info("[%s] Added Other row for NK: %s", period, debug_note)
+
+    # Tính lại cán cân thương mại (trade_balance_usd)
+    for period in sorted_periods:
+        item = periods_data[period]
+        exp = item.get("tong_xk")
+        imp = item.get("tong_nk")
+        if exp and imp and exp.get("value_month_usd") is not None and imp.get("value_month_usd") is not None:
+            item["trade_balance_usd"] = exp["value_month_usd"] - imp["value_month_usd"]
+
+    return backfilled_count
+
+
+def build_all_years(output_root=None, backfill=True) -> tuple[Path | None, Path | None]:
+    """Build the dashboard JSON and combined 4-sheet workbook from all monthly workbooks."""
+    try:
+        import openpyxl
+    except ImportError:
+        log.error("openpyxl required — pip install openpyxl")
+        return None, None
+
+    periods_data: dict[str, dict] = {}
+    summary_all_rows = []
+    xk_country_rows = []
+    nk_country_rows = []
+    version_rows = []
+
+    output_dir = resolve_output_root(output_root)
+    data_dir = output_dir / "data"
+    if not output_dir.exists():
+        log.warning("Output directory not found: %s", output_dir)
+        return None, None
+
+    for year_dir in sorted(output_dir.iterdir()):
+        if not year_dir.is_dir() or not (year_dir.name.isdigit() and len(year_dir.name) == 4):
+            continue
+        year = int(year_dir.name)
+        for xlsx in _monthly_workbooks(year_dir, year):
+            parsed = _parse_xlsx(xlsx)
+            if not parsed:
+                continue
+            period = parsed["period"]
+            periods_data[period] = parsed
+
+    if not periods_data:
+        log.warning("No valid monthly Excel files found; combined outputs not written")
+        return None, None
+
+    if backfill:
+        bf_count = apply_auto_backfill(periods_data)
+        log.info("[BACKFILL] Done auto backfill: %d missing summaries resolved", bf_count)
+
+    # ── Ghi ngược lại file JSON từng kỳ sau khi backfill ──────────────
+    for period in sorted(periods_data):
+        item = periods_data[period]
+        year = period[:4]
+        period_dir = resolve_output_root() / year / period
+        period_dir.mkdir(parents=True, exist_ok=True)
+        json_path = period_dir / f"{period}_cashew.json"
+        # Ghi đè file JSON kỳ với dữ liệu đã backfill (tạo mới nếu chưa có)
+        json_path.write_text(json.dumps(item, ensure_ascii=False, indent=2), encoding="utf-8")
+        log.info("[BACKFILL] Updated period JSON: %s", json_path)
+
+    for period in sorted(periods_data):
+        item = periods_data[period]
+        # Ghi TẤT CẢ các phiên bản của summary (official, adjusted, preliminary, derived)
+        for flow_label, versions_dict, flow_vn in [
+            ("export", item.get("tong_xk_versions") or {}, "Xuất khẩu"),
+            ("import", item.get("tong_nk_versions") or {}, "Nhập khẩu"),
+        ]:
+            for ver_key, x in versions_dict.items():
+                summary_all_rows.append([
+                    period, flow_vn, x.get("product", "Hạt điều"), x.get("unit", "Tấn"),
+                    x.get("quantity_month"), x.get("value_month_usd"),
+                    x.get("pct_change_prev_month_qty"), x.get("pct_change_prev_month_val"),
+                    x.get("quantity_ytd"), x.get("value_ytd_usd"),
+                    "Ước tính (Fallback)" if x.get("is_derived") else str(x.get("version", "Chính thức")),
+                    x.get("source_note") or "",
+                    ver_key,  # Version key: official/adjusted/preliminary/derived
+                ])
+        # Giữ compat: nếu không có versions_dict, fallback về primary tong_xk/tong_nk
+        if not item.get("tong_xk_versions") and item.get("tong_xk"):
+            x = item["tong_xk"]
+            summary_all_rows.append([
+                period, "Xuất khẩu", x.get("product", "Hạt điều"), x.get("unit", "Tấn"),
+                x.get("quantity_month"), x.get("value_month_usd"),
+                x.get("pct_change_prev_month_qty"), x.get("pct_change_prev_month_val"),
+                x.get("quantity_ytd"), x.get("value_ytd_usd"),
+                "Ước tính (Fallback)" if x.get("is_derived") else str(x.get("version", "Chính thức")),
+                x.get("source_note") or "",
+                "",  # version_key empty for legacy
+            ])
+        if not item.get("tong_nk_versions") and item.get("tong_nk"):
+            n = item["tong_nk"]
+            summary_all_rows.append([
+                period, "Nhập khẩu", n.get("product", "Hạt điều"), n.get("unit", "Tấn"),
+                n.get("quantity_month"), n.get("value_month_usd"),
+                n.get("pct_change_prev_month_qty"), n.get("pct_change_prev_month_val"),
+                n.get("quantity_ytd"), n.get("value_ytd_usd"),
+                "Ước tính (Fallback)" if n.get("is_derived") else str(n.get("version", "Chính thức")),
+                n.get("source_note") or "",
+                "",  # version_key empty for legacy
+            ])
+        for row in item.get("xk_theo_nuoc", []):
+            xk_country_rows.append([period, row.get("country"), row.get("product"), row.get("unit"), row.get("cy_luong"), row.get("cy_tri_gia"), row.get("ytd_luong"), row.get("ytd_tri_gia"), row.get("version") or "", row.get("version_key") or "", row.get("debug_source_file") or ""])
+        for row in item.get("nk_theo_nuoc", []):
+            nk_country_rows.append([period, row.get("country"), row.get("product"), row.get("unit"), row.get("cy_luong"), row.get("cy_tri_gia"), row.get("ytd_luong"), row.get("ytd_tri_gia"), row.get("version") or "", row.get("version_key") or "", row.get("debug_source_file") or ""])
+        for v in item.get("versions", []):
+            version_rows.append([period, v.get("direction"), v.get("version"), v.get("product"), v.get("unit"), v.get("quantity_month"), v.get("value_month_usd"), v.get("source_file"), v.get("note")])
+
+    # ── Read Vinacas dataset if available ────────────────────────────────────
+    vinacas_path = Path(__file__).resolve().parents[1] / "Vincass" / "Vinacas.xlsx"
+    vinacas_json_records = []
+    vinacas_sheet_rows = []
+    vinacas_normalized_rows = []
+    if vinacas_path.exists():
+        try:
+            vwb = openpyxl.load_workbook(str(vinacas_path), data_only=True)
+            vws = vwb.active
+            vrows = list(vws.iter_rows(values_only=True))
+            if vrows:
+                vinacas_sheet_rows = vrows
+                for r in vrows[1:]:
+                    if r and len(r) >= 7 and any(c is not None for c in r):
+                        raw_record = {
+                            "country_raw": str(r[0] or ""),
+                            "country_report": str(r[1] or ""),
+                            "region": str(r[2] or ""),
+                            "product": str(r[3] or ""),
+                            "unit": str(r[4] or ""),
+                            "quantity": r[5],
+                            "value_usd": r[6],
+                            "fulldate": str(r[7])[:10] if len(r) > 7 and r[7] else "",
+                            "flow": str(r[8] or "") if len(r) > 8 else "Import",
+                        }
+                        date_value = r[7] if len(r) > 7 else None
+                        fulldate = date_value.strftime("%Y-%m-%d") if hasattr(date_value, "strftime") else str(date_value or "")[:10]
+                        flow_raw = raw_record["flow"].strip().lower()
+                        record = {
+                            "period": fulldate[:7], "source": "vinacas",
+                            "flow": "export" if flow_raw.startswith("exp") or "xuất" in flow_raw else "import",
+                            "country": raw_record["country_report"] or raw_record["country_raw"],
+                            "product": raw_record["product"] or "Raw Cashew Nut",
+                            "unit": raw_record["unit"] or "Tấn",
+                            "quantity_month": raw_record["quantity"], "value_month_usd": raw_record["value_usd"],
+                            "quantity_ytd": None, "value_ytd_usd": None,
+                            "region": raw_record["region"],
+                            "source_note": "Vinacas · giữ nguyên kỳ báo cáo nguồn; không suy diễn YTD",
+                            "country_raw": raw_record["country_raw"], "fulldate": fulldate,
+                        }
+                        if len(record["period"]) == 7 and record["country"]:
+                            raw_record.update(record)
+                            vinacas_json_records.append(raw_record)
+                            vinacas_normalized_rows.append(record)
+            vwb.close()
+        except Exception as vexc:
+            log.warning("Vinacas integration skipped: %s", vexc)
+
+    data_dir.mkdir(parents=True, exist_ok=True)
+    json_path = data_dir / "all_years_cashew.json"
+    tchq_records = []
+    for period, item in sorted(periods_data.items()):
+        for flow, key in (("export", "xk_theo_nuoc"), ("import", "nk_theo_nuoc")):
+            for row in item.get(key, []):
+                tchq_records.append({
+                    "period": period, "source": "tchq", "flow": flow,
+                    "country": row.get("country") or "", "product": row.get("product") or "Hạt điều",
+                    "unit": row.get("unit") or "Tấn", "quantity_month": row.get("cy_luong"),
+                    "value_month_usd": row.get("cy_tri_gia"), "quantity_ytd": row.get("ytd_luong"),
+                    "value_ytd_usd": row.get("ytd_tri_gia"), "region": row.get("region") or "",
+                    "source_note": row.get("source_note") or "",
+                    # Schema v3: phiên bản + debug truy vết nguồn
+                    "version": row.get("version") or "",
+                    "version_key": row.get("version_key") or "",
+                    "debug_source_file": row.get("debug_source_file") or "",
+                    "debug_source_type": row.get("debug_source_type") or "",
+                    "debug_source_note": row.get("debug_source_note") or "",
+                })
+    # Build summary_records (flat, 1 dòng/kỳ/luồng/phiên bản) để đối chiếu QC
+    summary_records = []
+    for period, item in sorted(periods_data.items()):
+        for flow, ver_dict in (("export", item.get("tong_xk_versions") or {}), ("import", item.get("tong_nk_versions") or {})):
+            for ver_key, v in ver_dict.items():
+                summary_records.append({
+                    "period": period, "source": "tchq", "flow": flow,
+                    "version": v.get("version") or "", "version_key": ver_key,
+                    "quantity_month": v.get("quantity_month"),
+                    "value_month_usd": v.get("value_month_usd"),
+                    "quantity_ytd": v.get("quantity_ytd"),
+                    "value_ytd_usd": v.get("value_ytd_usd"),
+                    "pct_change_prev_month_qty": v.get("pct_change_prev_month_qty"),
+                    "pct_change_prev_month_val": v.get("pct_change_prev_month_val"),
+                    "is_derived": v.get("is_derived", False),
+                    "source_note": v.get("source_note") or "",
+                    "debug_source_file": v.get("debug_source_file") or "",
+                    "debug_source_type": v.get("debug_source_type") or "",
+                    "debug_source_note": v.get("debug_source_note") or "",
+                })
+        # Fallback primary nếu không có versions
+        if not item.get("tong_xk_versions") and item.get("tong_xk"):
+            v = item["tong_xk"]
+            summary_records.append({
+                "period": period, "source": "tchq", "flow": "export",
+                "version": v.get("version") or "", "version_key": "",
+                "quantity_month": v.get("quantity_month"),
+                "value_month_usd": v.get("value_month_usd"),
+                "quantity_ytd": v.get("quantity_ytd"),
+                "value_ytd_usd": v.get("value_ytd_usd"),
+                "pct_change_prev_month_qty": v.get("pct_change_prev_month_qty"),
+                "pct_change_prev_month_val": v.get("pct_change_prev_month_val"),
+                "is_derived": v.get("is_derived", False),
+                "source_note": v.get("source_note") or "",
+                "debug_source_file": v.get("debug_source_file") or "",
+                "debug_source_type": v.get("debug_source_type") or "",
+                "debug_source_note": v.get("debug_source_note") or "",
+            })
+        if not item.get("tong_nk_versions") and item.get("tong_nk"):
+            v = item["tong_nk"]
+            summary_records.append({
+                "period": period, "source": "tchq", "flow": "import",
+                "version": v.get("version") or "", "version_key": "",
+                "quantity_month": v.get("quantity_month"),
+                "value_month_usd": v.get("value_month_usd"),
+                "quantity_ytd": v.get("quantity_ytd"),
+                "value_ytd_usd": v.get("value_ytd_usd"),
+                "pct_change_prev_month_qty": v.get("pct_change_prev_month_qty"),
+                "pct_change_prev_month_val": v.get("pct_change_prev_month_val"),
+                "is_derived": v.get("is_derived", False),
+                "source_note": v.get("source_note") or "",
+                "debug_source_file": v.get("debug_source_file") or "",
+                "debug_source_type": v.get("debug_source_type") or "",
+                "debug_source_note": v.get("debug_source_note") or "",
+            })
+
+    # Compute freshness_days from latest period
+    all_periods = sorted(periods_data.keys())
+    latest_period = all_periods[-1] if all_periods else None
+    freshness_days = None
+    if latest_period:
+        from datetime import date
+        try:
+            y, m = int(latest_period[:4]), int(latest_period[5:])
+            # Assume end of month
+            if m == 12:
+                period_end = date(y + 1, 1, 1)
+            else:
+                period_end = date(y, m + 1, 1)
+            freshness_days = (date.today() - period_end).days
+        except Exception:
+            freshness_days = None
+
+    json_payload = {
+        "schema_version": 3,
+        "generated_at": _now_iso(),
+        "years": sorted({int(p[:4]) for p in periods_data}),
+        "periods": periods_data,
+        "vinacas_records": vinacas_json_records,
+        "records": tchq_records + vinacas_normalized_rows,
+        "summary_records": summary_records,
+        "freshness_days": freshness_days,
+    }
+
+    # Build the workbook and JSON from the same normalized records.
+    wb = openpyxl.Workbook()
+
+    # Sheet 1: Tong_Quan_XNK_All
+    ws1 = wb.active
+    ws1.title = "Tong_Quan_XNK_All"
+    ws1.append(["Kỳ", "Luồng", "Mặt hàng", "ĐVT", "CY Lượng", "CY Trị giá (USD)", "% Tháng trước (Lượng)", "% Tháng trước (Giá)", "YTD Lượng", "YTD Trị giá (USD)", "Phiên bản", "Ghi chú nguồn", "Version Key"])
+    for row in summary_all_rows:
+        ws1.append(row)
+    ws1.freeze_panes = "A2"
+    ws1.auto_filter.ref = ws1.dimensions
+
+    # Sheet 2: Can_Can_Thuong_Mai_All (Cán cân thương mại toàn năm)
+    ws_cc = wb.create_sheet("Can_Can_Thuong_Mai_All")
+    ws_cc.append(["Kỳ", "Chỉ số / Luồng", "ĐVT", "Lượng tháng", "Trị giá tháng (USD)", "Lũy kế lượng", "Lũy kế trị giá (USD)", "Trạng thái cán cân"])
+    for p in sorted(periods_data):
+        exp = periods_data[p].get("tong_xk") or {}
+        imp = periods_data[p].get("tong_nk") or {}
+        q_exp = exp.get("quantity_month") or 0
+        v_exp = exp.get("value_month_usd") or 0
+        qy_exp = exp.get("quantity_ytd") or 0
+        vy_exp = exp.get("value_ytd_usd") or 0
+
+        q_imp = imp.get("quantity_month") or 0
+        v_imp = imp.get("value_month_usd") or 0
+        qy_imp = imp.get("quantity_ytd") or 0
+        vy_imp = imp.get("value_ytd_usd") or 0
+
+        net_val = v_exp - v_imp
+        net_qty = q_exp - q_imp
+        net_vy = vy_exp - vy_imp
+        net_qy = qy_exp - qy_imp
+        status_cc = "Thặng dư (Xuất siêu)" if net_val >= 0 else "Thâm hụt (Nhập siêu)"
+
+        ws_cc.append([p, "Xuất khẩu hạt điều", "Tấn / USD", q_exp, v_exp, qy_exp, vy_exp, "—"])
+        ws_cc.append([p, "Nhập khẩu hạt điều", "Tấn / USD", q_imp, v_imp, qy_imp, vy_imp, "—"])
+        ws_cc.append([p, "Cán cân thương mại ròng (Net Balance)", "Tấn / USD", net_qty, net_val, net_qy, net_vy, status_cc])
+    ws_cc.freeze_panes = "A2"
+    ws_cc.auto_filter.ref = ws_cc.dimensions
+
+    # Sheet 3: XK_Theo_Nuoc_All
+    ws2 = wb.create_sheet("XK_Theo_Nuoc_All")
+    country_headers = ["Kỳ", "Nguồn", "Luồng", "Quốc gia", "Mặt hàng", "Đơn vị tính", "CY Lượng", "CY Trị giá (USD)", "YTD Lượng", "YTD Trị giá (USD)", "Region", "Ghi chú nguồn", "Phiên bản", "Version Key", "Debug File nguồn"]
+    ws2.append(country_headers)
+    for row in sorted(xk_country_rows, key=lambda x: (x[0], str(x[1]))):
+        ws2.append([row[0], "tchq", "export", row[1], row[2] or "Hạt điều", row[3] or "Tấn", *row[4:8], "", "", row[8] if len(row) > 8 else "", row[9] if len(row) > 9 else "", row[10] if len(row) > 10 else ""])
+    ws2.freeze_panes = "A2"
+    ws2.auto_filter.ref = ws2.dimensions
+
+    # Sheet 3: NK_Theo_Nuoc_All
+    ws3 = wb.create_sheet("NK_Theo_Nuoc_All")
+    ws3.append(country_headers)
+    for row in sorted(nk_country_rows, key=lambda x: (x[0], str(x[1]))):
+        ws3.append([row[0], "tchq", "import", row[1], row[2] or "Hạt điều", row[3] or "Tấn", *row[4:8], "", "", row[8] if len(row) > 8 else "", row[9] if len(row) > 9 else "", row[10] if len(row) > 10 else ""])
+    ws3.freeze_panes = "A2"
+    ws3.auto_filter.ref = ws3.dimensions
+
+    # Sheet 4: Lich_Su_Phien_Ban_All
+    ws4 = wb.create_sheet("Lich_Su_Phien_Ban_All")
+    ws4.append(["Kỳ", "Luồng", "Phiên bản", "Mặt hàng", "ĐVT", "Lượng tháng", "Trị giá (USD)", "File nguồn", "Ghi chú"])
+    for row in version_rows:
+        ws4.append(row)
+    ws4.freeze_panes = "A2"
+
+    # Sheet 5: Vinacas (Nạp toàn bộ số liệu Vinacas)
+    ws5 = wb.create_sheet("Vinacas")
+    ws5.append(["Kỳ", "Nguồn", "Luồng", "Quốc gia", "Mặt hàng", "Đơn vị tính", "CY Lượng", "CY Trị giá (USD)", "YTD Lượng", "YTD Trị giá (USD)", "Region", "Ghi chú nguồn", "Tên Nước Data gốc", "Fulldate"])
+    for row in vinacas_normalized_rows:
+        ws5.append([row["period"], row["source"], row["flow"], row["country"], row["product"], row["unit"], row["quantity_month"], row["value_month_usd"], None, None, row["region"], row["source_note"], row["country_raw"], row["fulldate"]])
+    ws5.freeze_panes = "A2"
+    ws5.auto_filter.ref = ws5.dimensions
+
+    # Include the original Vinacas fields in JSON records while keeping the
+    # normalized `records` list aligned with the workbook's Vinacas sheet.
+
+    # Sheet 6: Tong_XK_All (Legacy compatibility)
+    ws6 = wb.create_sheet("Tong_XK_All")
+    ws6.append(["Kỳ", "Mặt hàng", "Đơn vị", "CY Lượng", "CY Trị giá (USD)", "YTD Lượng", "YTD Trị giá (USD)"])
+    for p in sorted(periods_data):
+        x = periods_data[p].get("tong_xk") or {}
+        ws6.append([p, x.get("product", "Hạt điều"), x.get("unit", "Tấn"), x.get("quantity_month"), x.get("value_month_usd"), x.get("quantity_ytd"), x.get("value_ytd_usd")])
+    ws6.freeze_panes = "A2"
+
+    for sheet in wb.worksheets:
+        for cell in sheet[1]:
+            cell.font = openpyxl.styles.Font(bold=True, color="FFFFFF")
+            cell.fill = openpyxl.styles.PatternFill("solid", fgColor="234536")
+        for column in sheet.columns:
+            width = min(max(len(str(c.value or "")) for c in column) + 2, 38)
+            sheet.column_dimensions[column[0].column_letter].width = width
+
+    xlsx_path = output_dir / "all_years_cashew.xlsx"
+    wb.save(xlsx_path)
+    # Write JSON only after the workbook is complete; both artifacts are built
+    # from the exact same normalized record collections above.
+    json_path.write_text(json.dumps(json_payload, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    # ── Tách 3 file Excel theo phiên bản (ChinhThuc / DieuChinh / SoBo) ──────
+    # Mỗi file chứa: Tong_Quan_XNK (summary của phiên bản đó) + XK/NK_Theo_Nuoc
+    # (country rows của phiên bản đó). JSON vẫn là 1 file duy nhất.
+    _ver_files = [("official", "ChinhThuc"), ("adjusted", "DieuChinh"), ("preliminary", "SoBo")]
+    _country_hdr_v = ["Kỳ", "Nguồn", "Luồng", "Quốc gia", "Mặt hàng", "Đơn vị tính",
+                      "CY Lượng", "CY Trị giá (USD)", "YTD Lượng", "YTD Trị giá (USD)",
+                      "Phiên bản", "Debug File nguồn", "Debug Loại", "Debug Ghi chú"]
+    for ver_key, suffix in _ver_files:
+        wb_v = openpyxl.Workbook()
+        ws_vq = wb_v.active
+        ws_vq.title = "Tong_Quan_XNK"
+        ws_vq.append(["Kỳ", "Luồng", "Mặt hàng", "ĐVT", "CY Lượng", "CY Trị giá (USD)",
+                      "% Tháng trước (Lượng)", "% Tháng trước (Giá)", "YTD Lượng", "YTD Trị giá (USD)",
+                      "Phiên bản", "Ghi chú nguồn", "Debug File nguồn"])
+        ws_vq_rows = 0
+        ws_vx = wb_v.create_sheet("XK_Theo_Nuoc")
+        ws_vx.append(_country_hdr_v)
+        ws_vn = wb_v.create_sheet("NK_Theo_Nuoc")
+        ws_vn.append(_country_hdr_v)
+        for p in sorted(periods_data):
+            item = periods_data[p]
+            # Summary của phiên bản này
+            for flow, versions_key, ws_target, flow_vn in (
+                ("export", "tong_xk_versions", ws_vq, "Xuất khẩu"),
+                ("import", "tong_nk_versions", ws_vq, "Nhập khẩu"),
+            ):
+                rec = (item.get(versions_key) or {}).get(ver_key)
+                if rec:
+                    ws_target.append([
+                        rec.get("period") or p, flow_vn, rec.get("product") or "Hạt điều", rec.get("unit") or "Tấn",
+                        rec.get("quantity_month"), rec.get("value_month_usd"),
+                        rec.get("pct_change_prev_month_qty"), rec.get("pct_change_prev_month_val"),
+                        rec.get("quantity_ytd"), rec.get("value_ytd_usd"),
+                        rec.get("version") or ver_key, rec.get("source_note") or "",
+                        rec.get("debug_source_file") or "",
+                    ])
+                    ws_vq_rows += 1
+            # Country rows của phiên bản này
+            for row in item.get("xk_theo_nuoc", []):
+                if (row.get("version_key") or "") != ver_key:
+                    continue
+                ws_vx.append([p, "tchq", "export", row.get("country"), row.get("product") or "Hạt điều",
+                              row.get("unit") or "Tấn", row.get("cy_luong"), row.get("cy_tri_gia"),
+                              row.get("ytd_luong"), row.get("ytd_tri_gia"),
+                              row.get("version") or "", row.get("debug_source_file") or "",
+                              row.get("debug_source_type") or "", row.get("debug_source_note") or ""])
+            for row in item.get("nk_theo_nuoc", []):
+                if (row.get("version_key") or "") != ver_key:
+                    continue
+                ws_vn.append([p, "tchq", "import", row.get("country"), row.get("product") or "Hạt điều",
+                              row.get("unit") or "Tấn", row.get("cy_luong"), row.get("cy_tri_gia"),
+                              row.get("ytd_luong"), row.get("ytd_tri_gia"),
+                              row.get("version") or "", row.get("debug_source_file") or "",
+                              row.get("debug_source_type") or "", row.get("debug_source_note") or ""])
+        # Bỏ qua file phiên bản không có bất kỳ dữ liệu nào
+        if ws_vq_rows == 0 and ws_vx.max_row <= 1 and ws_vn.max_row <= 1:
+            continue
+        for sheet in wb_v.worksheets:
+            for cell in sheet[1]:
+                cell.font = openpyxl.styles.Font(bold=True, color="FFFFFF")
+                cell.fill = openpyxl.styles.PatternFill("solid", fgColor="234536")
+            for column in sheet.columns:
+                width = min(max(len(str(c.value or "")) for c in column) + 2, 38)
+                sheet.column_dimensions[column[0].column_letter].width = width
+        ver_path = output_dir / f"all_years_cashew_{suffix}.xlsx"
+        wb_v.save(ver_path)
+        log.info("Built version workbook: %s", ver_path)
+
+        # ── Ghi JSON tách phiên bản (đối xứng file XLSX) ──────────────────────
+        ver_json_records = []
+        for p in sorted(periods_data):
+            item = periods_data[p]
+            # Summary
+            for flow, versions_key in (("export", "tong_xk_versions"), ("import", "tong_nk_versions")):
+                rec = (item.get(versions_key) or {}).get(ver_key)
+                if rec:
+                    ver_json_records.append({
+                        "period": p, "source": "tchq", "flow": flow,
+                        "version": rec.get("version") or "", "version_key": ver_key,
+                        "quantity_month": rec.get("quantity_month"),
+                        "value_month_usd": rec.get("value_month_usd"),
+                        "quantity_ytd": rec.get("quantity_ytd"),
+                        "value_ytd_usd": rec.get("value_ytd_usd"),
+                        "pct_change_prev_month_qty": rec.get("pct_change_prev_month_qty"),
+                        "pct_change_prev_month_val": rec.get("pct_change_prev_month_val"),
+                        "is_derived": rec.get("is_derived", False),
+                        "source_note": rec.get("source_note") or "",
+                        "debug_source_file": rec.get("debug_source_file") or "",
+                        "debug_source_type": rec.get("debug_source_type") or "",
+                        "debug_source_note": rec.get("debug_source_note") or "",
+                    })
+            # Country rows
+            for row in item.get("xk_theo_nuoc", []):
+                if (row.get("version_key") or "") == ver_key:
+                    ver_json_records.append({
+                        "period": p, "source": "tchq", "flow": "export",
+                        "country": row.get("country"), "product": row.get("product"), "unit": row.get("unit"),
+                        "quantity_month": row.get("cy_luong"), "value_month_usd": row.get("cy_tri_gia"),
+                        "quantity_ytd": row.get("ytd_luong"), "value_ytd_usd": row.get("ytd_tri_gia"),
+                        "version": row.get("version"), "version_key": ver_key,
+                        "debug_source_file": row.get("debug_source_file"),
+                        "debug_source_type": row.get("debug_source_type"),
+                        "debug_source_note": row.get("debug_source_note"),
+                    })
+            for row in item.get("nk_theo_nuoc", []):
+                if (row.get("version_key") or "") == ver_key:
+                    ver_json_records.append({
+                        "period": p, "source": "tchq", "flow": "import",
+                        "country": row.get("country"), "product": row.get("product"), "unit": row.get("unit"),
+                        "quantity_month": row.get("cy_luong"), "value_month_usd": row.get("cy_tri_gia"),
+                        "quantity_ytd": row.get("ytd_luong"), "value_ytd_usd": row.get("ytd_tri_gia"),
+                        "version": row.get("version"), "version_key": ver_key,
+                        "debug_source_file": row.get("debug_source_file"),
+                        "debug_source_type": row.get("debug_source_type"),
+                        "debug_source_note": row.get("debug_source_note"),
+                    })
+        ver_json_payload = {
+            "schema_version": 3,
+            "generated_at": _now_iso(),
+            "version": ver_key,
+            "records": ver_json_records,
+        }
+        ver_json_path = output_dir / f"all_years_cashew_{suffix}.json"
+        ver_json_path.write_text(json.dumps(ver_json_payload, ensure_ascii=False, indent=2), encoding="utf-8")
+        log.info("Built version JSON: %s", ver_json_path)
+
+    # Update per-year JSON files
+    for y in sorted({int(p[:4]) for p in periods_data}):
+        y_path = data_dir / f"{y}_cashew.json"
+        if y_path.exists():
+            try:
+                y_obj = json.loads(y_path.read_text(encoding="utf-8"))
+                for p, pdata in periods_data.items():
+                    if p.startswith(str(y)) and p in y_obj.get("periods", {}):
+                        y_obj["periods"][p] = pdata
+                y_path.write_text(json.dumps(y_obj, ensure_ascii=False, indent=2), encoding="utf-8")
+            except Exception as e:
+                log.warning("Could not update %s: %s", y_path, e)
+
+    log.info("Built combined workbook with Vinacas: %s and %s (%d periods, %d vinacas rows)",
+             xlsx_path, json_path, len(periods_data), len(vinacas_json_records))
+    return xlsx_path, json_path
+
+
+def update_period_data(period: str, output_root=None) -> tuple[Path | None, Path | None]:
+    """Refresh the containing year's JSON and the aggregate dashboard datasets."""
+    if not isinstance(period, str) or not PERIOD_RE.fullmatch(period):
+        raise ValueError(f"Invalid reporting period: {period!r}; expected YYYY-MM")
+    root = resolve_output_root(output_root)
+    build_year(int(period[:4]), root)
+    return build_all_years(root)
+
+
+def build_qc_report(output_root=None, years=None) -> tuple[Path, Path]:
+    """Export one QC row per month using the final nested manifest as source of truth."""
+    output_dir = resolve_output_root(output_root)
+    year_values = sorted(set(int(y) for y in years)) if years else range(2020, datetime.now().year + 1)
+    records = []
+    for year in year_values:
+        for month in range(1, 13):
+            period = f"{year}-{month:02d}"
+            manifest_path = output_dir / str(year) / period / f"{period}_manifest.json"
+            if not manifest_path.is_file():
+                records.append({"year": year, "period": period, "status": "not_run", "pdf_count": 0,
+                                "summary_rows": 0, "pivot_rows": 0, "report_types": "", "validation_errors": "manifest missing"})
+                continue
+            try:
+                manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+                ocr = manifest.get("ocr", manifest)
+                downloads = manifest.get("download_validation", [])
+                artifacts = ocr.get("artifacts", [])
+                status = ocr.get("status", manifest.get("status", "unknown"))
+                errors = ocr.get("validation_errors", [])
+                records.append({
+                    "year": year, "period": period, "status": status,
+                    "pdf_count": sum(1 for item in downloads if item.get("status") == "ok") or len(artifacts),
+                    "summary_rows": ocr.get("summary_rows", 0),
+                    "pivot_rows": ocr.get("pivot_rows", 0),
+                    "report_types": ",".join(sorted({a.get("type", "unknown") for a in artifacts})),
+                    "validation_errors": "; ".join(errors),
+                })
+            except Exception as exc:
+                records.append({"year": year, "period": period, "status": "manifest_error", "pdf_count": 0,
+                                "summary_rows": 0, "pivot_rows": 0, "report_types": "", "validation_errors": str(exc)})
+
+    qc_dir = output_dir / "qc"
+    qc_dir.mkdir(parents=True, exist_ok=True)
+    csv_path = qc_dir / f"{min(year_values)}-{max(year_values)}_qc.csv"
+    json_path = qc_dir / f"{min(year_values)}-{max(year_values)}_qc.json"
+    fields = ["year", "period", "status", "pdf_count", "summary_rows", "pivot_rows", "report_types", "validation_errors"]
+    with csv_path.open("w", newline="", encoding="utf-8-sig") as stream:
+        writer = csv.DictWriter(stream, fieldnames=fields)
+        writer.writeheader()
+        writer.writerows(records)
+    json_path.write_text(json.dumps({"years": list(year_values), "period_count": len(records), "periods": records}, ensure_ascii=False, indent=2), encoding="utf-8")
+    log.info("QC report written: %s and %s", csv_path, json_path)
+    return csv_path, json_path
+
+
+def validate_aggregate_outputs(output_root=None) -> Path:
+    """Compare the all-years workbook and JSON at source/period/flow/country level."""
+    import math
+    import openpyxl
+
+    root = resolve_output_root(output_root)
+    workbook_path = root / "all_years_cashew.xlsx"
+    json_path = root / "data" / "all_years_cashew.json"
+    issues: list[dict] = []
+    if not workbook_path.is_file() or not json_path.is_file():
+        missing = [str(p.relative_to(root)) for p in (workbook_path, json_path) if not p.is_file()]
+        issues.append({"type": "missing_output", "detail": ", ".join(missing)})
+    else:
+        payload = json.loads(json_path.read_text(encoding="utf-8"))
+        wb = openpyxl.load_workbook(workbook_path, read_only=True, data_only=True)
+        required = {"Tong_Quan_XNK_All", "XK_Theo_Nuoc_All", "NK_Theo_Nuoc_All", "Vinacas"}
+        missing_sheets = sorted(required - set(wb.sheetnames))
+        if missing_sheets:
+            issues.append({"type": "missing_sheet", "detail": ", ".join(missing_sheets)})
+
+        def key(r):
+            return tuple(str(r.get(k) or "").strip().casefold() for k in ("source", "period", "flow", "country", "product", "unit"))
+        def num(v):
+            try:
+                return None if v is None else float(v)
+            except (TypeError, ValueError):
+                return None
+        json_records = payload.get("records", [])
+        def signature(r):
+            k = key(r)
+            return k + tuple(str(r.get(f) if r.get(f) is not None else "") for f in ("quantity_month", "value_month_usd"))
+        json_counts = {}
+        for record in json_records:
+            sig = signature(record)
+            json_counts[sig] = json_counts.get(sig, 0) + 1
+
+        xlsx_records = []
+        for sheet_name in ("XK_Theo_Nuoc_All", "NK_Theo_Nuoc_All", "Vinacas"):
+            if sheet_name not in wb.sheetnames:
+                continue
+            rows = list(wb[sheet_name].iter_rows(values_only=True))
+            headers = [str(v or "").strip() for v in rows[0]] if rows else []
+            expected_headers = ["Kỳ", "Nguồn", "Luồng", "Quốc gia"]
+            if any(h not in headers for h in expected_headers):
+                issues.append({"type": "bad_header", "detail": sheet_name})
+                continue
+            idx = {h: headers.index(h) for h in headers}
+            for row in rows[1:]:
+                if not row or len(row) < len(expected_headers):
+                    continue
+                rec = {"period": row[idx["Kỳ"]], "source": row[idx["Nguồn"]], "flow": row[idx["Luồng"]],
+                       "country": row[idx["Quốc gia"]],
+                       "unit": row[idx.get("Đơn vị tính", -1)] if idx.get("Đơn vị tính", -1) >= 0 else None,
+                       "product": row[idx.get("Mặt hàng", -1)] if idx.get("Mặt hàng", -1) >= 0 else None,
+                       "quantity_month": row[idx.get("CY Lượng", -1)] if idx.get("CY Lượng", -1) >= 0 else None,
+                       "value_month_usd": row[idx.get("CY Trị giá (USD)", -1)] if idx.get("CY Trị giá (USD)", -1) >= 0 else None}
+                if rec["country"]:
+                    xlsx_records.append(rec)
+        if len(json_records) != len(xlsx_records):
+            issues.append({"type": "record_count_mismatch", "detail": f"JSON={len(json_records)}, workbook={len(xlsx_records)}"})
+        workbook_counts = {}
+        for record in xlsx_records:
+            sig = signature(record)
+            workbook_counts[sig] = workbook_counts.get(sig, 0) + 1
+        if json_counts != workbook_counts:
+            for sig in sorted(set(json_counts) | set(workbook_counts)):
+                if json_counts.get(sig, 0) != workbook_counts.get(sig, 0):
+                    issues.append({"type": "record_mismatch", "detail": f"{'|'.join(sig[:6])} JSON count={json_counts.get(sig, 0)}, workbook count={workbook_counts.get(sig, 0)}"})
+
+        # Reconcile KPI summary rows as well as country records. The previous
+        # validator only compared detail sheets, so missing/estimated import
+        # KPIs could pass unnoticed.
+        summary_sheet = "Tong_Quan_XNK_All"
+        if summary_sheet in wb.sheetnames:
+            rows = list(wb[summary_sheet].iter_rows(values_only=True))
+            headers = [str(v or "").strip() for v in rows[0]] if rows else []
+            needed = ("Kỳ", "Luồng", "CY Lượng", "CY Trị giá (USD)", "YTD Lượng", "YTD Trị giá (USD)")
+            if any(h not in headers for h in needed):
+                issues.append({"type": "bad_header", "detail": summary_sheet})
+            else:
+                idx = {h: headers.index(h) for h in headers}
+                workbook_summary = {}
+                for row in rows[1:]:
+                    if not row or len(row) <= max(idx[h] for h in needed):
+                        continue
+                    period = str(row[idx["Kỳ"]] or "").strip()
+                    flow_text = str(row[idx["Luồng"]] or "").strip().casefold()
+                    flow = "import" if "nhập" in flow_text or "nhap" in flow_text else "export"
+                    ver_key = str(row[idx.get("Version Key", -1)] or "").strip().lower() if idx.get("Version Key", -1) >= 0 else ""
+                    key = (period, flow, ver_key)
+                    if key in workbook_summary:
+                        issues.append({"type": "duplicate_summary", "detail": f"{period}|{flow}|{ver_key}"})
+                    workbook_summary[key] = {
+                        "quantity_month": num(row[idx["CY Lượng"]]),
+                        "value_month_usd": num(row[idx["CY Trị giá (USD)"]]),
+                        "quantity_ytd": num(row[idx["YTD Lượng"]]),
+                        "value_ytd_usd": num(row[idx["YTD Trị giá (USD)"]]),
+                        "version": str(row[idx.get("Phiên bản", -1)] or "").strip().casefold()
+                            if idx.get("Phiên bản", -1) >= 0 else "",
+                    }
+                # Expected: all versions from JSON periods (tong_xk_versions + tong_nk_versions)
+                expected_summary = {}
+                for period, data in payload.get("periods", {}).items():
+                    for flow, versions_key in (("export", "tong_xk_versions"), ("import", "tong_nk_versions")):
+                        for ver_key, v in (data.get(versions_key) or {}).items():
+                            expected_summary[(period, flow, ver_key.lower())] = v
+                    # Fallback: primary tong_xk/tong_nk if no versions dict
+                    if not data.get("tong_xk_versions") and data.get("tong_xk"):
+                        expected_summary[(period, "export", "")] = data["tong_xk"]
+                    if not data.get("tong_nk_versions") and data.get("tong_nk"):
+                        expected_summary[(period, "import", "")] = data["tong_nk"]
+                for key in sorted(set(workbook_summary) | set(expected_summary)):
+                    actual, expected = workbook_summary.get(key), expected_summary.get(key)
+                    if actual is None or expected is None:
+                        issues.append({"type": "summary_presence_mismatch", "detail": f"{'|'.join(key)} workbook={actual is not None}, JSON={expected is not None}"})
+                        continue
+                    for field in ("quantity_month", "value_month_usd", "quantity_ytd", "value_ytd_usd"):
+                        a, e = actual.get(field), num(expected.get(field))
+                        if a != e:
+                            issues.append({"type": "summary_value_mismatch", "detail": f"{'|'.join(key)}|{field} workbook={a}, JSON={e}"})
+        vinacas_count = sum(1 for r in json_records if str(r.get("source", "")).lower() == "vinacas")
+        if not vinacas_count or not payload.get("vinacas_records"):
+            issues.append({"type": "vinacas_missing", "detail": f"normalized={vinacas_count}, raw={len(payload.get('vinacas_records', []))}"})
+
+        # ── Reconcile summary_records (flat per-version summary) against workbook
+        json_summaries = payload.get("summary_records", [])
+        if json_summaries and summary_sheet in wb.sheetnames:
+            rows = list(wb[summary_sheet].iter_rows(values_only=True))
+            headers = [str(v or "").strip() for v in rows[0]] if rows else []
+            needed = ("Kỳ", "Luồng", "CY Lượng", "CY Trị giá (USD)", "YTD Lượng", "YTD Trị giá (USD)", "Version Key")
+            if all(h in headers for h in needed):
+                idx = {h: headers.index(h) for h in headers}
+                workbook_sums = {}
+                for row in rows[1:]:
+                    if not row or len(row) <= max(idx[h] for h in needed):
+                        continue
+                    period = str(row[idx["Kỳ"]] or "").strip()
+                    flow_text = str(row[idx["Luồng"]] or "").strip().casefold()
+                    flow = "import" if "nhập" in flow_text or "nhap" in flow_text else "export"
+                    ver_key = str(row[idx["Version Key"]] or "").strip().lower()
+                    key = (period, flow, ver_key)
+                    if key in workbook_sums:
+                        issues.append({"type": "duplicate_summary_record", "detail": f"{period}|{flow}|{ver_key}"})
+                    workbook_sums[key] = {
+                        "quantity_month": num(row[idx["CY Lượng"]]),
+                        "value_month_usd": num(row[idx["CY Trị giá (USD)"]]),
+                        "quantity_ytd": num(row[idx["YTD Lượng"]]),
+                        "value_ytd_usd": num(row[idx["YTD Trị giá (USD)"]]),
+                    }
+                json_sums = {}
+                for s in json_summaries:
+                    if s.get("source") != "tchq":
+                        continue
+                    key = (s.get("period"), s.get("flow"), (s.get("version_key") or "").lower())
+                    if key in json_sums:
+                        issues.append({"type": "duplicate_json_summary_record", "detail": f"{key}"})
+                    json_sums[key] = {
+                        "quantity_month": num(s.get("quantity_month")),
+                        "value_month_usd": num(s.get("value_month_usd")),
+                        "quantity_ytd": num(s.get("quantity_ytd")),
+                        "value_ytd_usd": num(s.get("value_ytd_usd")),
+                    }
+                for key in sorted(set(workbook_sums) | set(json_sums)):
+                    actual, expected = workbook_sums.get(key), json_sums.get(key)
+                    if actual is None or expected is None:
+                        issues.append({"type": "summary_record_presence_mismatch", "detail": f"{'|'.join(key)} workbook={actual is not None}, JSON={expected is not None}"})
+                        continue
+                    for field in ("quantity_month", "value_month_usd", "quantity_ytd", "value_ytd_usd"):
+                        a, e = actual.get(field), expected.get(field)
+                        if a != e:
+                            issues.append({"type": "summary_record_value_mismatch", "detail": f"{'|'.join(key)}|{field} workbook={a}, JSON={e}"})
+        wb.close()
+
+    report_path = root / "qc" / "aggregate_reconciliation.json"
+    report_path.parent.mkdir(parents=True, exist_ok=True)
+    report_path.write_text(json.dumps({"status": "ok" if not issues else "failed", "issue_count": len(issues), "issues": issues}, ensure_ascii=False, indent=2), encoding="utf-8")
+    return report_path
+
+
+# ---------------------------------------------------------------------------
+# CLI entry point
+# ---------------------------------------------------------------------------
+
+def main():
+    ap = argparse.ArgumentParser(
+        description="XNK Cashew data_builder — build JSON database from xlsx outputs",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""Examples:
+  python pipeline/data_builder.py               # rebuild all years
+  python pipeline/data_builder.py --year 2025  # rebuild one year
+  python pipeline/data_builder.py --period 2025-09  # update year of this period""",
+    )
+    ap.add_argument("--year",   type=int, default=None, help="Rebuild a single year")
+    ap.add_argument("--period", default=None,            help="Update the year of YYYY-MM")
+    ap.add_argument("--all-years", action="store_true", help="Build combined all-years Excel and JSON")
+    ap.add_argument("--backfill", action="store_true", help="Tự động bù các khoảng trống dữ liệu và build all-years")
+    ap.add_argument("--output-root", default=None, help="Output root (default: code/output)")
+    args = ap.parse_args()
+
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
+    output_root = Path(args.output_root) if args.output_root else OUTPUT_DIR
+
+    if args.period:
+        update_period_data(args.period, output_root)
+        return
+
+    if args.backfill:
+        log.info("Chạy chế độ Backfill tự động...")
+        build_all_years(output_root, backfill=True)
+        report = validate_aggregate_outputs(output_root)
+        log.info("Aggregate reconciliation report: %s", report)
+        log.info("Backfill hoàn tất!")
+        return
+
+    if args.all_years:
+        build_all_years(output_root)
+        report = validate_aggregate_outputs(output_root)
+        log.info("Aggregate reconciliation report: %s", report)
+        return
+
+    if args.year:
+        build_year(args.year, output_root)
+        return
+
+    # Rebuild all years found in output/
+    if not output_root.exists():
+        log.error("Output directory not found: %s", output_root)
+        return
+
+    years = sorted({
+        int(d.name)
+        for d in output_root.iterdir()
+        if d.is_dir() and d.name.isdigit() and len(d.name) == 4
+    })
+    if not years:
+        log.warning("No year directories found in %s", output_root)
+        return
+
+    log.info("Rebuilding %d year(s): %s", len(years), years)
+    for year in years:
+        build_year(year, output_root)
+    build_all_years(output_root)
+    report = validate_aggregate_outputs(output_root)
+    log.info("Aggregate reconciliation report: %s", report)
+    log.info("All done.")
+
+
+if __name__ == "__main__":
+    main()

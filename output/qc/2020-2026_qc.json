@@ -1,0 +1,854 @@
+{
+  "years": [
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "period_count": 84,
+  "periods": [
+    {
+      "year": 2020,
+      "period": "2020-01",
+      "status": "ok",
+      "pdf_count": 12,
+      "summary_rows": 6,
+      "pivot_rows": 111,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2020,
+      "period": "2020-02",
+      "status": "ok",
+      "pdf_count": 12,
+      "summary_rows": 6,
+      "pivot_rows": 117,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2020,
+      "period": "2020-03",
+      "status": "ok",
+      "pdf_count": 12,
+      "summary_rows": 6,
+      "pivot_rows": 117,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2020,
+      "period": "2020-04",
+      "status": "ok",
+      "pdf_count": 12,
+      "summary_rows": 6,
+      "pivot_rows": 117,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2020,
+      "period": "2020-05",
+      "status": "ok",
+      "pdf_count": 9,
+      "summary_rows": 3,
+      "pivot_rows": 114,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2020,
+      "period": "2020-06",
+      "status": "ok",
+      "pdf_count": 12,
+      "summary_rows": 6,
+      "pivot_rows": 117,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2020,
+      "period": "2020-07",
+      "status": "ok",
+      "pdf_count": 10,
+      "summary_rows": 6,
+      "pivot_rows": 78,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2020,
+      "period": "2020-08",
+      "status": "ok",
+      "pdf_count": 10,
+      "summary_rows": 6,
+      "pivot_rows": 78,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2020,
+      "period": "2020-09",
+      "status": "ok",
+      "pdf_count": 9,
+      "summary_rows": 6,
+      "pivot_rows": 46,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2020,
+      "period": "2020-10",
+      "status": "ok",
+      "pdf_count": 10,
+      "summary_rows": 6,
+      "pivot_rows": 78,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2020,
+      "period": "2020-11",
+      "status": "ok",
+      "pdf_count": 8,
+      "summary_rows": 4,
+      "pivot_rows": 78,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2020,
+      "period": "2020-12",
+      "status": "ok",
+      "pdf_count": 6,
+      "summary_rows": 2,
+      "pivot_rows": 76,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2021,
+      "period": "2021-01",
+      "status": "ok",
+      "pdf_count": 12,
+      "summary_rows": 6,
+      "pivot_rows": 114,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2021,
+      "period": "2021-02",
+      "status": "ok",
+      "pdf_count": 12,
+      "summary_rows": 6,
+      "pivot_rows": 114,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2021,
+      "period": "2021-03",
+      "status": "ok",
+      "pdf_count": 12,
+      "summary_rows": 6,
+      "pivot_rows": 114,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2021,
+      "period": "2021-04",
+      "status": "ok",
+      "pdf_count": 12,
+      "summary_rows": 6,
+      "pivot_rows": 117,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2021,
+      "period": "2021-05",
+      "status": "ok",
+      "pdf_count": 12,
+      "summary_rows": 6,
+      "pivot_rows": 117,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2021,
+      "period": "2021-06",
+      "status": "ok",
+      "pdf_count": 9,
+      "summary_rows": 6,
+      "pivot_rows": 24,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2021,
+      "period": "2021-07",
+      "status": "ok",
+      "pdf_count": 8,
+      "summary_rows": 4,
+      "pivot_rows": 78,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2021,
+      "period": "2021-08",
+      "status": "ok",
+      "pdf_count": 8,
+      "summary_rows": 4,
+      "pivot_rows": 78,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2021,
+      "period": "2021-09",
+      "status": "ok",
+      "pdf_count": 8,
+      "summary_rows": 4,
+      "pivot_rows": 78,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2021,
+      "period": "2021-10",
+      "status": "ok",
+      "pdf_count": 8,
+      "summary_rows": 4,
+      "pivot_rows": 78,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2021,
+      "period": "2021-11",
+      "status": "ok",
+      "pdf_count": 8,
+      "summary_rows": 4,
+      "pivot_rows": 71,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2021,
+      "period": "2021-12",
+      "status": "ok",
+      "pdf_count": 11,
+      "summary_rows": 2,
+      "pivot_rows": 76,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2022,
+      "period": "2022-01",
+      "status": "ok",
+      "pdf_count": 6,
+      "summary_rows": 4,
+      "pivot_rows": 21,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2022,
+      "period": "2022-02",
+      "status": "ok",
+      "pdf_count": 12,
+      "summary_rows": 6,
+      "pivot_rows": 117,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2022,
+      "period": "2022-03",
+      "status": "ok",
+      "pdf_count": 12,
+      "summary_rows": 6,
+      "pivot_rows": 117,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2022,
+      "period": "2022-04",
+      "status": "partial",
+      "pdf_count": 6,
+      "summary_rows": 0,
+      "pivot_rows": 111,
+      "report_types": "country_product",
+      "validation_errors": "missing cashew summary row"
+    },
+    {
+      "year": 2022,
+      "period": "2022-05",
+      "status": "ok",
+      "pdf_count": 12,
+      "summary_rows": 6,
+      "pivot_rows": 117,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2022,
+      "period": "2022-06",
+      "status": "ok",
+      "pdf_count": 9,
+      "summary_rows": 3,
+      "pivot_rows": 114,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2022,
+      "period": "2022-07",
+      "status": "ok",
+      "pdf_count": 8,
+      "summary_rows": 4,
+      "pivot_rows": 78,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2022,
+      "period": "2022-08",
+      "status": "ok",
+      "pdf_count": 8,
+      "summary_rows": 4,
+      "pivot_rows": 78,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2022,
+      "period": "2022-09",
+      "status": "ok",
+      "pdf_count": 6,
+      "summary_rows": 2,
+      "pivot_rows": 76,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2022,
+      "period": "2022-10",
+      "status": "ok",
+      "pdf_count": 6,
+      "summary_rows": 4,
+      "pivot_rows": 64,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2022,
+      "period": "2022-11",
+      "status": "ok",
+      "pdf_count": 6,
+      "summary_rows": 2,
+      "pivot_rows": 76,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2022,
+      "period": "2022-12",
+      "status": "ok",
+      "pdf_count": 8,
+      "summary_rows": 4,
+      "pivot_rows": 71,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2023,
+      "period": "2023-01",
+      "status": "ok",
+      "pdf_count": 12,
+      "summary_rows": 6,
+      "pivot_rows": 114,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2023,
+      "period": "2023-02",
+      "status": "partial",
+      "pdf_count": 6,
+      "summary_rows": 0,
+      "pivot_rows": 111,
+      "report_types": "country_product",
+      "validation_errors": "missing cashew summary row"
+    },
+    {
+      "year": 2023,
+      "period": "2023-03",
+      "status": "ok",
+      "pdf_count": 12,
+      "summary_rows": 6,
+      "pivot_rows": 118,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2023,
+      "period": "2023-04",
+      "status": "ok",
+      "pdf_count": 9,
+      "summary_rows": 3,
+      "pivot_rows": 115,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2023,
+      "period": "2023-05",
+      "status": "ok",
+      "pdf_count": 12,
+      "summary_rows": 6,
+      "pivot_rows": 118,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2023,
+      "period": "2023-06",
+      "status": "ok",
+      "pdf_count": 12,
+      "summary_rows": 6,
+      "pivot_rows": 118,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2023,
+      "period": "2023-07",
+      "status": "ok",
+      "pdf_count": 8,
+      "summary_rows": 4,
+      "pivot_rows": 79,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2023,
+      "period": "2023-08",
+      "status": "ok",
+      "pdf_count": 8,
+      "summary_rows": 4,
+      "pivot_rows": 79,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2023,
+      "period": "2023-09",
+      "status": "ok",
+      "pdf_count": 6,
+      "summary_rows": 4,
+      "pivot_rows": 16,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2023,
+      "period": "2023-10",
+      "status": "ok",
+      "pdf_count": 8,
+      "summary_rows": 4,
+      "pivot_rows": 80,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2023,
+      "period": "2023-11",
+      "status": "ok",
+      "pdf_count": 8,
+      "summary_rows": 4,
+      "pivot_rows": 80,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2023,
+      "period": "2023-12",
+      "status": "partial",
+      "pdf_count": 4,
+      "summary_rows": 4,
+      "pivot_rows": 2,
+      "report_types": "summary",
+      "validation_errors": "missing cashew country/product rows"
+    },
+    {
+      "year": 2024,
+      "period": "2024-01",
+      "status": "ok",
+      "pdf_count": 12,
+      "summary_rows": 6,
+      "pivot_rows": 119,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2024,
+      "period": "2024-02",
+      "status": "ok",
+      "pdf_count": 9,
+      "summary_rows": 3,
+      "pivot_rows": 116,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2024,
+      "period": "2024-03",
+      "status": "ok",
+      "pdf_count": 12,
+      "summary_rows": 6,
+      "pivot_rows": 87,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2024,
+      "period": "2024-04",
+      "status": "ok",
+      "pdf_count": 12,
+      "summary_rows": 6,
+      "pivot_rows": 123,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2024,
+      "period": "2024-05",
+      "status": "ok",
+      "pdf_count": 6,
+      "summary_rows": 3,
+      "pivot_rows": 102,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2024,
+      "period": "2024-06",
+      "status": "ok",
+      "pdf_count": 12,
+      "summary_rows": 6,
+      "pivot_rows": 123,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2024,
+      "period": "2024-07",
+      "status": "ok",
+      "pdf_count": 4,
+      "summary_rows": 2,
+      "pivot_rows": 14,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2024,
+      "period": "2024-08",
+      "status": "ok",
+      "pdf_count": 8,
+      "summary_rows": 4,
+      "pivot_rows": 84,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2024,
+      "period": "2024-09",
+      "status": "ok",
+      "pdf_count": 8,
+      "summary_rows": 4,
+      "pivot_rows": 84,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2024,
+      "period": "2024-10",
+      "status": "ok",
+      "pdf_count": 6,
+      "summary_rows": 4,
+      "pivot_rows": 70,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2024,
+      "period": "2024-11",
+      "status": "ok",
+      "pdf_count": 8,
+      "summary_rows": 4,
+      "pivot_rows": 84,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2024,
+      "period": "2024-12",
+      "status": "ok",
+      "pdf_count": 4,
+      "summary_rows": 2,
+      "pivot_rows": 14,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2025,
+      "period": "2025-01",
+      "status": "ok",
+      "pdf_count": 12,
+      "summary_rows": 6,
+      "pivot_rows": 123,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2025,
+      "period": "2025-02",
+      "status": "ok",
+      "pdf_count": 12,
+      "summary_rows": 6,
+      "pivot_rows": 123,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2025,
+      "period": "2025-03",
+      "status": "ok",
+      "pdf_count": 9,
+      "summary_rows": 3,
+      "pivot_rows": 120,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2025,
+      "period": "2025-04",
+      "status": "ok",
+      "pdf_count": 12,
+      "summary_rows": 6,
+      "pivot_rows": 123,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2025,
+      "period": "2025-05",
+      "status": "ok",
+      "pdf_count": 12,
+      "summary_rows": 6,
+      "pivot_rows": 123,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2025,
+      "period": "2025-06",
+      "status": "ok",
+      "pdf_count": 12,
+      "summary_rows": 6,
+      "pivot_rows": 123,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2025,
+      "period": "2025-07",
+      "status": "ok",
+      "pdf_count": 8,
+      "summary_rows": 4,
+      "pivot_rows": 82,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2025,
+      "period": "2025-08",
+      "status": "ok",
+      "pdf_count": 6,
+      "summary_rows": 4,
+      "pivot_rows": 68,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2025,
+      "period": "2025-09",
+      "status": "ok",
+      "pdf_count": 8,
+      "summary_rows": 4,
+      "pivot_rows": 82,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2025,
+      "period": "2025-10",
+      "status": "ok",
+      "pdf_count": 6,
+      "summary_rows": 2,
+      "pivot_rows": 82,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2025,
+      "period": "2025-11",
+      "status": "ok",
+      "pdf_count": 8,
+      "summary_rows": 4,
+      "pivot_rows": 84,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2025,
+      "period": "2025-12",
+      "status": "ok",
+      "pdf_count": 8,
+      "summary_rows": 4,
+      "pivot_rows": 84,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2026,
+      "period": "2026-01",
+      "status": "ok",
+      "pdf_count": 8,
+      "summary_rows": 4,
+      "pivot_rows": 82,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2026,
+      "period": "2026-02",
+      "status": "ok",
+      "pdf_count": 8,
+      "summary_rows": 4,
+      "pivot_rows": 82,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2026,
+      "period": "2026-03",
+      "status": "ok",
+      "pdf_count": 8,
+      "summary_rows": 4,
+      "pivot_rows": 82,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2026,
+      "period": "2026-04",
+      "status": "ok",
+      "pdf_count": 8,
+      "summary_rows": 4,
+      "pivot_rows": 82,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2026,
+      "period": "2026-05",
+      "status": "ok",
+      "pdf_count": 8,
+      "summary_rows": 4,
+      "pivot_rows": 82,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2026,
+      "period": "2026-06",
+      "status": "ok",
+      "pdf_count": 8,
+      "summary_rows": 4,
+      "pivot_rows": 82,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2026,
+      "period": "2026-07",
+      "status": "ok",
+      "pdf_count": 4,
+      "summary_rows": 2,
+      "pivot_rows": 41,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2026,
+      "period": "2026-08",
+      "status": "ok",
+      "pdf_count": 4,
+      "summary_rows": 2,
+      "pivot_rows": 41,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2026,
+      "period": "2026-09",
+      "status": "ok",
+      "pdf_count": 4,
+      "summary_rows": 2,
+      "pivot_rows": 41,
+      "report_types": "country_product,summary",
+      "validation_errors": ""
+    },
+    {
+      "year": 2026,
+      "period": "2026-10",
+      "status": "no_files",
+      "pdf_count": 0,
+      "summary_rows": 0,
+      "pivot_rows": 0,
+      "report_types": "",
+      "validation_errors": ""
+    },
+    {
+      "year": 2026,
+      "period": "2026-11",
+      "status": "no_files",
+      "pdf_count": 0,
+      "summary_rows": 0,
+      "pivot_rows": 0,
+      "report_types": "",
+      "validation_errors": ""
+    },
+    {
+      "year": 2026,
+      "period": "2026-12",
+      "status": "no_files",
+      "pdf_count": 0,
+      "summary_rows": 0,
+      "pivot_rows": 0,
+      "report_types": "",
+      "validation_errors": ""
+    }
+  ]
+}

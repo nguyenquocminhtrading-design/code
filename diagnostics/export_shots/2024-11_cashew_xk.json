@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "year": 2024,
+  "generated_at": "2026-10-26T06:38:16.811Z",
+  "periods": {
+    "2024-11": {
+      "period": "2024-11",
+      "tong_xk": {
+        "period": "2024-11",
+        "product": "Hạt điều",
+        "unit": "Tấn",
+        "direction": "",
+        "version": "Chính thức",
+        "is_derived": false,
+        "pct_change_prev_month_qty": null,
+        "pct_change_prev_month_val": null,
+        "quantity_month": 59699,
+        "value_month_usd": 396575127,
+        "quantity_ytd": 669543,
+        "value_ytd_usd": 3978968372,
+        "source_note": ""
+      },
+      "tong_nk": null,
+      "trade_balance_usd": null,
+      "xk_theo_nuoc": [
+        {
+          "country": "ANH",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 982,
+          "cy_tri_gia": 5379188,
+          "ytd_luong": 18014,
+          "ytd_tri_gia": 92699048
+        },
+        {
+          "country": "BÊLARUT",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 71,
+          "cy_tri_gia": 402336,
+          "ytd_luong": null,
+          "ytd_tri_gia": null
+        },
+        {
+          "country": "BỈ",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 281,
+          "cy_tri_gia": 1623398,
+          "ytd_luong": 3334,
+          "ytd_tri_gia": 19184144
+        },
+        {
+          "country": "HY LẠP",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 297,
+          "cy_tri_gia": 2180697,
+          "ytd_luong": 4346,
+          "ytd_tri_gia": 27220399
+        },
+        {
+          "country": "HÀ LAN",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 5668,
+          "cy_tri_gia": 34152096,
+          "ytd_luong": 63449,
+          "ytd_tri_gia": 374277992
+        },
+        {
+          "country": "ITALIA",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 942,
+          "cy_tri_gia": 4581622,
+          "ytd_luong": 8288,
+          "ytd_tri_gia": 34588171
+        },
+        {
+          "country": "LÍTVA",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 558,
+          "cy_tri_gia": 3892429,
+          "ytd_luong": 8684,
+          "ytd_tri_gia": 51844267
+        },
+        {
+          "country": "NAUY",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 71,
+          "cy_tri_gia": 457054,
+          "ytd_luong": 1254,
+          "ytd_tri_gia": 7317053
+        },
+        {
+          "country": "NGA",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 778,
+          "cy_tri_gia": 5280768,
+          "ytd_luong": 10515,
+          "ytd_tri_gia": 56105142
+        },
+        {
+          "country": "PHÁP",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 642,
+          "cy_tri_gia": 4366322,
+          "ytd_luong": 9019,
+          "ytd_tri_gia": 55758959
+        },
+        {
+          "country": "TÂY BAN NHA",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 981,
+          "cy_tri_gia": 6954893,
+          "ytd_luong": 11415,
+          "ytd_tri_gia": 71066677
+        },
+        {
+          "country": "UCRAINA",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 17,
+          "cy_tri_gia": 133617,
+          "ytd_luong": 149,
+          "ytd_tri_gia": 1054916
+        },
+        {
+          "country": "ĐỨC",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 2142,
+          "cy_tri_gia": 14121051,
+          "ytd_luong": 23592,
+          "ytd_tri_gia": 137142693
+        }
+      ],
+      "nk_theo_nuoc": [],
+      "versions": []
+    }
+  },
+  "_export_meta": {
+    "exported_from": "DAN ON FOOD Trade Explorer",
+    "flow": "export",
+    "filters": [
+      "Năm: 2024",
+      "Khu vực: Châu Âu",
+      "Chi tiết: Tháng"
+    ],
+    "source": "Nguồn: Tổng cục Hải quan Việt Nam (TCHQ) · customs.gov.vn"
+  }
+}

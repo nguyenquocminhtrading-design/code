@@ -1,0 +1,28 @@
+=== 2020-01_cashew.xlsx ===
+Sheets: ['Tong_Quan_XNK', 'Can_Can_Thuong_Mai', 'XK_ChinhThuc', 'XK_DieuChinh', 'XK_SoBo', 'NK_ChinhThuc', 'NK_DieuChinh', 'NK_SoBo', 'Lich_Su_Phien_Ban', 'Vinacas_Doi_Chieu', '_Meta']
+Tong_Quan_XNK: 6 summary rows
+  Xuất khẩu | Official | qty=25259 | val=176602478 | file=TCHQ Official (2020-T01T-2X(VN-CT).pdf)
+  Xuất khẩu | Adjusted | qty=25253 | val=176571066 | file=TCHQ Adjusted (2020-T01-2X(VN-DC2).pdf)
+  Xuất khẩu | Preliminary | qty=24687 | val=172552589 | file=TCHQ Preliminary (2020-T01T-2X(VN-SB).pdf)
+  Nhập khẩu | Official | qty=52084 | val=85055470 | file=TCHQ Official (2020-T01T-2N(VN-CT).pdf)
+  Nhập khẩu | Adjusted | qty=52084 | val=85055470 | file=TCHQ Adjusted (2020-T01-2N(VN-DC2).pdf)
+  Nhập khẩu | Preliminary | qty=51538 | val=84246225 | file=TCHQ Preliminary (2020-T01T-2N(VN-SB).pdf)
+XK_ChinhThuc: 33 rows, Other=1, sample debug_file=pdf
+XK_DieuChinh: 31 rows, Other=1, sample debug_file=pdf
+XK_SoBo: 31 rows, Other=1, sample debug_file=pdf
+NK_ChinhThuc: 6 rows, Other=1, sample debug_file=pdf
+NK_DieuChinh: 6 rows, Other=1, sample debug_file=pdf
+NK_SoBo: 6 rows, Other=1, sample debug_file=pdf
+
+=== All-years version files ===
+all_years_cashew_ChinhThuc.xlsx: sheets=['Tong_Quan_XNK', 'XK_Theo_Nuoc', 'NK_Theo_Nuoc'], summary=127, XK=2136, NK=467
+all_years_cashew_DieuChinh.xlsx: sheets=['Tong_Quan_XNK', 'XK_Theo_Nuoc', 'NK_Theo_Nuoc'], summary=81, XK=1304, NK=282
+all_years_cashew_SoBo.xlsx: sheets=['Tong_Quan_XNK', 'XK_Theo_Nuoc', 'NK_Theo_Nuoc'], summary=143, XK=2412, NK=511
+
+=== JSON ===
+schema_version: 3
+records: 7869, with version_key: 7112, with debug_file: 7102
+2020-01 tong_xk_versions: ['adjusted', 'official', 'preliminary']
+sample: period=2020-01 country=HOA KỲ vk=official dbg=2020-T01T-5X(VN-CT)-final.pdf
+
+=== QC reconciliation: status=ok, issues=0 ===

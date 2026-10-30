@@ -1,0 +1,15 @@
+{
+  "period": "2026-10",
+  "source": "tchq",
+  "captcha": "none",
+  "scrape": {
+    "rows": 0
+  },
+  "scrape_complete": false,
+  "download_validation": [],
+  "errors": [],
+  "ocr": {
+    "period": "2026-10",
+    "status": "no_files"
+  }
+}

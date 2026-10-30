@@ -1,0 +1,447 @@
+================================================================================
+📊 BÁO CÁO KHE HỞNG DỮ LIỆU — AUDIT DATA GAPS
+================================================================================
+
+A. MA TRẬN KỲ × LUỒNG × PHIÊN BẢN (từ JSON records)
+--------------------------------------------------------------------------------
+Kỳ         Luồng  Version      Số quốc gia         CY_sum        Val_sum         YTD_cy        YTD_val   Other?                    Debug files
+--------------------------------------------------------------------------------------------------------------------------------------------
+2020-01    export adjusted             31              0              0              0              0      YES        2020-T01T-5X(VN-DC).pdf
+2020-01    export official             31              0              0              0              0      YES  2020-T01T-5X(VN-CT)-final.pdf
+2020-01    export preliminary          31              0              0              0              0      YES        2020-T01T-5X(VN-SB).pdf
+2020-01    import adjusted              6              0              0              0              0      YES        2020-T01T-5N(VN-DC).pdf
+2020-01    import official              6              0              0              0              0      YES  2020-T01T-5N(VN-CT)-final.pdf
+2020-01    import preliminary           6              0              0              0              0      YES        2020-T01T-5N(VN-SB).pdf
+2020-02    export adjusted             32              0              0              0              0      YES        2020-T02T-5X(VN-DC).pdf
+2020-02    export official             32              0              0              0              0      YES  2020-T02T-5X(VN-CT)-final.pdf
+2020-02    export preliminary          32              0              0              0              0      YES                         5X.pdf
+2020-02    import adjusted              7              0              0              0              0      YES        2020-T02T-5N(VN-DC).pdf
+2020-02    import official              7              0              0              0              0      YES        2020-T02T-5N(VN-CT).pdf
+2020-02    import preliminary           7              0              0              0              0      YES        2020-T02T-5N(VN-SB).pdf
+2020-03    export adjusted             32              0              0              0              0      YES        2020-T03T-5X(VN-DC).pdf
+2020-03    export official             32              0              0              0              0      YES  2020-T03T-5X(VN-CT)-final.pdf
+2020-03    export preliminary          32              0              0              0              0      YES        2020-T03T-5X(VN-SB).pdf
+2020-03    import adjusted              7              0              0              0              0      YES        2020-T03T-5N(VN-DC).pdf
+2020-03    import official              7              0              0              0              0      YES  2020-T03T-5N(VN-CT)-final.pdf
+2020-03    import preliminary           7              0              0              0              0      YES        2020-T03T-5N(VN-SB).pdf
+2020-04    export adjusted             32              0              0              0              0      YES        2020-T04T-5X(VN-DC).pdf
+2020-04    export official             32              0              0              0              0      YES  2020-T04T-5X(VN-CT)-final.pdf
+2020-04    export preliminary          32              0              0              0              0      YES        2020-T04T-5X(VN-SB).pdf
+2020-04    import adjusted              7              0              0              0              0      YES        2020-T04T-5N(VN-DC).pdf
+2020-04    import official              7              0              0              0              0      YES  2020-T04T-5N(VN-CT)-final.pdf
+2020-04    import preliminary           7              0              0              0              0      YES                    5N%20T4.pdf
+2020-05    export adjusted             31              0              0              0              0       NO        2020-T05T-5X(VN-DC).pdf
+2020-05    export derived               1              0              0              0              0      YES                       BACKFILL
+2020-05    export official             31              0              0              0              0       NO  2020-T05T-5X(VN-CT)-final.pdf
+2020-05    export preliminary          31              0              0              0              0       NO        2020-T05T-5X(VN-SB).pdf
+2020-05    import adjusted              7              0              0              0              0      YES        2020-T05T-5N(VN-DC).pdf
+2020-05    import official              7              0              0              0              0      YES  2020-T05T-5N(VN-CT)-final.pdf
+2020-05    import preliminary           7              0              0              0              0      YES        2020-T05T-5N(VN-SB).pdf
+2020-06    export adjusted             32              0              0              0              0      YES        2020-T06T-5X(VN-DC).pdf
+2020-06    export official             32              0              0              0              0      YES  2020-T06T-5X(VN-CT)-final.pdf
+2020-06    export preliminary          32              0              0              0              0      YES        2020-T06T-5X(VN-SB).pdf
+2020-06    import adjusted              7              0              0              0              0      YES        2020-T06T-5N(VN-DC).pdf
+2020-06    import official              7              0              0              0              0      YES  2020-T06T-5N(VN-CT)-final.pdf
+2020-06    import preliminary           7              0              0              0              0      YES        2020-T06T-5N(VN-SB).pdf
+2020-07    export official             32              0              0              0              0      YES  2020-T07T-5X(VN-CT)-final.pdf
+2020-07    export preliminary          32              0              0              0              0      YES        2020-T07T-5X(VN-SB).pdf
+2020-07    import official              7              0              0              0              0      YES  2020-T07T-5N(VN-CT)-final.pdf
+2020-07    import preliminary           7              0              0              0              0      YES        2020-T07T-5N(VN-SB).pdf
+2020-08    export official             32              0              0              0              0      YES  2020-T08T-5X(VN-CT)-final.pdf
+2020-08    export preliminary          32              0              0              0              0      YES        2020-T08T-5X(VN-SB).pdf
+2020-08    import official              7              0              0              0              0      YES  2020-T08T-5N(VN-CT)-final.pdf
+2020-08    import preliminary           7              0              0              0              0      YES        2020-T08T-5N(VN-SB).pdf
+2020-09    export preliminary          32              0              0              0              0      YES        2020-T09T-5X(VN-SB).pdf
+2020-09    import official              7              0              0              0              0      YES        2020-T09T-5N(VN-CT).pdf
+2020-09    import preliminary           7              0              0              0              0      YES        2020-T09T-5N(VN-SB).pdf
+2020-10    export official             32              0              0              0              0      YES  2020-T10T-5X(VN-CT)-final.pdf
+2020-10    export preliminary          32              0              0              0              0      YES        2020-T10T-5X(VN-SB).pdf
+2020-10    import official              7              0              0              0              0      YES  2020-T10T-5N(VN-CT)-final.pdf
+2020-10    import preliminary           7              0              0              0              0      YES        2020-T10T-5N(VN-SB).pdf
+2020-11    export official             32              0              0              0              0      YES  2020-T11T-5X(VN-CT)-final.pdf
+2020-11    export preliminary          32              0              0              0              0      YES         2020-T11-5X(VN-SB).pdf
+2020-11    import official              7              0              0              0              0      YES  2020-T11T-5N(VN-CT)-final.pdf
+2020-11    import preliminary           7              0              0              0              0      YES         2020-T11-5N(VN-SB).pdf
+2020-12    export derived               1              0              0              0              0      YES                       BACKFILL
+2020-12    export official             31              0              0              0              0       NO  2020-T12T-5X(VN-CT)-final.pdf
+2020-12    export preliminary          31              0              0              0              0       NO        2020-T12T-5X(VN-SB).pdf
+2020-12    import official              7              0              0              0              0      YES  2020-T12T-5N(VN-CT)-final.pdf
+2020-12    import preliminary           7              0              0              0              0      YES        2020-T12T-5N(VN-SB).pdf
+2021-01    export adjusted             31              0              0              0              0      YES        2021-T01T-5X(VN-DC).pdf
+2021-01    export official             31              0              0              0              0      YES        2021-T01T-5X(VN-CT).pdf
+2021-01    export preliminary          31              0              0              0              0      YES        2021-T01T-5X(VN-SB).pdf
+2021-01    import adjusted              7              0              0              0              0      YES        2021-T01T-5N(VN-DC).pdf
+2021-01    import official              7              0              0              0              0      YES        2021-T01T-5N(VN-CT).pdf
+2021-01    import preliminary           7              0              0              0              0      YES        2021-T01T-5N(VN-SB).pdf
+2021-02    export adjusted             31              0              0              0              0      YES        2021-T02T-5X(VN-DC).pdf
+2021-02    export official             31              0              0              0              0      YES        2021-T02T-5X(VN-CT).pdf
+2021-02    export preliminary          31              0              0              0              0      YES        2021-T02T-5X(VN-SB).pdf
+2021-02    import adjusted              7              0              0              0              0      YES        2021-T02T-5N(VN-DC).pdf
+2021-02    import official              7              0              0              0              0      YES        2021-T02T-5N(VN-CT).pdf
+2021-02    import preliminary           7              0              0              0              0      YES        2021-T02T-5N(VN-SB).pdf
+2021-03    export adjusted             31              0              0              0              0      YES        2021-T03T-5X(VN-DC).pdf
+2021-03    export official             31              0              0              0              0      YES        2021-T03T-5X(VN-CT).pdf
+2021-03    export preliminary          31              0              0              0              0      YES        2021-T03T-5X(VN-SB).pdf
+2021-03    import adjusted              7              0              0              0              0      YES        2021-T03T-5N(VN-DC).pdf
+2021-03    import official              7              0              0              0              0      YES        2021-T03T-5N(VN-CT).pdf
+2021-03    import preliminary           7              0              0              0              0      YES        2021-T03T-5N(VN-SB).pdf
+2021-04    export adjusted             32              0              0              0              0      YES        2021-T04T-5X(VN-DC).pdf
+2021-04    export official             32              0              0              0              0      YES        2021-T04T-5X(VN-CT).pdf
+2021-04    export preliminary          32              0              0              0              0      YES        2021-T04T-5X(VN-SB).pdf
+2021-04    import adjusted              7              0              0              0              0      YES        2021-T04T-5N(VN-DC).pdf
+2021-04    import official              7              0              0              0              0      YES        2021-T04T-5N(VN-CT).pdf
+2021-04    import preliminary           7              0              0              0              0      YES        2021-T04T-5N(VN-SB).pdf
+2021-05    export adjusted             32              0              0              0              0      YES        2021-T05T-5X(VN-DC).pdf
+2021-05    export official             32              0              0              0              0      YES        2021-T05T-5X(VN-CT).pdf
+2021-05    export preliminary          32              0              0              0              0      YES        2021-T05T-5X(VN-SB).pdf
+2021-05    import adjusted              7              0              0              0              0      YES        2021-T05T-5N(VN-DC).pdf
+2021-05    import official              7              0              0              0              0      YES        2021-T05T-5N(VN-CT).pdf
+2021-05    import preliminary           7              0              0              0              0      YES        2021-T05T-5N(VN-SB).pdf
+2021-06    export adjusted              1              0              0              0              0      YES                               
+2021-06    export official              1              0              0              0              0      YES                               
+2021-06    export preliminary           1              0              0              0              0      YES                               
+2021-06    import adjusted              7              0              0              0              0      YES        2021-T06T-5N(VN-DC).pdf
+2021-06    import official              7              0              0              0              0      YES        2021-T06T-5N(VN-CT).pdf
+2021-06    import preliminary           7              0              0              0              0      YES        2021-T06T-5N(VN-SB).pdf
+2021-07    export official             32              0              0              0              0      YES        2021-T07T-5X(VN-CT).pdf
+2021-07    export preliminary          32              0              0              0              0      YES        2021-T07T-5X(VN-SB).pdf
+2021-07    import official              7              0              0              0              0      YES        2021-T07T-5N(VN-CT).pdf
+2021-07    import preliminary           7              0              0              0              0      YES        2021-T07T-5N(VN-SB).pdf
+2021-08    export official             32              0              0              0              0      YES        2021-T08T-5X(VN-CT).pdf
+2021-08    export preliminary          32              0              0              0              0      YES        2021-T08T-5X(VN-SB).pdf
+2021-08    import official              7              0              0              0              0      YES        2021-T08T-5N(VN-CT).pdf
+2021-08    import preliminary           7              0              0              0              0      YES        2021-T08T-5N(VN-SB).pdf
+2021-09    export official             32              0              0              0              0      YES        2021-T09T-5X(VN-CT).pdf
+2021-09    export preliminary          32              0              0              0              0      YES        2021-T09T-5X(VN-SB).pdf
+2021-09    import official              7              0              0              0              0      YES        2021-T09T-5N(VN-CT).pdf
+2021-09    import preliminary           7              0              0              0              0      YES        2021-T09T-5N(VN-SB).pdf
+2021-10    export official             32              0              0              0              0      YES     3122021-T10T-5X(VN-CT).pdf
+2021-10    export preliminary          32              0              0              0              0      YES        2021-T10T-5X(VN-SB).pdf
+2021-10    import official              7              0              0              0              0      YES        2021-T10T-5N(VN-CT).pdf
+2021-10    import preliminary           7              0              0              0              0      YES        2021-T10T-5N(VN-SB).pdf
+2021-11    export official             32              0              0              0              0      YES        2021-T11T-5X(VN-CT).pdf
+2021-11    export preliminary          32              0              0              0              0      YES         2021-T11-5X(VN-SB).pdf
+2021-11    import official              7              0              0              0              0      YES        2021-T11T-5N(VN-CT).pdf
+2021-12    export official             32              0              0              0              0      YES        2021-T12T-5X(VN-CT).pdf
+2021-12    export preliminary          31              0              0              0              0       NO        2021-T12T-5X(VN-SB).pdf
+2021-12    import official              7              0              0              0              0      YES        2021-T12T-5N(VN-CT).pdf
+2021-12    import preliminary           6              0              0              0              0       NO        2021-T12T-5N(VN-SB).pdf
+2022-01    export adjusted              1              0              0              0              0      YES                               
+2022-01    export official              1              0              0              0              0      YES                               
+2022-01    export preliminary           1              0              0              0              0      YES                               
+2022-01    import adjusted              6              0              0              0              0       NO        2022-T01T-5N(VN-DC).pdf
+2022-01    import derived               1              0              0              0              0      YES                       BACKFILL
+2022-01    import official              6              0              0              0              0       NO        2022-t01t-5n(vn-ct).pdf
+2022-01    import preliminary           6              0              0              0              0       NO        2022-T01T-5N(VN-SB).pdf
+2022-02    export adjusted             32              0              0              0              0      YES        2022-T02T-5X(VN-DC).pdf
+2022-02    export official             32              0              0              0              0      YES        2022-t02t-5x(vn-ct).pdf
+2022-02    export preliminary          32              0              0              0              0      YES        2022-T02T-5X(VN-SB).pdf
+2022-02    import adjusted              7              0              0              0              0      YES        2022-T02T-5N(VN-DC).pdf
+2022-02    import official              7              0              0              0              0      YES        2022-t02t-5n(vn-ct).pdf
+2022-02    import preliminary           7              0              0              0              0      YES        2022-T02T-5N(VN-SB).pdf
+2022-03    export adjusted             32              0              0              0              0      YES        2022-T03T-5X(VN-DC).pdf
+2022-03    export official             32              0              0              0              0      YES        2022-t03t-5x(vn-ct).pdf
+2022-03    export preliminary          32              0              0              0              0      YES     9482022-T03T-5X(VN-SB).pdf
+2022-03    import adjusted              7              0              0              0              0      YES        2022-T03T-5N(VN-DC).pdf
+2022-03    import official              7              0              0              0              0      YES        2022-t03t-5n(vn-ct).pdf
+2022-03    import preliminary           7              0              0              0              0      YES     9162022-T03T-5N(VN-SB).pdf
+2022-04    export adjusted             31              0              0              0              0       NO        2022-T04T-5X(VN-DC).pdf
+2022-04    export derived               1              0              0              0              0      YES                       BACKFILL
+2022-04    export official             31              0              0              0              0       NO        2022-t04t-5x(vn-ct).pdf
+2022-04    export preliminary          31              0              0              0              0       NO        2022-T04T-5X(VN-SB).pdf
+2022-04    import adjusted              6              0              0              0              0       NO        2022-T04T-5N(VN-DC).pdf
+2022-04    import derived               1              0              0              0              0      YES                       BACKFILL
+2022-04    import official              6              0              0              0              0       NO        2022-t04t-5n(vn-ct).pdf
+2022-04    import preliminary           6              0              0              0              0       NO        2022-T04T-5N(VN-SB).pdf
+2022-05    export adjusted             32              0              0              0              0      YES        2022-T05T-5X(VN-DC).pdf
+2022-05    export official             32              0              0              0              0      YES        2022-t05t-5x(vn-ct).pdf
+2022-05    export preliminary          32              0              0              0              0      YES        2022-T05T-5X(VN-SB).pdf
+2022-05    import adjusted              7              0              0              0              0      YES        2022-T05T-5N(VN-DC).pdf
+2022-05    import official              7              0              0              0              0      YES        2022-t05t-5n(vn-ct).pdf
+2022-05    import preliminary           7              0              0              0              0      YES        2022-T05T-5N(VN-SB).pdf
+2022-06    export adjusted             31              0              0              0              0       NO        2022-T06T-5X(VN-DC).pdf
+2022-06    export derived               1              0              0              0              0      YES                       BACKFILL
+2022-06    export official             31              0              0              0              0       NO        2022-t06t-5x(vn-ct).pdf
+2022-06    export preliminary          31              0              0              0              0       NO        2022-T06T-5X(VN-SB).pdf
+2022-06    import adjusted              7              0              0              0              0      YES        2022-T06T-5N(VN-DC).pdf
+2022-06    import official              7              0              0              0              0      YES        2022-t06t-5n(vn-ct).pdf
+2022-06    import preliminary           7              0              0              0              0      YES        2022-T06T-5N(VN-SB).pdf
+2022-07    export official             32              0              0              0              0      YES        2022-t07t-5x(vn-ct).pdf
+2022-07    export preliminary          32              0              0              0              0      YES        2022-T07T-5X(VN-SB).pdf
+2022-07    import official              7              0              0              0              0      YES        2022-t07t-5n(vn-ct).pdf
+2022-07    import preliminary           7              0              0              0              0      YES        2022-T07T-5N(VN-SB).pdf
+2022-08    export official             32              0              0              0              0      YES        2022-t08t-5x(vn-ct).pdf
+2022-08    export preliminary          32              0              0              0              0      YES        2022-T08T-5X(VN-SB).pdf
+2022-08    import official              7              0              0              0              0      YES        2022-t08t-5n(vn-ct).pdf
+2022-08    import preliminary           7              0              0              0              0      YES        2022-T08T-5N(VN-SB).pdf
+2022-09    export official             32              0              0              0              0      YES        2022-t09t-5x(vn-ct).pdf
+2022-09    export preliminary          32              0              0              0              0      YES         2022-T09-5X(VN-SB).pdf
+2022-09    import derived               1              0              0              0              0      YES                       BACKFILL
+2022-09    import official              6              0              0              0              0       NO        2022-t09t-5n(vn-ct).pdf
+2022-09    import preliminary           6              0              0              0              0       NO         2022-T09-5N(VN-SB).pdf
+2022-10    export official             32              0              0              0              0      YES        2022-t10t-5x(vn-ct).pdf
+2022-10    export preliminary          32              0              0              0              0      YES 2022-T10-5X(VN-SB)ngay 8.11.20
+2022-10    import official              1              0              0              0              0      YES                       BACKFILL
+2022-11    export derived               1              0              0              0              0      YES                       BACKFILL
+2022-11    export official             31              0              0              0              0       NO        2022-t11t-5x(vn-ct).pdf
+2022-11    export preliminary          31              0              0              0              0       NO         2022-T11-5X(VN-SB).pdf
+2022-11    import official              7              0              0              0              0      YES        2022-t11t-5n(vn-ct).pdf
+2022-11    import preliminary           7              0              0              0              0      YES         2022-T11-5N(VN-SB).pdf
+2022-12    export official             32              0              0              0              0      YES     5062022-t12t-5x(vn-ct).pdf
+2022-12    export preliminary          32              0              0              0              0      YES         2022-T12-5X(VN-SB).pdf
+2022-12    import official              7              0              0              0              0      YES        2022-t12t-5n(vn-ct).pdf
+2023-01    export adjusted             31              0              0              0              0      YES      452023-t01t-5x(vn-dc).pdf
+2023-01    export official             32              0              0              0              0      YES        2023-T01T-5X(VN-CT).pdf
+2023-01    export preliminary          30              0              0              0              0      YES       6542023-t1-5x(vn-sb).pdf
+2023-01    import adjusted              7              0              0              0              0      YES       9892023-t1-5n(vn-dc).pdf
+2023-01    import official              7              0              0              0              0      YES        2023-T01T-5N(VN-CT).pdf
+2023-01    import preliminary           7              0              0              0              0      YES          2023-t1-5n(vn-sb).pdf
+2023-02    export adjusted             31              0              0              0              0       NO        2023-t02t-5x(vn-dc).pdf
+2023-02    export derived               1              0              0              0              0      YES                       BACKFILL
+2023-02    export official             32              0              0              0              0       NO        2023-T02T-5X(VN-CT).pdf
+2023-02    export preliminary          30              0              0              0              0       NO       8962023-t2-5x(vn-sb).pdf
+2023-02    import adjusted              6              0              0              0              0       NO          2023-t2-5n(vn-dc).pdf
+2023-02    import derived               1              0              0              0              0      YES                       BACKFILL
+2023-02    import official              6              0              0              0              0       NO        2023-T02T-5N(VN-CT).pdf
+2023-02    import preliminary           6              0              0              0              0       NO          2023-t2-5n(vn-sb).pdf
+2023-03    export adjusted             32              0              0              0              0      YES        2023-t03t-5x(vn-dc).pdf
+2023-03    export official             34              0              0              0              0      YES        2023-T03T-5X(VN-CT).pdf
+2023-03    export preliminary          31              0              0              0              0      YES          2023-t3-5x(vn-sb).pdf
+2023-03    import adjusted              7              0              0              0              0      YES          2023-t3-5n(vn-dc).pdf
+2023-03    import official              7              0              0              0              0      YES        2023-T03T-5N(VN-CT).pdf
+2023-03    import preliminary           7              0              0              0              0      YES          2023-t3-5n(vn-sb).pdf
+2023-04    export adjusted             32              0              0              0              0      YES     7832023-t04t-5x(vn-dc).pdf
+2023-04    export official             34              0              0              0              0      YES        2023-T04T-5X(VN-CT).pdf
+2023-04    export preliminary          31              0              0              0              0      YES          2023-T4-5X(VN-SB).pdf
+2023-04    import adjusted              6              0              0              0              0       NO          2023-t4-5n(vn-dc).pdf
+2023-04    import derived               1              0              0              0              0      YES                       BACKFILL
+2023-04    import official              6              0              0              0              0       NO        2023-T04T-5N(VN-CT).pdf
+2023-04    import preliminary           6              0              0              0              0       NO          2023-T4-5N(VN-SB).pdf
+2023-05    export adjusted             32              0              0              0              0      YES        2023-t05t-5x(vn-dc).pdf
+2023-05    export official             34              0              0              0              0      YES        2023-T05T-5X(VN-CT).pdf
+2023-05    export preliminary          31              0              0              0              0      YES          2023-t5-5x(vn-sb).pdf
+2023-05    import adjusted              7              0              0              0              0      YES          2023-t5-5n(vn-dc).pdf
+2023-05    import official              7              0              0              0              0      YES        2023-T05T-5N(VN-CT).pdf
+2023-05    import preliminary           7              0              0              0              0      YES          2023-t5-5n(vn-sb).pdf
+2023-06    export adjusted             32              0              0              0              0      YES         2023-t6t-5x(vn-dc).pdf
+2023-06    export official             34              0              0              0              0      YES        2023-T06T-5X(VN-CT).pdf
+2023-06    export preliminary          31              0              0              0              0      YES       6792023-T6-5X(VN-SB).pdf
+2023-06    import adjusted              7              0              0              0              0      YES          2023-t6-5n(vn-dc).pdf
+2023-06    import official              7              0              0              0              0      YES        2023-T06T-5N(VN-CT).pdf
+2023-06    import preliminary           7              0              0              0              0      YES          2023-T6-5N(VN-SB).pdf
+2023-07    export official             34              0              0              0              0      YES        2023-T07T-5X(VN-CT).pdf
+2023-07    export preliminary          31              0              0              0              0      YES          2023-T7-5X(VN-SB).pdf
+2023-07    import official              7              0              0              0              0      YES        2023-T07T-5N(VN-CT).pdf
+2023-07    import preliminary           7              0              0              0              0      YES          2023-T7-5N(VN-SB).pdf
+2023-08    export official             34              0              0              0              0      YES        2023-T08T-5X(VN-CT).pdf
+2023-08    export preliminary          31              0              0              0              0      YES          2023-T8-5X(VN-SB).pdf
+2023-08    import official              7              0              0              0              0      YES      622023-T08T-5N(VN-CT).pdf
+2023-08    import preliminary           7              0              0              0              0      YES          2023-T8-5N(VN-SB).pdf
+2023-09    export official              1              0              0              0              0      YES                               
+2023-09    export preliminary           1              0              0              0              0      YES                               
+2023-09    import official              7              0              0              0              0      YES        2023-T09T-5N(VN-CT).pdf
+2023-09    import preliminary           7              0              0              0              0      YES          2023-T9-5N(VN-SB).pdf
+2023-10    export official             34              0              0              0              0      YES        2023-T10T-5X(VN-CT).pdf
+2023-10    export preliminary          32              0              0              0              0      YES         2023-T10-5X(VN-SB).pdf
+2023-10    import official              7              0              0              0              0      YES        2023-T10T-5N(VN-CT).pdf
+2023-10    import preliminary           7              0              0              0              0      YES         2023-T10-5N(VN-SB).pdf
+2023-11    export official             34              0              0              0              0      YES        2023-T11T-5X(VN-CT).pdf
+2023-11    export preliminary          32              0              0              0              0      YES    3362023-T11-5X(VN-SB)-1.pdf
+2023-11    import official              7              0              0              0              0      YES        2023-T11T-5N(VN-CT).pdf
+2023-11    import preliminary           7              0              0              0              0      YES    6782023-T11-5N(VN-SB)-2.pdf
+2023-12    export official              1              0              0              0              0      YES                               
+2023-12    export preliminary           1              0              0              0              0      YES                               
+2023-12    import official              1              0              0              0              0      YES                       BACKFILL
+2024-01    export adjusted             33              0              0              0              0      YES        2024-T01T-5X(VN-DC).pdf
+2024-01    export official             33              0              0              0              0      YES        2024-T01T-5X(VN-CT).pdf
+2024-01    export preliminary          32              0              0              0              0      YES       2024-T1-5X(VN-SB)new.pdf
+2024-01    import adjusted              7              0              0              0              0      YES        2024-T01T-5N(VN-DC).pdf
+2024-01    import official              7              0              0              0              0      YES        2024-T01T-5N(VN-CT).pdf
+2024-01    import preliminary           7              0              0              0              0      YES       2024-T1-5N(VN-SB)new.pdf
+2024-02    export adjusted             32              0              0              0              0       NO     8172024-T02T-5X(VN-DC).pdf
+2024-02    export derived               1              0              0              0              0      YES                       BACKFILL
+2024-02    export official             32              0              0              0              0       NO        2024-T02T-5X(VN-CT).pdf
+2024-02    export preliminary          31              0              0              0              0       NO      2024-t2-5x(vn-sb) new.pdf
+2024-02    import adjusted              7              0              0              0              0      YES        2024-T02T-5N(VN-DC).pdf
+2024-02    import official              7              0              0              0              0      YES        2024-T02T-5N(VN-CT).pdf
+2024-02    import preliminary           7              0              0              0              0      YES       2024-t2-5n(vn-sb)new.pdf
+2024-03    export adjusted             33              0              0              0              0      YES        2024-T03T-5X(VN-DC).pdf
+2024-03    export official             33              0              0              0              0      YES        2024-T03T-5X(VN-CT).pdf
+2024-03    import adjusted              7              0              0              0              0      YES        2024-T03T-5N(VN-DC).pdf
+2024-03    import official              7              0              0              0              0      YES        2024-T03T-5N(VN-CT).pdf
+2024-03    import preliminary           7              0              0              0              0      YES       2024-t3-5n(vn-sb)NEW.pdf
+2024-04    export adjusted             34              0              0              0              0      YES        2024-T04T-5X(VN-DC).pdf
+2024-04    export official             34              0              0              0              0      YES        2024-T04T-5X(VN-CT).pdf
+2024-04    export preliminary          34              0              0              0              0      YES      2024-T4-5X(VN-SB) new.pdf
+2024-04    import adjusted              7              0              0              0              0      YES        2024-T04T-5N(VN-DC).pdf
+2024-04    import official              7              0              0              0              0      YES        2024-T04T-5N(VN-CT).pdf
+2024-04    import preliminary           7              0              0              0              0      YES      2024-T4-5N(VN-SB) new.pdf
+2024-05    export adjusted             34              0              0              0              0      YES        2024-T05T-5X(VN-DC).pdf
+2024-05    export official             34              0              0              0              0      YES        2024-T05T-5X(VN-CT).pdf
+2024-05    export preliminary          34              0              0              0              0      YES          2024-t5-5x(vn-sb).pdf
+2024-05    import derived               1              0              0              0              0      YES                       BACKFILL
+2024-06    export adjusted             34              0              0              0              0      YES        2024-T06T-5X(VN-DC).pdf
+2024-06    export official             34              0              0              0              0      YES  2024-T06T-5X(VN-CT)-final.pdf
+2024-06    export preliminary          34              0              0              0              0      YES          2024-T6-5X(VN-SB).pdf
+2024-06    import adjusted              7              0              0              0              0      YES        2024-T06T-5N(VN-DC).pdf
+2024-06    import official              7              0              0              0              0      YES        2024-T06T-5N(VN-CT).pdf
+2024-06    import preliminary           7              0              0              0              0      YES          2024-T6-5N(VN-SB).pdf
+2024-07    export derived               1              0              0              0              0      YES                       BACKFILL
+2024-07    import official              7              0              0              0              0      YES        2024-T07T-5N(VN-CT).pdf
+2024-07    import preliminary           7              0              0              0              0      YES          2024-t7-5n(vn-sb).pdf
+2024-08    export official             35              0              0              0              0      YES      572024-T08T-5X(VN-CT).pdf
+2024-08    export preliminary          35              0              0              0              0      YES         2024-t08-5x(vn-sb).pdf
+2024-08    import official              7              0              0              0              0      YES        2024-T08T-5N(VN-CT).pdf
+2024-08    import preliminary           7              0              0              0              0      YES         2024-t08-5n(vn-sb).pdf
+2024-09    export official             35              0              0              0              0      YES        2024-T09T-5X(VN-CT).pdf
+2024-09    export preliminary          35              0              0              0              0      YES          2024-t9-5x(vn-sb).pdf
+2024-09    import official              7              0              0              0              0      YES        2024-T09T-5N(VN-CT).pdf
+2024-09    import preliminary           7              0              0              0              0      YES          2024-t9-5n(vn-sb).pdf
+2024-10    export official             35              0              0              0              0      YES        2024-T10T-5X(VN-CT).pdf
+2024-10    export preliminary          35              0              0              0              0      YES         2024-t10-5x(vn-sb).pdf
+2024-10    import official              1              0              0              0              0      YES                       BACKFILL
+2024-11    export official             35              0              0              0              0      YES        2024-T11T-5X(VN-CT).pdf
+2024-11    export preliminary          35              0              0              0              0      YES         2024-t11-5x(vn-sb).pdf
+2024-11    import official              7              0              0              0              0      YES        2024-T11T-5N(VN-CT).pdf
+2024-11    import preliminary           7              0              0              0              0      YES         2024-t11-5n(vn-sb).pdf
+2024-12    export derived               1              0              0              0              0      YES                       BACKFILL
+2024-12    import official              7              0              0              0              0      YES        2024-T12T-5N(VN-CT).pdf
+2024-12    import preliminary           7              0              0              0              0      YES         2024-t12-5n(vn-sb).pdf
+2025-01    export adjusted             34              0              0              0              0      YES        2025-T01T-5X(VN-DC).pdf
+2025-01    export official             34              0              0              0              0      YES        2025-T01T-5X(VN-CT).pdf
+2025-01    export preliminary          34              0              0              0              0      YES          2025-t1-5x(vn-sb).pdf
+2025-01    import adjusted              7              0              0              0              0      YES        2025-T01T-5N(VN-DC).pdf
+2025-01    import official              7              0              0              0              0      YES        2025-T01T-5N(VN-CT).pdf
+2025-01    import preliminary           7              0              0              0              0      YES          2025-t1-5n(vn-sb).pdf
+2025-02    export adjusted             34              0              0              0              0      YES        2025-T02T-5X(VN-DC).pdf
+2025-02    export official             34              0              0              0              0      YES        2025-T02T-5X(VN-CT).pdf
+2025-02    export preliminary          34              0              0              0              0      YES          2025-t2-5x(vn-sb).pdf
+2025-02    import adjusted              7              0              0              0              0      YES        2025-T02T-5N(VN-DC).pdf
+2025-02    import official              7              0              0              0              0      YES        2025-T02T-5N(VN-CT).pdf
+2025-02    import preliminary           7              0              0              0              0      YES          2025-t2-5n(vn-sb).pdf
+2025-03    export adjusted             33              0              0              0              0       NO        2025-T03T-5X(VN-DC).pdf
+2025-03    export derived               1              0              0              0              0      YES                       BACKFILL
+2025-03    export official             33              0              0              0              0       NO        2025-T03T-5X(VN-CT).pdf
+2025-03    export preliminary          33              0              0              0              0       NO          2025-t3-5x(vn-sb).pdf
+2025-03    import adjusted              7              0              0              0              0      YES        2025-T03T-5N(VN-DC).pdf
+2025-03    import official              7              0              0              0              0      YES        2025-T03T-5N(VN-CT).pdf
+2025-03    import preliminary           7              0              0              0              0      YES          2025-t3-5n(vn-sb).pdf
+2025-04    export adjusted             34              0              0              0              0      YES        2025-T04T-5X(VN-DC).pdf
+2025-04    export official             34              0              0              0              0      YES        2025-T04T-5X(VN-CT).pdf
+2025-04    export preliminary          34              0              0              0              0      YES          2025-t4-5x(vn-sb).pdf
+2025-04    import adjusted              7              0              0              0              0      YES        2025-T04T-5N(VN-DC).pdf
+2025-04    import official              7              0              0              0              0      YES        2025-T04T-5N(VN-CT).pdf
+2025-04    import preliminary           7              0              0              0              0      YES          2025-t4-5n(vn-sb).pdf
+2025-05    export adjusted             34              0              0              0              0      YES        2025-T05T-5X(VN-DC).pdf
+2025-05    export official             34              0              0              0              0      YES        2025-T05T-5X(VN-CT).pdf
+2025-05    export preliminary          34              0              0              0              0      YES          2025-t5-5x(vn-sb).pdf
+2025-05    import adjusted              7              0              0              0              0      YES        2025-T05T-5N(VN-DC).pdf
+2025-05    import official              7              0              0              0              0      YES        2025-T05T-5N(VN-CT).pdf
+2025-05    import preliminary           7              0              0              0              0      YES          2025-t5-5n(vn-sb).pdf
+2025-06    export adjusted             34              0              0              0              0      YES        2025-T06T-5X(VN-DC).pdf
+2025-06    export official             34              0              0              0              0      YES        2025-T06T-5X(VN-CT).pdf
+2025-06    export preliminary          34              0              0              0              0      YES          2025-t6-5x(vn-sb).pdf
+2025-06    import adjusted              7              0              0              0              0      YES        2025-T06T-5N(VN-DC).pdf
+2025-06    import official              7              0              0              0              0      YES        2025-T06T-5N(VN-CT).pdf
+2025-06    import preliminary           7              0              0              0              0      YES          2025-t6-5n(vn-sb).pdf
+2025-07    export official             34              0              0              0              0      YES        2025-T07T-5X(VN-CT).pdf
+2025-07    export preliminary          34              0              0              0              0      YES          2025-t7-5x(vn-sb).pdf
+2025-07    import official              7              0              0              0              0      YES        2025-T07T-5N(VN-CT).pdf
+2025-07    import preliminary           7              0              0              0              0      YES          2025-t7-5n(vn-sb).pdf
+2025-08    export official             34              0              0              0              0      YES        2025-T08T-5X(VN-CT).pdf
+2025-08    export preliminary          34              0              0              0              0      YES          2025-t8-5x(vn-sb).pdf
+2025-08    import official              1              0              0              0              0      YES                       BACKFILL
+2025-09    export official             34              0              0              0              0      YES        2025-T09T-5X(VN-CT).pdf
+2025-09    export preliminary          34              0              0              0              0      YES          2025-t9-5x(vn-sb).pdf
+2025-09    import official              7              0              0              0              0      YES        2025-T09T-5N(VN-CT).pdf
+2025-09    import preliminary           7              0              0              0              0      YES          2025-t9-5n(vn-sb).pdf
+2025-10    export derived               1              0              0              0              0      YES                       BACKFILL
+2025-10    export official             34              0              0              0              0       NO        2025-T10T-5X(VN-CT).pdf
+2025-10    export preliminary          34              0              0              0              0       NO         2025-t10-5x(vn-sb).pdf
+2025-10    import official              7              0              0              0              0      YES        2025-T10T-5N(VN-CT).pdf
+2025-10    import preliminary           7              0              0              0              0      YES         2025-t10-5n(vn-sb).pdf
+2025-11    export official             35              0              0              0              0      YES        2025-T11T-5X(VN-CT).pdf
+2025-11    export preliminary          35              0              0              0              0      YES         2025-t11-5x(vn-sb).pdf
+2025-11    import official              7              0              0              0              0      YES        2025-T11T-5N(VN-CT).pdf
+2025-11    import preliminary           7              0              0              0              0      YES         2025-t11-5n(vn-sb).pdf
+2025-12    export official             35              0              0              0              0      YES        2025-T12T-5X(VN-CT).pdf
+2025-12    export preliminary          35              0              0              0              0      YES         2025-t12-5x(vn-sb).pdf
+2025-12    import official              7              0              0              0              0      YES        2025-T12T-5N(VN-CT).pdf
+2025-12    import preliminary           7              0              0              0              0      YES         2025-t12-5n(vn-sb).pdf
+2026-01    export adjusted             34              0              0              0              0      YES        2026-T01T-5X(VN-DC).pdf
+2026-01    export preliminary          34              0              0              0              0      YES          2026-t1-5x(vn-sb).pdf
+2026-01    import adjusted              7              0              0              0              0      YES        2026-T01T-5N(VN-DC).pdf
+2026-01    import preliminary           7              0              0              0              0      YES          2026-t1-5n(vn-sb).pdf
+2026-02    export adjusted             34              0              0              0              0      YES        2026-T02T-5X(VN-DC).pdf
+2026-02    export preliminary          34              0              0              0              0      YES          2026-t2-5x(vn-sb).pdf
+2026-02    import adjusted              7              0              0              0              0      YES        2026-T02T-5N(VN-DC).pdf
+2026-02    import preliminary           7              0              0              0              0      YES          2026-t2-5n(vn-sb).pdf
+2026-03    export adjusted             34              0              0              0              0      YES        2026-T03T-5X(VN-DC).pdf
+2026-03    export preliminary          34              0              0              0              0      YES          2026-t3-5x(vn-sb).pdf
+2026-03    import adjusted              7              0              0              0              0      YES        2026-T03T-5N(VN-DC).pdf
+2026-03    import preliminary           7              0              0              0              0      YES          2026-t3-5n(vn-sb).pdf
+2026-04    export adjusted             34              0              0              0              0      YES        2026-T04T-5X(VN-DC).pdf
+2026-04    export preliminary          34              0              0              0              0      YES          2026-t4-5x(vn-sb).pdf
+2026-04    import adjusted              7              0              0              0              0      YES        2026-T04T-5N(VN-DC).pdf
+2026-04    import preliminary           7              0              0              0              0      YES          2026-t4-5n(vn-sb).pdf
+2026-05    export adjusted             34              0              0              0              0      YES        2026-T05T-5X(TV-DC).pdf
+2026-05    export preliminary          34              0              0              0              0      YES          2026-T5-5X(VN-SB).pdf
+2026-05    import adjusted              7              0              0              0              0      YES        2026-T05T-5N(TV-DC).pdf
+2026-05    import preliminary           7              0              0              0              0      YES          2026-T5-5N(VN-SB).pdf
+2026-06    export adjusted             34              0              0              0              0      YES        2026-T06T-5X(TV-DC).pdf
+2026-06    export preliminary          34              0              0              0              0      YES          2026-t6-5x(vn-sb).pdf
+2026-06    import adjusted              7              0              0              0              0      YES        2026-T06T-5N(TV-DC).pdf
+2026-06    import preliminary           7              0              0              0              0      YES          2026-t6-5n(vn-sb).pdf
+2026-07    export preliminary          34              0              0              0              0      YES          2026-t7-5x(vn-sb).pdf
+2026-07    import preliminary           7              0              0              0              0      YES          2026-t7-5n(vn-sb).pdf
+2026-08    export preliminary          34              0              0              0              0      YES          2026-t8-5x(vn-sb).pdf
+2026-08    import preliminary           7              0              0              0              0      YES          2026-t8-5n(vn-sb).pdf
+2026-09    export preliminary          34              0              0              0              0      YES          2026-T9-5X(VN-SB).pdf
+2026-09    import preliminary           7              0              0              0              0      YES          2026-T9-5N(VN-SB).pdf
+
+
+B. KỲ CÓ VẤN ĐỀ (pivot=0 HOẶC OTHER ÂM)
+--------------------------------------------------------------------------------
+B1. Kỳ có pivot=0 (pivot rows = 0):
+------------------------------------------------------------
+
+B2. Kỳ có Other âm (sum quốc gia > summary):
+------------------------------------------------------------
+  ❌ 2021-09 NK ?: Other qty=-127,679 val=-187,200,736
+  ❌ 2021-10 NK ?: Other qty=-156,336 val=-228,194,628
+  ❌ 2021-10 NK ?: Other qty=-155,443 val=-222,100,070
+  ❌ 2023-05 NK ?: Other qty=-76,559 val=-105,568,015
+  ❌ 2023-05 NK ?: Other qty=-75,997 val=-105,566,860
+  ❌ 2023-05 NK ?: Other qty=-74,123 val=-102,914,012
+  ❌ 2023-08 NK ?: Other qty=-12,355 val=-42,946,701
+  ❌ 2023-08 NK ?: Other qty=-9,427 val=-39,860,647
+  ❌ 2023-09 NK ?: Other qty=-24,480 val=-55,101,354
+  ❌ 2023-09 NK ?: Other qty=-23,746 val=-54,920,232
+  ❌ 2023-10 NK ?: Other qty=-27,432 val=-56,438,911
+  ❌ 2023-10 NK ?: Other qty=-26,692 val=-56,296,574
+  ❌ 2023-11 NK ?: Other qty=-57,736 val=-88,996,423
+  ❌ 2023-11 NK ?: Other qty=-57,145 val=-89,029,844
+  ❌ 2024-08 NK ?: Other qty=-11,997 val=-6,780,844
+  ❌ 2024-08 NK ?: Other qty=-11,432 val=-6,125,627
+  ❌ 2024-09 NK ?: Other qty=-33,776 val=-29,294,445
+  ❌ 2024-09 NK ?: Other qty=-34,135 val=-29,387,389
+  ❌ 2025-09 NK ?: Other qty=-51,127 val=-124,286,146
+  ❌ 2025-09 NK ?: Other qty=-51,423 val=-124,791,752
+
+C. KIỂM TRA BACKFILL (17 kỳ) — KIỂM TRA CHỈ SỐ 3×
+--------------------------------------------------------------------------------
+Kỳ         Luồng             Qty            Val        Qty/3       YTD_curr       YTD_prev Ghi chú
+----------------------------------------------------------------------------------------------------
+  (Chi tiết backfill đã được log trong job output - 17 kỳ tự động)
+
+
+D. PDF PARSE FAIL / KHÔNG CÓ TEXT LAYER (từ manifest)
+--------------------------------------------------------------------------------
+
+E. COMBINED WORKBOOK vs PHIÊN BẢN (H5)
+--------------------------------------------------------------------------------
+Tong_Quan_XNK_All chỉ chứa summary phiên bản ưu tiên (official > adjusted > preliminary).
+Tổng summary lines trong combined workbook = 81 kỳ × 2 luồng = 162 lines (chỉ official).
+Tổng summary rows thực tế trong periods JSON = 352 (cả 3 phiên bản).
+→ Chênh lệch = 352 - 162 = 190 = số lượng phiên bản phụ (adjusted/preliminary).
+→ File per-version (ChinhThuc/DieuChinh/SoBo) + JSON `tong_xk_versions` chứa đủ.

@@ -1,0 +1,194 @@
+====================================================================================================
+AUDIT REPORT: Other Row Analysis for All Period Excel Files
+====================================================================================================
+
+Total files audited: 81
+Files with issues: 18
+Files OK: 65
+
+----------------------------------------------------------------------------------------------------
+SUMMARY
+----------------------------------------------------------------------------------------------------
+Missing Other row (can calculate): 0
+Missing summary row: 18
+Other/Summary mismatch: 0
+All OK: 65
+
+----------------------------------------------------------------------------------------------------
+FILES MISSING SUMMARY ROW (Cannot Calculate Other)
+----------------------------------------------------------------------------------------------------
+  [ ] 2020\2020-05\2020-05_cashew.xlsx
+  [ ] 2020\2020-12\2020-12_cashew.xlsx
+  [ ] 2022\2022-01\2022-01_cashew.xlsx
+  [ ] 2022\2022-04\2022-04_cashew.xlsx
+  [ ] 2022\2022-04\2022-04_cashew.xlsx
+  [ ] 2022\2022-06\2022-06_cashew.xlsx
+  [ ] 2022\2022-09\2022-09_cashew.xlsx
+  [ ] 2022\2022-11\2022-11_cashew.xlsx
+  [ ] 2023\2023-02\2023-02_cashew.xlsx
+  [ ] 2023\2023-02\2023-02_cashew.xlsx
+  [ ] 2023\2023-04\2023-04_cashew.xlsx
+  [ ] 2024\2024-02\2024-02_cashew.xlsx
+  [ ] 2024\2024-03\2024-03_cashew.xlsx
+  [ ] 2024\2024-05\2024-05_cashew.xlsx
+  [ ] 2024\2024-07\2024-07_cashew.xlsx
+  [ ] 2024\2024-12\2024-12_cashew.xlsx
+  [ ] 2025\2025-03\2025-03_cashew.xlsx
+  [ ] 2025\2025-10\2025-10_cashew.xlsx
+
+----------------------------------------------------------------------------------------------------
+FILES OK (Have Other row and matching summary)
+----------------------------------------------------------------------------------------------------
+  [OK] 2020\2020-01\2020-01_cashew.xlsx
+  [OK] 2020\2020-02\2020-02_cashew.xlsx
+  [OK] 2020\2020-03\2020-03_cashew.xlsx
+  [OK] 2020\2020-04\2020-04_cashew.xlsx
+  [OK] 2020\2020-06\2020-06_cashew.xlsx
+  [OK] 2020\2020-07\2020-07_cashew.xlsx
+  [OK] 2020\2020-08\2020-08_cashew.xlsx
+  [OK] 2020\2020-09\2020-09_cashew.xlsx
+  [OK] 2020\2020-10\2020-10_cashew.xlsx
+  [OK] 2020\2020-11\2020-11_cashew.xlsx
+  [OK] 2021\2021-01\2021-01_cashew.xlsx
+  [OK] 2021\2021-02\2021-02_cashew.xlsx
+  [OK] 2021\2021-03\2021-03_cashew.xlsx
+  [OK] 2021\2021-04\2021-04_cashew.xlsx
+  [OK] 2021\2021-05\2021-05_cashew.xlsx
+  [OK] 2021\2021-06\2021-06_cashew.xlsx
+  [OK] 2021\2021-07\2021-07_cashew.xlsx
+  [OK] 2021\2021-08\2021-08_cashew.xlsx
+  [OK] 2021\2021-09\2021-09_cashew.xlsx
+  [OK] 2021\2021-10\2021-10_cashew.xlsx
+  [OK] 2021\2021-11\2021-11_cashew.xlsx
+  [OK] 2021\2021-12\2021-12_cashew.xlsx
+  [OK] 2022\2022-02\2022-02_cashew.xlsx
+  [OK] 2022\2022-03\2022-03_cashew.xlsx
+  [OK] 2022\2022-05\2022-05_cashew.xlsx
+  [OK] 2022\2022-07\2022-07_cashew.xlsx
+  [OK] 2022\2022-08\2022-08_cashew.xlsx
+  [OK] 2022\2022-10\2022-10_cashew.xlsx
+  [OK] 2022\2022-12\2022-12_cashew.xlsx
+  [OK] 2023\2023-01\2023-01_cashew.xlsx
+  [OK] 2023\2023-03\2023-03_cashew.xlsx
+  [OK] 2023\2023-05\2023-05_cashew.xlsx
+  [OK] 2023\2023-06\2023-06_cashew.xlsx
+  [OK] 2023\2023-07\2023-07_cashew.xlsx
+  [OK] 2023\2023-08\2023-08_cashew.xlsx
+  [OK] 2023\2023-09\2023-09_cashew.xlsx
+  [OK] 2023\2023-10\2023-10_cashew.xlsx
+  [OK] 2023\2023-11\2023-11_cashew.xlsx
+  [OK] 2023\2023-12\2023-12_cashew.xlsx
+  [OK] 2024\2024-01\2024-01_cashew.xlsx
+  [OK] 2024\2024-04\2024-04_cashew.xlsx
+  [OK] 2024\2024-06\2024-06_cashew.xlsx
+  [OK] 2024\2024-08\2024-08_cashew.xlsx
+  [OK] 2024\2024-09\2024-09_cashew.xlsx
+  [OK] 2024\2024-10\2024-10_cashew.xlsx
+  [OK] 2024\2024-11\2024-11_cashew.xlsx
+  [OK] 2025\2025-01\2025-01_cashew.xlsx
+  [OK] 2025\2025-02\2025-02_cashew.xlsx
+  [OK] 2025\2025-04\2025-04_cashew.xlsx
+  [OK] 2025\2025-05\2025-05_cashew.xlsx
+  [OK] 2025\2025-06\2025-06_cashew.xlsx
+  [OK] 2025\2025-07\2025-07_cashew.xlsx
+  [OK] 2025\2025-08\2025-08_cashew.xlsx
+  [OK] 2025\2025-09\2025-09_cashew.xlsx
+  [OK] 2025\2025-11\2025-11_cashew.xlsx
+  [OK] 2025\2025-12\2025-12_cashew.xlsx
+  [OK] 2026\2026-01\2026-01_cashew.xlsx
+  [OK] 2026\2026-02\2026-02_cashew.xlsx
+  [OK] 2026\2026-03\2026-03_cashew.xlsx
+  [OK] 2026\2026-04\2026-04_cashew.xlsx
+  [OK] 2026\2026-05\2026-05_cashew.xlsx
+  [OK] 2026\2026-06\2026-06_cashew.xlsx
+  [OK] 2026\2026-07\2026-07_cashew.xlsx
+  [OK] 2026\2026-08\2026-08_cashew.xlsx
+  [OK] 2026\2026-09\2026-09_cashew.xlsx
+
+----------------------------------------------------------------------------------------------------
+FULL DETAIL TABLE
+----------------------------------------------------------------------------------------------------
+File                                               Period     XK_Sum   NK_Sum   XK_Other   NK_Other   Issues
+----------------------------------------------------------------------------------------------------
+2020\2020-01\2020-01_cashew.xlsx                   2020-01    YES      YES      YES        YES        -
+2020\2020-02\2020-02_cashew.xlsx                   2020-02    YES      YES      YES        YES        -
+2020\2020-03\2020-03_cashew.xlsx                   2020-03    YES      YES      YES        YES        -
+2020\2020-04\2020-04_cashew.xlsx                   2020-04    YES      YES      YES        YES        -
+2020\2020-05\2020-05_cashew.xlsx                   2020-05    NO       YES      NO         YES        MISSING_SUMMARY_XK
+2020\2020-06\2020-06_cashew.xlsx                   2020-06    YES      YES      YES        YES        -
+2020\2020-07\2020-07_cashew.xlsx                   2020-07    YES      YES      YES        YES        -
+2020\2020-08\2020-08_cashew.xlsx                   2020-08    YES      YES      YES        YES        -
+2020\2020-09\2020-09_cashew.xlsx                   2020-09    YES      YES      YES        YES        -
+2020\2020-10\2020-10_cashew.xlsx                   2020-10    YES      YES      YES        YES        -
+2020\2020-11\2020-11_cashew.xlsx                   2020-11    YES      YES      YES        YES        -
+2020\2020-12\2020-12_cashew.xlsx                   2020-12    NO       YES      NO         YES        MISSING_SUMMARY_XK
+2021\2021-01\2021-01_cashew.xlsx                   2021-01    YES      YES      YES        YES        -
+2021\2021-02\2021-02_cashew.xlsx                   2021-02    YES      YES      YES        YES        -
+2021\2021-03\2021-03_cashew.xlsx                   2021-03    YES      YES      YES        YES        -
+2021\2021-04\2021-04_cashew.xlsx                   2021-04    YES      YES      YES        YES        -
+2021\2021-05\2021-05_cashew.xlsx                   2021-05    YES      YES      YES        YES        -
+2021\2021-06\2021-06_cashew.xlsx                   2021-06    YES      YES      NO         YES        -
+2021\2021-07\2021-07_cashew.xlsx                   2021-07    YES      YES      YES        YES        -
+2021\2021-08\2021-08_cashew.xlsx                   2021-08    YES      YES      YES        YES        -
+2021\2021-09\2021-09_cashew.xlsx                   2021-09    YES      YES      YES        YES        -
+2021\2021-10\2021-10_cashew.xlsx                   2021-10    YES      YES      YES        YES        -
+2021\2021-11\2021-11_cashew.xlsx                   2021-11    YES      YES      YES        YES        -
+2021\2021-12\2021-12_cashew.xlsx                   2021-12    YES      YES      YES        YES        -
+2022\2022-01\2022-01_cashew.xlsx                   2022-01    YES      NO       NO         NO         MISSING_SUMMARY_NK
+2022\2022-02\2022-02_cashew.xlsx                   2022-02    YES      YES      YES        YES        -
+2022\2022-03\2022-03_cashew.xlsx                   2022-03    YES      YES      YES        YES        -
+2022\2022-04\2022-04_cashew.xlsx                   2022-04    NO       NO       NO         NO         MISSING_SUMMARY_XK, MISSING_SUMMARY_NK
+2022\2022-05\2022-05_cashew.xlsx                   2022-05    YES      YES      YES        YES        -
+2022\2022-06\2022-06_cashew.xlsx                   2022-06    NO       YES      NO         YES        MISSING_SUMMARY_XK
+2022\2022-07\2022-07_cashew.xlsx                   2022-07    YES      YES      YES        YES        -
+2022\2022-08\2022-08_cashew.xlsx                   2022-08    YES      YES      YES        YES        -
+2022\2022-09\2022-09_cashew.xlsx                   2022-09    YES      NO       YES        NO         MISSING_SUMMARY_NK
+2022\2022-10\2022-10_cashew.xlsx                   2022-10    YES      YES      YES        NO         -
+2022\2022-11\2022-11_cashew.xlsx                   2022-11    NO       YES      NO         YES        MISSING_SUMMARY_XK
+2022\2022-12\2022-12_cashew.xlsx                   2022-12    YES      YES      YES        YES        -
+2023\2023-01\2023-01_cashew.xlsx                   2023-01    YES      YES      YES        YES        -
+2023\2023-02\2023-02_cashew.xlsx                   2023-02    NO       NO       NO         NO         MISSING_SUMMARY_XK, MISSING_SUMMARY_NK
+2023\2023-03\2023-03_cashew.xlsx                   2023-03    YES      YES      YES        YES        -
+2023\2023-04\2023-04_cashew.xlsx                   2023-04    YES      NO       YES        NO         MISSING_SUMMARY_NK
+2023\2023-05\2023-05_cashew.xlsx                   2023-05    YES      YES      YES        YES        -
+2023\2023-06\2023-06_cashew.xlsx                   2023-06    YES      YES      YES        YES        -
+2023\2023-07\2023-07_cashew.xlsx                   2023-07    YES      YES      YES        YES        -
+2023\2023-08\2023-08_cashew.xlsx                   2023-08    YES      YES      YES        YES        -
+2023\2023-09\2023-09_cashew.xlsx                   2023-09    YES      YES      NO         YES        -
+2023\2023-10\2023-10_cashew.xlsx                   2023-10    YES      YES      YES        YES        -
+2023\2023-11\2023-11_cashew.xlsx                   2023-11    YES      YES      YES        YES        -
+2023\2023-12\2023-12_cashew.xlsx                   2023-12    YES      YES      NO         NO         -
+2024\2024-01\2024-01_cashew.xlsx                   2024-01    YES      YES      YES        YES        -
+2024\2024-02\2024-02_cashew.xlsx                   2024-02    NO       YES      NO         YES        MISSING_SUMMARY_XK
+2024\2024-03\2024-03_cashew.xlsx                   2024-03    YES      NO       NO         NO         MISSING_SUMMARY_NK
+2024\2024-04\2024-04_cashew.xlsx                   2024-04    YES      YES      YES        YES        -
+2024\2024-05\2024-05_cashew.xlsx                   2024-05    YES      NO       YES        NO         MISSING_SUMMARY_NK
+2024\2024-06\2024-06_cashew.xlsx                   2024-06    YES      YES      YES        YES        -
+2024\2024-07\2024-07_cashew.xlsx                   2024-07    NO       YES      NO         YES        MISSING_SUMMARY_XK
+2024\2024-08\2024-08_cashew.xlsx                   2024-08    YES      YES      YES        YES        -
+2024\2024-09\2024-09_cashew.xlsx                   2024-09    YES      YES      YES        YES        -
+2024\2024-10\2024-10_cashew.xlsx                   2024-10    YES      YES      YES        NO         -
+2024\2024-11\2024-11_cashew.xlsx                   2024-11    YES      YES      YES        YES        -
+2024\2024-12\2024-12_cashew.xlsx                   2024-12    NO       YES      NO         YES        MISSING_SUMMARY_XK
+2025\2025-01\2025-01_cashew.xlsx                   2025-01    YES      YES      YES        YES        -
+2025\2025-02\2025-02_cashew.xlsx                   2025-02    YES      YES      YES        YES        -
+2025\2025-03\2025-03_cashew.xlsx                   2025-03    NO       YES      NO         YES        MISSING_SUMMARY_XK
+2025\2025-04\2025-04_cashew.xlsx                   2025-04    YES      YES      YES        YES        -
+2025\2025-05\2025-05_cashew.xlsx                   2025-05    YES      YES      YES        YES        -
+2025\2025-06\2025-06_cashew.xlsx                   2025-06    YES      YES      YES        YES        -
+2025\2025-07\2025-07_cashew.xlsx                   2025-07    YES      YES      YES        YES        -
+2025\2025-08\2025-08_cashew.xlsx                   2025-08    YES      YES      YES        NO         -
+2025\2025-09\2025-09_cashew.xlsx                   2025-09    YES      YES      YES        YES        -
+2025\2025-10\2025-10_cashew.xlsx                   2025-10    NO       YES      NO         YES        MISSING_SUMMARY_XK
+2025\2025-11\2025-11_cashew.xlsx                   2025-11    YES      YES      YES        YES        -
+2025\2025-12\2025-12_cashew.xlsx                   2025-12    YES      YES      YES        YES        -
+2026\2026-01\2026-01_cashew.xlsx                   2026-01    YES      YES      YES        YES        -
+2026\2026-02\2026-02_cashew.xlsx                   2026-02    YES      YES      YES        YES        -
+2026\2026-03\2026-03_cashew.xlsx                   2026-03    YES      YES      YES        YES        -
+2026\2026-04\2026-04_cashew.xlsx                   2026-04    YES      YES      YES        YES        -
+2026\2026-05\2026-05_cashew.xlsx                   2026-05    YES      YES      YES        YES        -
+2026\2026-06\2026-06_cashew.xlsx                   2026-06    YES      YES      YES        YES        -
+2026\2026-07\2026-07_cashew.xlsx                   2026-07    YES      YES      YES        YES        -
+2026\2026-08\2026-08_cashew.xlsx                   2026-08    YES      YES      YES        YES        -
+2026\2026-09\2026-09_cashew.xlsx                   2026-09    YES      YES      YES        YES        -
+----------------------------------------------------------------------------------------------------

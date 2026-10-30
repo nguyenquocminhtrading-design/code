@@ -1,0 +1,42 @@
+{
+  "root": "C:\\Users\\Acer\\Desktop\\Dan on food\\XNK\\code\\output",
+  "verified_at": "2026-10-26T07:43:23.839714+00:00",
+  "problems": [
+    {
+      "period": "2026-10",
+      "problem": "missing monthly master workbook"
+    },
+    {
+      "period": "2026-10",
+      "problem": "missing xuat_khau workbook"
+    },
+    {
+      "period": "2026-10",
+      "problem": "missing nhap_khau workbook"
+    },
+    {
+      "period": "2026-11",
+      "problem": "missing monthly master workbook"
+    },
+    {
+      "period": "2026-11",
+      "problem": "missing xuat_khau workbook"
+    },
+    {
+      "period": "2026-11",
+      "problem": "missing nhap_khau workbook"
+    },
+    {
+      "period": "2026-12",
+      "problem": "missing monthly master workbook"
+    },
+    {
+      "period": "2026-12",
+      "problem": "missing xuat_khau workbook"
+    },
+    {
+      "period": "2026-12",
+      "problem": "missing nhap_khau workbook"
+    }
+  ]
+}

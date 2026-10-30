@@ -1,0 +1,438 @@
+{
+  "schema_version": 1,
+  "year": 2026,
+  "generated_at": "2026-10-27T03:07:14.370Z",
+  "periods": {
+    "2026-09": {
+      "period": "2026-09",
+      "tong_xk": {
+        "period": "2026-09",
+        "direction": "export",
+        "product": "Hạt điều",
+        "unit": "Tấn",
+        "quantity_month": 64888,
+        "value_month_usd": 469933462,
+        "pct_change_prev_month_qty": -15,
+        "pct_change_prev_month_val": -10,
+        "quantity_ytd": 542768,
+        "value_ytd_usd": 3844003009,
+        "version": "Preliminary",
+        "source_note": "TCHQ Preliminary (2026-T9-2X(VN-SB).pdf)"
+      },
+      "tong_nk": {
+        "period": "2026-09",
+        "direction": "import",
+        "product": "Hạt điều",
+        "unit": "Tấn",
+        "quantity_month": 234594,
+        "value_month_usd": 385332396,
+        "pct_change_prev_month_qty": 258,
+        "pct_change_prev_month_val": 295,
+        "quantity_ytd": 2350540,
+        "value_ytd_usd": 3892738317,
+        "version": "Preliminary",
+        "source_note": "TCHQ Preliminary (2026-T9-2N(VN-SB).pdf)"
+      },
+      "trade_balance_usd": 84601066,
+      "xk_theo_nuoc": [
+        {
+          "country": "TRUNG QUỐC",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 16205,
+          "cy_tri_gia": 124775102,
+          "ytd_luong": 131463,
+          "ytd_tri_gia": 964029033
+        },
+        {
+          "country": "HOA KỲ",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 11295,
+          "cy_tri_gia": 77940473,
+          "ytd_luong": 114225,
+          "ytd_tri_gia": 782380279
+        },
+        {
+          "country": "HÀ LAN",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 3677,
+          "cy_tri_gia": 27708162,
+          "ytd_luong": 37978,
+          "ytd_tri_gia": 275123362
+        },
+        {
+          "country": "TIỂU VƯƠNG QUỐC",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 2930,
+          "cy_tri_gia": 20479874,
+          "ytd_luong": 12049,
+          "ytd_tri_gia": 84831321
+        },
+        {
+          "country": "ĐỨC",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 2513,
+          "cy_tri_gia": 18046312,
+          "ytd_luong": 21856,
+          "ytd_tri_gia": 153627230
+        },
+        {
+          "country": "ÔXTRÂYLIA",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 1828,
+          "cy_tri_gia": 12689241,
+          "ytd_luong": 12121,
+          "ytd_tri_gia": 81368193
+        },
+        {
+          "country": "CANAĐA",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 1551,
+          "cy_tri_gia": 11651058,
+          "ytd_luong": 14404,
+          "ytd_tri_gia": 104434109
+        },
+        {
+          "country": "PAKIXTAN",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 1343,
+          "cy_tri_gia": 10181651,
+          "ytd_luong": 4019,
+          "ytd_tri_gia": 29365816
+        },
+        {
+          "country": "ARẬP XÊÚT",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 1316,
+          "cy_tri_gia": 10080957,
+          "ytd_luong": 9850,
+          "ytd_tri_gia": 74955962
+        },
+        {
+          "country": "ANH",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 1391,
+          "cy_tri_gia": 8941572,
+          "ytd_luong": 13782,
+          "ytd_tri_gia": 89014799
+        },
+        {
+          "country": "THÁI LAN",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 1404,
+          "cy_tri_gia": 8608017,
+          "ytd_luong": 9899,
+          "ytd_tri_gia": 62966884
+        },
+        {
+          "country": "TÂY BAN NHA",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 1155,
+          "cy_tri_gia": 8212052,
+          "ytd_luong": 9448,
+          "ytd_tri_gia": 67610161
+        },
+        {
+          "country": "NGA",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 965,
+          "cy_tri_gia": 6651106,
+          "ytd_luong": 6890,
+          "ytd_tri_gia": 46009710
+        },
+        {
+          "country": "NHẬT BẢN",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 878,
+          "cy_tri_gia": 6332730,
+          "ytd_luong": 9075,
+          "ytd_tri_gia": 65093559
+        },
+        {
+          "country": "PHÁP",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 745,
+          "cy_tri_gia": 5371720,
+          "ytd_luong": 7022,
+          "ytd_tri_gia": 51088934
+        },
+        {
+          "country": "HY LẠP",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 605,
+          "cy_tri_gia": 4439138,
+          "ytd_luong": 3538,
+          "ytd_tri_gia": 25697374
+        },
+        {
+          "country": "BỈ",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 563,
+          "cy_tri_gia": 3931545,
+          "ytd_luong": 2080,
+          "ytd_tri_gia": 14884246
+        },
+        {
+          "country": "ISRAEN",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 380,
+          "cy_tri_gia": 3464573,
+          "ytd_luong": 7056,
+          "ytd_tri_gia": 59013543
+        },
+        {
+          "country": "ĐÀI LOAN",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 410,
+          "cy_tri_gia": 3114658,
+          "ytd_luong": 3152,
+          "ytd_tri_gia": 24520177
+        },
+        {
+          "country": "ITALIA",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 566,
+          "cy_tri_gia": 3050396,
+          "ytd_luong": 5276,
+          "ytd_tri_gia": 28317226
+        },
+        {
+          "country": "UCRAINA",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 403,
+          "cy_tri_gia": 2769942,
+          "ytd_luong": null,
+          "ytd_tri_gia": null
+        },
+        {
+          "country": "LÍTVA",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 355,
+          "cy_tri_gia": 2650678,
+          "ytd_luong": 4824,
+          "ytd_tri_gia": 35610418
+        },
+        {
+          "country": "AI CẬP",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 283,
+          "cy_tri_gia": 2647041,
+          "ytd_luong": 2414,
+          "ytd_tri_gia": 22012123
+        },
+        {
+          "country": "ẤN ĐỘ",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 684,
+          "cy_tri_gia": 2552514,
+          "ytd_luong": 3301,
+          "ytd_tri_gia": 12503516
+        },
+        {
+          "country": "NIUZILÂN",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 361,
+          "cy_tri_gia": 2487419,
+          "ytd_luong": 2687,
+          "ytd_tri_gia": 17786571
+        },
+        {
+          "country": "PHILIPPIN",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 172,
+          "cy_tri_gia": 1049955,
+          "ytd_luong": 2845,
+          "ytd_tri_gia": 16894232
+        },
+        {
+          "country": "NAUY",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 152,
+          "cy_tri_gia": 1030853,
+          "ytd_luong": 1309,
+          "ytd_tri_gia": 9226405
+        },
+        {
+          "country": "IRẮC",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 128,
+          "cy_tri_gia": 966060,
+          "ytd_luong": 1286,
+          "ytd_tri_gia": 9189455
+        },
+        {
+          "country": "HỒNG KÔNG",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 118,
+          "cy_tri_gia": 953130,
+          "ytd_luong": 1217,
+          "ytd_tri_gia": 9936987
+        },
+        {
+          "country": "SINGAPO",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 112,
+          "cy_tri_gia": 782894,
+          "ytd_luong": 938,
+          "ytd_tri_gia": 6655465
+        },
+        {
+          "country": "NAM PHI",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 144,
+          "cy_tri_gia": 743620,
+          "ytd_luong": 760,
+          "ytd_tri_gia": 4249490
+        },
+        {
+          "country": "CADẮCXTAN",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 98,
+          "cy_tri_gia": 667823,
+          "ytd_luong": 826,
+          "ytd_tri_gia": 5939815
+        },
+        {
+          "country": "CÔOÉT",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 42,
+          "cy_tri_gia": 382332,
+          "ytd_luong": 400,
+          "ytd_tri_gia": 3351604
+        },
+        {
+          "country": "Other",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 10116,
+          "cy_tri_gia": 74578864,
+          "ytd_luong": null,
+          "ytd_tri_gia": null
+        }
+      ],
+      "nk_theo_nuoc": [
+        {
+          "country": "BỜ BIỂN NGÀ",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 87715,
+          "cy_tri_gia": 147118634,
+          "ytd_luong": 448069,
+          "ytd_tri_gia": 749272777
+        },
+        {
+          "country": "CAMPUCHIA",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 17724,
+          "cy_tri_gia": 36806721,
+          "ytd_luong": 1030757,
+          "ytd_tri_gia": 1802413028
+        },
+        {
+          "country": "NIGIÊRIA",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 22020,
+          "cy_tri_gia": 33066297,
+          "ytd_luong": 187217,
+          "ytd_tri_gia": 280873100
+        },
+        {
+          "country": "GANA",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 18244,
+          "cy_tri_gia": 26137674,
+          "ytd_luong": 134022,
+          "ytd_tri_gia": 198678319
+        },
+        {
+          "country": "INĐÔNÊXIA",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 2771,
+          "cy_tri_gia": 4856401,
+          "ytd_luong": 12762,
+          "ytd_tri_gia": 20184876
+        },
+        {
+          "country": "TANZANIA",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 14,
+          "cy_tri_gia": 72800,
+          "ytd_luong": 165364,
+          "ytd_tri_gia": 276402889
+        },
+        {
+          "country": "Other",
+          "product": "Hạt điều",
+          "unit": "Tấn",
+          "cy_luong": 86106,
+          "cy_tri_gia": 137273869,
+          "ytd_luong": null,
+          "ytd_tri_gia": null
+        }
+      ],
+      "versions": [],
+      "ai_analysis": {
+        "engine": "hybrid-smart-v1",
+        "generated_at": "2026-10-27T03:07:14.369Z",
+        "executive_summary": "Xuất khẩu hạt điều kỳ 2026-09 đạt $469.93M với sản lượng 64.888 tấn, đơn giá bình quân 7.242 USD/tấn. Tốc độ tăng MoM: -1,0% trị giá / -1,5% lượng; so với cùng kỳ năm trước: -4,5% (kỳ 2025-09).",
+        "market_drivers": [
+          "Thị trường bứt phá: TRUNG QUỐC $3.76M (+3,1%); BỈ $3.27M (+490,2%); ÔXTRÂYLIA $3.19M (+33,6%).",
+          "Suy giảm đáng chú ý: HOA KỲ $-8.49M (-9,8%); ISRAEN $-4.44M (-56,2%); NHẬT BẢN $-3.16M (-33,3%).",
+          "TRUNG QUỐC dẫn đầu với 31.6% tổng trị giá; Top 3 chiếm 58.3% — cơ cấu thị trường ở mức khá cân đối."
+        ],
+        "price_alerts": "Đơn giá bình quân 7.242 USD/tấn (+0,5% MoM, +6,8% YoY). So sánh 2 luồng: đơn giá XK 7.242 USD/tấn đối với NK 1.643 USD/tấn.",
+        "recommendations": [
+          "Mùa vụ (tháng 9): tiếp tục đỉnh mùa vụ XK — chốt hợp đồng quý 4 với các thị trường lớn.",
+          "Ưu tiên duy trì đà tăng tại TRUNG QUỐC: chốt lịch giao hàng và mở rộng đơn hàng tiếp theo.",
+          "Duy trì đối soát chéo TCHQ–Vinacas định kỳ để phát hiện sai lệch số liệu sớm."
+        ]
+      }
+    }
+  },
+  "_export_meta": {
+    "exported_from": "DAN ON FOOD Trade Explorer",
+    "flow": "export",
+    "filters": [
+      "Chi tiết: Tháng"
+    ],
+    "source": "Nguồn: Tổng cục Hải quan Việt Nam (TCHQ) · customs.gov.vn",
+    "ai_engine": "hybrid-smart-v1"
+  }
+}

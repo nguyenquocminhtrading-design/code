@@ -1,0 +1,70 @@
+# 📊 QUICK SUMMARY: Other Row Audit
+
+## Kết quả kiểm tra 81 file Excel
+
+| Trạng thái | Số file |
+|------------|---------|
+| ✅ OK (có đủ Summary + Other) | **65** |
+| ❌ Thiếu Summary (không tính được Other) | **18** |
+
+---
+
+## 🔴 18 FILE CẦN SỬA — Thiếu Summary → Không tính được Other
+
+### Xuất khẩu (11 kỳ)
+```
+2020-05, 2020-12, 2022-04, 2022-06, 2022-11,
+2023-02, 2024-02, 2024-07, 2024-12, 2025-03, 2025-10
+```
+
+### Nhập khẩu (7 kỳ)
+```
+2022-01, 2022-04, 2022-09,
+2023-02, 2023-04, 2024-03, 2024-05
+```
+
+### Kỳ thiếu CẢ 2 luồng (2 kỳ)
+```
+2022-04, 2023-02
+```
+
+---
+
+## 🎯 NGUYÊN NHÂN
+
+Code hiện tại trong `normalize_country_product()` chỉ tính Other khi có summary row:
+
+```python
+if s_row:
+    # Tính Other = Summary - SUM(countries) ✓
+    other_row = ...
+else:
+    # KHÔNG CÓ SUMMARY → BỎ QUA Other ✗
+    sub_pivot["Phiên bản"] = ver_vn
+```
+
+---
+
+## ✅ HƯỚNG GIẢI QUYẾT
+
+### Fix 1: Sửa `data_builder.py` — Thêm Other row sau backfill
+```python
+# Sau khi backfill summary, tính và thêm Other row
+other_val = summary_value - sum(country_values)
+item['xk_theo_nuoc'].append({'country': 'Other', ...})
+```
+
+### Fix 2: Rebuild all-years
+```powershell
+python main.py --backfill
+```
+
+### Fix 3: Verify
+```powershell
+python diagnostics/audit_other_row.py
+# Expected: 81/81 files OK
+```
+
+---
+
+**Chi tiết đầy đủ xem tại:** `docs/AUDIT_PLAN_OTHER_ROW_FIX.md`

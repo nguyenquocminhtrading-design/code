@@ -1,0 +1,71 @@
+================================================================================
+FINAL BACKFILL VERIFICATION
+================================================================================
+
+2020-05: PASS
+  XK: Summary=OK Other=OK Debug=ytd_diff
+  NK: Summary=OK Other=OK Debug=
+
+2020-12: PASS
+  XK: Summary=OK Other=OK Debug=yoy_proxy
+  NK: Summary=OK Other=OK Debug=
+
+2022-01: PASS
+  XK: Summary=OK Other=OK Debug=
+  NK: Summary=OK Other=OK Debug=ytd_diff
+
+2022-04: PASS
+  XK: Summary=OK Other=OK Debug=ytd_diff
+  NK: Summary=OK Other=OK Debug=ytd_diff
+
+2022-06: PASS
+  XK: Summary=OK Other=OK Debug=ytd_diff
+  NK: Summary=OK Other=OK Debug=
+
+2022-09: PASS
+  XK: Summary=OK Other=OK Debug=
+  NK: Summary=OK Other=OK Debug=yoy_proxy
+
+2022-11: PASS
+  XK: Summary=OK Other=OK Debug=yoy_proxy
+  NK: Summary=OK Other=OK Debug=
+
+2023-02: PASS
+  XK: Summary=OK Other=OK Debug=ytd_diff
+  NK: Summary=OK Other=OK Debug=ytd_diff
+
+2023-04: PASS
+  XK: Summary=OK Other=OK Debug=
+  NK: Summary=OK Other=OK Debug=ytd_diff
+
+2024-02: PASS
+  XK: Summary=OK Other=OK Debug=ytd_diff
+  NK: Summary=OK Other=OK Debug=
+
+2024-03: PASS
+  XK: Summary=OK Other=OK Debug=
+  NK: Summary=OK Other=OK Debug=yoy_proxy
+
+2024-05: PASS
+  XK: Summary=OK Other=OK Debug=
+  NK: Summary=OK Other=OK Debug=yoy_proxy
+
+2024-07: PASS
+  XK: Summary=OK Other=OK Debug=yoy_proxy
+  NK: Summary=OK Other=OK Debug=
+
+2024-12: PASS
+  XK: Summary=OK Other=OK Debug=yoy_proxy
+  NK: Summary=OK Other=OK Debug=
+
+2025-03: PASS
+  XK: Summary=OK Other=OK Debug=ytd_diff
+  NK: Summary=OK Other=OK Debug=
+
+2025-10: PASS
+  XK: Summary=OK Other=OK Debug=yoy_proxy
+  NK: Summary=OK Other=OK Debug=
+
+================================================================================
+STATUS: ALL 18 PERIODS BACKFILLED SUCCESSFULLY!
+================================================================================
